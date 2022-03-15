@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node server/server.js",
     "start": "next start -p $PORT"
   },
   "keywords": [],
