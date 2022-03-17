@@ -5,8 +5,8 @@
 import React from "react";
 import Head from "next/head"
 import {ThemeProvider, createTheme} from "@mui/material/styles"
-import "../components/tailwind/output.css"
-import "../components/tailwind/mycustom.css"
+// import "../components/tailwind/output.css"
+// import "../components/tailwind/mycustom.css"
 
 
 const theme = createTheme({
