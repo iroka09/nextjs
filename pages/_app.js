@@ -23,7 +23,7 @@ function App({Component, pageProps}){
       <Head>
         <title>Testing NextJS</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@524&display=swap" rel="stylesheet" />
         <style>
           {`

@@ -10,7 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress"
 import Divider from "@mui/material/Divider"
 import InputBase from "@mui/material/InputBase"
 import AppBar from "@mui/material/AppBar"
-import Stack from "@mui/material/AppBar"
+import Stack from "@mui/material/Stack"
 //Icons
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import Key from "@mui/icons-material/Key"
@@ -61,7 +61,13 @@ export default function App(props) {
   
   return(
 <>
-  <AppBar sx={{px:1, py:0.6,"& *":{color:"#fff"}}}>
+  <AppBar sx={{
+    px:1, 
+    py:0.6,
+    "& *": {
+      color:"#fff"
+    }
+  }}>
     <div style={{display:"flex"}}>
       <IconButton onClick={()=>setIsDrawerOpen(true)}>
         <Menu />
@@ -130,7 +136,7 @@ export default function App(props) {
         sx={{
           mb: 2
         }}
-        variant="contained"
+        variant="outlined"
         label="Username"
         placeholder="Enter username..."
         value={username}
@@ -148,7 +154,7 @@ export default function App(props) {
         sx={{
           mb: 2
         }}
-        variant="contained"
+        variant="outlined"
         label="Password"
         placeholder="Enter password..."
         type={isPassword?"password":"text"}
