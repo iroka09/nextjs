@@ -20,22 +20,18 @@ import Send from "@mui/icons-material/Send"
 import Visibility from "@mui/icons-material/Visibility"
 import VisibilityOff from "@mui/icons-material/VisibilityOff"
 
+
 export default function App(props) {
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoging, setIsLoging] = useState(false);
   const [isPassword, setIsPassword] = useState(true);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   
   const handleUsername = (e)=>{
     let x = e.target.value;
     setUsername(x)
   }
-  
-  const handleDrawer = (bool)=>{
-    setIsDrawerOpen(book)
-  }
-  
   const handleSubmit = (e)=>{
     e.preventDefault()
     setIsLoging(true)
@@ -54,6 +50,8 @@ export default function App(props) {
     setIsPassword(x=>!x)
   }
   
+  
+  
   useEffect(()=>{
  //   alert(document.documentElement.innerHTML)
 // alert(JSON.stringify(props.x, 0, 2))
@@ -61,33 +59,6 @@ export default function App(props) {
   
   return(
 <>
-  <AppBar sx={{
-    px:1, 
-    py:0.6,
-    "& *": {
-      color:"#fff"
-    }
-  }}>
-    <div style={{display:"flex"}}>
-      <IconButton onClick={()=>setIsDrawerOpen(true)}>
-        <Menu />
-      </IconButton>
-      <div style={{
-        padding: "0 45px",
-        borderRadius:3,
-        backgroundColor:"#fff",
-        opacity:0.6,
-        marginLeft:2,
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
-        color: "black"
-      }}>
-        <InputBase placeholder="Search word..." sx={{m:0}}/>
-      </div>
-    </div>
-  </AppBar>
-  
 
   <Paper sx={{
     px:1,
@@ -197,33 +168,28 @@ export default function App(props) {
       </Button>
     </form>
   </Paper>
-
-<SwipeableDrawer
-  anchor="left"
-  open={isDrawerOpen}
-  onClose={()=>setIsDrawerOpen(false)}
-  onOpen={()=>setIsDrawerOpen(true)}
->
-<div style={{
-    padding: "0 50px",
-  }}>
-  <h4>Put lists here</h4>
-</div>
-</SwipeableDrawer>
-
+  
   </>
     )
 }
 
 
-/*
-export async function getStaticPaths(context) { 
-  console.log(Object.keys(context), context);
-  console.log("====loaded again====");
-  console.log(Math.random(), "\n\n\n\n\n\n");
+export async function getServerSideProps(context) { 
+  delete context.res
+  delete context.req
+  console.log("\n\n=====react side context======\n",context)
   return ({
-    paths: [{age: 26}],
-    fallback: true// will be passed to the page component as props
+    props: {
+      name: [5, 4],
+    }// will be passed to the page component as props
   })
 }
-*/
+
+ async function getStaticProps(context) { 
+console.log("\n\nstatic\n",context)
+  return ({
+    props: {
+      server: Math.random() // this cannot be object{} but can be any other data type
+    }
+  })
+}
