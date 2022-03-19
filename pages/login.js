@@ -185,6 +185,7 @@ export async function getServerSideProps(context) {
   })
 }
 
+/*
  async function getStaticProps(context) { 
 console.log("\n\nstatic\n",context)
   return ({
@@ -193,3 +194,4 @@ console.log("\n\nstatic\n",context)
     }
   })
 }
+*/
