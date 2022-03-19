@@ -49,6 +49,7 @@ nextApp
   app.use("/upload", (req, res, next)=>{
     console.log(req.files)
     fs.readdirSync(uploaddir).forEach(filename=>{
+      console.log(filename)
       if(filename.includes("dont_delete")) {
         return;
       }
