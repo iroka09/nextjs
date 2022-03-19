@@ -49,6 +49,7 @@ nextApp
   app.use("/upload", (req, res, next)=>{
     //console.log(req.files)
     fs.readdirSync(uploaddir).forEach(_filename=>{
+      {
       let filename = _filename;
       if(filename !== "dont_delete") {
       fs.unlink(uploaddir+"/"+filename, (err)=>{
@@ -56,6 +57,7 @@ nextApp
         console.log(err||"removed: "+filename)
       })
     }
+      }
     });
     next()
   });
