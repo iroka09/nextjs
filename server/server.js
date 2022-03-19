@@ -49,7 +49,7 @@ nextApp
   app.use("/upload", (req, res, next)=>{
     console.log(req.files)
     fs.readdirSync(uploaddir).forEach(filename=>{
-      if(filename === "dont_delete") {
+      if(filename.includes("dont_delete")) {
         return;
       }
       fs.unlink(uploaddir+"/"+filename, (err)=>{
