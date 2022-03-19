@@ -46,6 +46,20 @@ nextApp
     nextApp.render(req, res, req._parsedUrl.pathname)
   });
   
+  app.use("/upload", (req, res, next)=>{
+    console.log(req.files)
+    fs.readdirSync(uploaddir).forEach(filename=>{
+      if(filename === "dont_delete") {
+        return;
+      }
+      fs.unlink(uploaddir+"/"+filename, (err)=>{
+        let name = filename;
+        console.log(err||"removed: "+filename)
+      })
+    });
+    next()
+  });
+  
   app.post("/upload", (req, res)=>{
     res.send("DONE");
     console.log(req.files)
