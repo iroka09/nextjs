@@ -47,15 +47,17 @@ nextApp
   });
   
   app.use("/upload", (req, res, next)=>{
-    console.log(req.files)
+    //console.log(req.files)
     fs.readdirSync(uploaddir).forEach(filename=>{
-      console.log(filename)
       if(filename.includes("dont_delete")) {
+      console.log(filename,1)
         return;
+      console.log(filename,2)
       }
+      console.log(filename,3)
       fs.unlink(uploaddir+"/"+filename, (err)=>{
         let name = filename;
-        console.log(err||"removed: "+filename)
+      //  console.log(err||"removed: "+filename)
       })
     });
     next()
