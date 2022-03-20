@@ -6,25 +6,27 @@ import React from "react";
 import Head from "next/head"
 import IconButton from "@mui/material/IconButton"
 import InputBase from "@mui/material/InputBase"
+import Alert from "@mui/material/Alert"
+import Container from "@mui/material/Container"
 import AppBar from "@mui/material/AppBar"
 import Menu from "@mui/icons-material/Menu"
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import * as colors from '@mui/material/colors';
-import {ThemeProvider, createTheme} from "@mui/material/styles"
+import {ThemeProvider, createTheme, useTheme} from "@mui/material/styles"
 // import "../components/tailwind/output.css"
 // import "../components/tailwind/mycustom.css"
 
 
 const theme = createTheme({
   palette: {
-    primary: {
-      main: colors.red[800]
-    }
+   /* primary: {
+      main: colors.yellow[700]
+    }*/
   }
 })
 
 function App({Component, pageProps}){
-  
+  const myTheme = useTheme()
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
   React.useEffect(()=>{
@@ -53,7 +55,7 @@ function App({Component, pageProps}){
       <div style={{
         padding: "0 20px",
         borderRadius:4,
-        backgroundColor: theme.palette.primary.light,
+        backgroundColor: myTheme.palette.primary.light,
         marginLeft:2,
         display:"flex",
         alignItems:"center",
@@ -64,7 +66,16 @@ function App({Component, pageProps}){
       </div>
     </div>
   </AppBar>
+  <div style={{height:50}}></div>
   
+<Container>
+  <noscript style={{display:"block", margin: "2px auto"}}>
+    <Alert color="error">
+      Your browser doesn't support Javascript, some functionalities may not work, please upgrade your browser.
+    </Alert>
+  </noscript>
+  <Component {...pageProps} />
+</Container>
 
 <SwipeableDrawer
   anchor="left"
@@ -79,10 +90,7 @@ function App({Component, pageProps}){
 </div>
 </SwipeableDrawer>
 
-      
-      <Component {...pageProps} />
-    
-    </ThemeProvider>
+</ThemeProvider>
     )
 }
 
