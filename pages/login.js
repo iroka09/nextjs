@@ -11,6 +11,8 @@ import Divider from "@mui/material/Divider"
 import InputBase from "@mui/material/InputBase"
 import AppBar from "@mui/material/AppBar"
 import Stack from "@mui/material/Stack"
+import Switch from "@mui/material/Switch"
+import FormControlLabel from "@mui/material/FormControlLabel"
 //Icons
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import Key from "@mui/icons-material/Key"
@@ -27,6 +29,7 @@ export default function App(props) {
   const [password, setPassword] = useState("");
   const [isLoging, setIsLoging] = useState(false);
   const [isPassword, setIsPassword] = useState(true);
+  const [rememberMe, setRememberMe] = useState(false);
   
   const handleUsername = (e)=>{
     let x = e.target.value;
@@ -51,12 +54,6 @@ export default function App(props) {
   }
   
   
-  
-  useEffect(()=>{
- //   alert(document.documentElement.innerHTML)
-// alert(JSON.stringify(props.x, 0, 2))
-  }, [])
-  
   return(
 <>
 
@@ -66,7 +63,7 @@ export default function App(props) {
     alignItems:"center",
     maxWidth: "80%",
     mx: "auto",
-    mt: 8,
+    mt: 0,
     color: "#888"
   }}>
       <Search />
@@ -85,24 +82,12 @@ export default function App(props) {
         alignItems: "center",
         boxSizing: "border-box",
         maxWidth: "90vw",
-        py: 3,
-        mt:16,
+        py: 2,
+        my:8,
         mx:"auto"
       }}
     >
     <form style={{width: "85%"}}>
-      <Typography 
-        component="div"
-        color="primary"
-        variant="h5"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          mb: 4
-        }}
-      >
-        Login
-      </Typography>
       <TextField
         sx={{
           mb: 2
@@ -151,6 +136,12 @@ export default function App(props) {
           ),
         }}
       />
+      <FormControlLabel 
+        label="Remember me" 
+        arial-label="remember-user"
+        placement="bottom"
+        control={<Switch onClick={(e)=>setRememberMe(x=>!x)} checked={rememberMe}/>} 
+      />
       <Button 
         variant="contained"
         type="submit"
@@ -165,6 +156,15 @@ export default function App(props) {
         onClick={handleSubmit}
       >
        {(isLoging)? <CircularProgress sx={{color:"#eee"}} size={24}/> : "Login"}
+      </Button>
+      <Divider sx={{my: 3}}>OR</Divider>
+      <Button
+        disabledElevation
+        color="success"
+        fullWidth
+        href="/"
+      >
+        Create Account
       </Button>
     </form>
   </Paper>
