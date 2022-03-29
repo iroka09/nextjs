@@ -43,18 +43,18 @@ export default function App(props){
      formData.append("myfiles", files[i])
     }
     const options = {
-      url: "/upload",
+      url: "/api/upload",
       method: "post",
       data: formData,
+      cancelToken: new CancelToken(cancel=>{
+        cancelRef.current = cancel
+      }),
       onUploadProgress: ({loaded,total})=>{
         let val = Math.floor((loaded/total)*100);
         if(val<=99) {
           setValue(val);
         }
       },
-      cancelToken: new CancelToken(cancel=>{
-        cancelRef.current = cancel
-      })
     };
     setIsUploading(true)
     axios(options)
@@ -85,12 +85,14 @@ export default function App(props){
       {(value===100) && (
         <CheckCircle color="success" sx={{fontSize:40}} />
       )}
-      {isUploading && value+"%"}
       </h4>
     {isUploading && (
-        <LinearProgress variant="determinate" value={value} sx={{maxWidth: "200px", margin:"auto"}} />
+    <>
+      <h4>{value+"%"}</h4>
+      <LinearProgress variant="determinate" value={value} sx={{maxWidth: "200px", margin:"auto"}} />
+    </>
     )}
-    <div style={{display:"flex",justifyContent:"space-around", marginTop: 20}}>
+    <div style={{display:"flex",justifyContent:"space-around", marginTop: 20}} >
     <Button 
       variant="outlined"
       color="error"
@@ -114,14 +116,17 @@ export default function App(props){
       </Button>
     </label>
    </div>
- {props.loremText}
+   <p>{props.loremText}</p>
     </>
   )
 }
 
-export async function getStaticProps(){
+
+
+export const getServerSideProps = (x)=>{
   let loremText = 
-lorem.generateParagraphs(17);
+lorem.generateWords(30);
+console.log(x, x.req)
 //lorem.generateSentences(5);
 //lorem.generateWords(1);
 //lorem.generateParagraphs(7);

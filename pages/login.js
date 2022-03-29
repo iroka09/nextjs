@@ -13,6 +13,7 @@ import AppBar from "@mui/material/AppBar"
 import Stack from "@mui/material/Stack"
 import Switch from "@mui/material/Switch"
 import FormControlLabel from "@mui/material/FormControlLabel"
+import {useTheme} from "@mui/material/styles"
 //Icons
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import Key from "@mui/icons-material/Key"
@@ -30,6 +31,7 @@ export default function App(props) {
   const [isLoging, setIsLoging] = useState(false);
   const [isPassword, setIsPassword] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
+  const theme = useTheme()
   
   const handleUsername = (e)=>{
     let x = e.target.value;
@@ -82,12 +84,13 @@ export default function App(props) {
         alignItems: "center",
         boxSizing: "border-box",
         maxWidth: "90vw",
-        py: 2,
+        pt: 3,
+        pb: 2,
         my:8,
         mx:"auto"
       }}
     >
-    <form style={{width: "85%"}}>
+    <form style={{width: "85%"}} action="/login" method="post" encType="multipart/form-data">
       <TextField
         sx={{
           mb: 2
@@ -98,13 +101,6 @@ export default function App(props) {
         value={username}
         onChange={handleUsername}
         fullWidth
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <AccountCircle />
-            </InputAdornment>
-          ),
-        }}
       />
       <TextField
         sx={{
@@ -118,11 +114,6 @@ export default function App(props) {
         onChange={handlePassword}
         fullWidth
         InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Key />
-            </InputAdornment>
-          ),
           endAdornment: (
             <InputAdornment position="end">
               <IconButton 
@@ -139,7 +130,6 @@ export default function App(props) {
       <FormControlLabel 
         label="Remember me" 
         arial-label="remember-user"
-        placement="bottom"
         control={<Switch onClick={(e)=>setRememberMe(x=>!x)} checked={rememberMe}/>} 
       />
       <Button 
@@ -147,9 +137,9 @@ export default function App(props) {
         type="submit"
         sx={(theme)=>({
           mt: 1,
-          boxShadow: `0 2px 1px ${theme.palette.primary.light}`,
+          boxShadow: `none`,
           "&:hover": {
-            boxShadow: `0 25px 27px -8px ${theme.palette.primary.light}`,
+            boxShadow: (theme.palette.mode==="light")? `0 20px 20px -5px ${theme.palette.primary.light}` : "none",
           }
         })}
         fullWidth
@@ -174,13 +164,13 @@ export default function App(props) {
 }
 
 
-export async function getServerSideProps(context) { 
-  delete context.res
-  delete context.req
-  console.log("\n\n=====react side context======\n",context)
+export async function getServerSideProps(context) {
+ // delete context.req
+ // delete context.res
+ // console.log(context)
   return ({
     props: {
-      name: [5, 4],
+      title: context.resolvedUrl?.replace("/","").toUpperCase(),
     }// will be passed to the page component as props
   })
 }
