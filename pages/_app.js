@@ -1,17 +1,17 @@
 
-//this wraps around all the pages
-
-
 import React from "react";
 import Head from "next/head"
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
 import InputBase from "@mui/material/InputBase"
 import Alert from "@mui/material/Alert"
 import AppBar from "@mui/material/AppBar"
 import Menu from "@mui/icons-material/Menu"
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Drawer from '@mui/material/Drawer';
 import * as colors from '@mui/material/colors';
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -20,31 +20,61 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
 import {ThemeProvider, createTheme} from "@mui/material/styles"
+import {Provider} from "react-redux"
+import reduxStore from "../components/redux/store"
 import "../styles/global_style.css";
 
 
 function App({Component, pageProps}){
   
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  
+  const [isCookieDrawerOpen, setIsCookieDrawerOpen] = React.useState(false);
+  
+  const [acceptedCookie, setAcceptedCookie] = React.useState(false);
+  
   const [isDark, setIsDark] = React.useState(true);
+  
+  const disableScroll = ()=>{
+    document.body.style.overflow = "hidden"
+  }
+  
+  const enableScroll = ()=>{
+    document.body.style.overflow = "initial"
+  }
+  
 const theme = React.useMemo(()=>createTheme({
   palette: {
     mode: isDark?"dark":"light",
     primary: {
-      main: colors.pink[700]
+      main: colors.blue[700]
     },
   }
 }), [isDark]);
 
-
-
   React.useEffect(()=>{
    document.body.style.backgroundColor = theme.palette.mode=="dark"?theme.palette.background.default:"#f3f3f3";
-   document.body.style.color = theme.palette.text.primary;
+   document.body.style.color = theme.palette.text.secondary;
   },[isDark]);
+  
+  React.useEffect(()=>{
+    if(!acceptedCookie) {
+      let fn = setTimeout(function() {
+        setIsCookieDrawerOpen(true);
+        disableScroll();
+      }, 2000);
+      return ()=>clearTimeout(fn)
+    }
+  })
+  
+  const acceptCookieFn = ()=>{
+    setAcceptedCookie(true);
+    //setIsCookieDrawerOpen(false)
+  }
   
   return (
   <ThemeProvider theme={theme}>    
+  <Provider store={reduxStore}>    
     <Head>
       <title>{pageProps.title}</title>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -61,8 +91,8 @@ const theme = React.useMemo(()=>createTheme({
       </IconButton>
       <div style={{
         padding: "0 20px",
-        borderRadius:4,
-        backgroundColor: (theme.palette.mode==="dark")? theme.palette.divider : theme.palette.primary.light,
+        borderRadius: 4,
+        backgroundColor: "rgba(225,225,225,0.1)",
         marginLeft:2,
         display:"flex",
         alignItems:"center",
@@ -98,8 +128,14 @@ const theme = React.useMemo(()=>createTheme({
 <SwipeableDrawer
   anchor="left"
   open={isDrawerOpen}
-  onClose={()=>setIsDrawerOpen(false)}
-  onOpen={()=>setIsDrawerOpen(true)}
+  onClose={()=>{
+    setIsDrawerOpen(false);
+    enableScroll();
+  }}
+  onOpen={()=>{
+    setIsDrawerOpen(true);
+    disableScroll()
+  }}
 >
     <TreeView
       aria-label="multi-select"
@@ -123,6 +159,44 @@ const theme = React.useMemo(()=>createTheme({
       </TreeItem>
     </TreeView>
 </SwipeableDrawer>
+
+<Drawer
+  anchor="bottom"
+  open={isCookieDrawerOpen}
+  onClose={()=>{
+    setIsCookieDrawerOpen(false);
+    enableScroll()
+  }}
+  onOpen={()=>{
+    setIsCookieDrawerOpen(true);
+    disableScroll()
+  }}
+>
+<div style={{padding: "3px"}}>
+<center style={{padding:"10px 0", fontWeight:400}}>Cookie Policy</center>
+<Divider />
+  <div style={{margin:"30px auto",width: "90%"}}>
+   We use Cookies to store our users' choice.
+  </div>
+  <div style={{display:"flex",justifyContent:"space-around"}} onClick={()=>setIsCookieDrawerOpen(false)}>
+    <Button 
+      sx={{color:"#aaa"}}
+      fullWidth
+      sx={{borderRadius:0,color:"#777"}}
+      >Cancel</Button>
+    <div>
+    <Divider orientation="vertical" />
+    </div>
+    <Button 
+      onClick={acceptCookieFn}
+      fullWidth
+      sx={{borderRadius:0}}
+    >Accept</Button>
+  </div>
+  </div>
+</Drawer>
+
+</Provider>
 </ThemeProvider>
 )}
 
