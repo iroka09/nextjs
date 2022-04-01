@@ -60,7 +60,7 @@ function App({Component, pageProps}){
     setAnchorEl(ele.current);
   };
   const handleClose = (byButton,colorCode, i) => {
-    if(byButton) {
+    if(byButton===true) {
       setMyColor(colorCode)
     }
     setAnchorEl(null);
