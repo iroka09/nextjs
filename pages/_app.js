@@ -22,9 +22,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MenuIcon from '@mui/icons-material/Menu';
 import TreeItem from '@mui/lab/TreeItem';
-import {ThemeProvider, createTheme} from "@mui/material/styles"
-import {Provider} from "react-redux"
+import * as Mui from "@mui/material/styles"
+import * as Redux from "react-redux"
 import reduxStore from "../components/redux/store"
 import "../styles/global_style.css";
 
@@ -39,7 +40,7 @@ function App({Component, pageProps}){
   
   const [acceptedCookie, setAcceptedCookie] = React.useState(false);
   
-  const [isDark, setIsDark] = React.useState(true);
+  const [isDark, setIsDark] = React.useState(false);
   
   const [myColor, setMyColor] = React.useState();
   
@@ -81,7 +82,9 @@ for(let color in colors){
   }
 }
 
-const theme = React.useMemo(()=>createTheme({
+const theme = React.useMemo(()=>{
+  return (
+Mui.createTheme({
   palette: {
     mode: isDark?"dark":"light",
     ...((myColor)? 
@@ -91,7 +94,8 @@ const theme = React.useMemo(()=>createTheme({
         }
       } : {})
   }
-}), [isDark, myColor]);
+})
+)}, [isDark, myColor]);
 
   React.useEffect(()=>{
    document.body.style.backgroundColor = theme.palette.mode=="dark"?theme.palette.background.default:"#f3f3f3";
@@ -114,8 +118,8 @@ const theme = React.useMemo(()=>createTheme({
   }
   
   return (
-  <ThemeProvider theme={theme}>    
-  <Provider store={reduxStore}>    
+  <Mui.ThemeProvider theme={theme}>    
+  <Redux.Provider store={reduxStore}>    
     <Head>
       <title>{pageProps.title}</title>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -128,7 +132,7 @@ const theme = React.useMemo(()=>createTheme({
   }}>
     <div style={{display:"flex",alignItems:"center"}}>
       <IconButton onClick={()=>setIsDrawerOpen(true)}>
-        <Menu />
+        <MenuIcon />
       </IconButton>
       <div style={{
         padding: "0 20px",
@@ -163,18 +167,15 @@ const theme = React.useMemo(()=>createTheme({
   </noscript>
   
   <center style={{margin:"10px 0"}}>
-  <ButtonGroup
-      variant ="contained"
-      color = "warning"
-      >
-      <Button sx={{flex: 1}} ref={ele}>
+  <ButtonGroup>
+    <Button sx={{flex: 1}} ref={ele}>
         {myColor||"SELECT"}
-      </Button>
-      <Button size="small" sx={{px:"1px"}} onClick={handleClick}>
+    </Button>
+    <Button size="small" sx={{px:"1px"}} onClick={handleClick}>
         <KeyboardArrowDownIcon />
-      </Button>
+    </Button>
     </ButtonGroup>
-      <Menu
+    <Menu
         anchorEl={anchorEl}
         open={isMenuOpen}
         onClose={handleClose}
@@ -278,8 +279,8 @@ const theme = React.useMemo(()=>createTheme({
   </div>
 </Drawer>
 
-</Provider>
-</ThemeProvider>
+</Redux.Provider>
+</Mui.ThemeProvider>
 )}
 
 export default App
