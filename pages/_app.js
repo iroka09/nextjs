@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Head from "next/head"
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
@@ -10,6 +10,7 @@ import Alert from "@mui/material/Alert"
 import AppBar from "@mui/material/AppBar"
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Drawer from '@mui/material/Drawer';
+import TextField from '@mui/material/TextField';
 import * as colors from '@mui/material/colors';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
@@ -19,13 +20,15 @@ import Zoom from '@mui/material/Zoom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SaveIcon from '@mui/icons-material/Save';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
 import TreeItem from '@mui/lab/TreeItem';
-import * as Mui from "@mui/material/styles"
-import * as Redux from "react-redux"
+import {ThemeProvider, createTheme} from "@mui/material/styles"
+import {Provider} from "react-redux"
+import {CookiesProvider, useCookies} from "react-cookie"
 import reduxStore from "../components/redux/store"
 import "../styles/global_style.css";
 
@@ -40,9 +43,23 @@ function App({Component, pageProps}){
   
   const [acceptedCookie, setAcceptedCookie] = React.useState(false);
   
-  const [isDark, setIsDark] = React.useState(false);
-  
+
   const [myColor, setMyColor] = React.useState();
+  
+  const [isDarkMode, setDarkMode] = useState(false);
+  
+  const [cookieText, setCookieText] = useState();
+  
+  const [cookies, setCookie, removeCookie] = useCookies(["isDarkMode", "myName"])
+  
+  React.useEffect(()=>{
+    if(cookies.isDarkMode==="yes"){
+      setDarkMode(true)
+    }
+    else{
+      setDarkMode(false)
+    }
+  },[cookies.isDarkMode]);
   
   const disableScroll = ()=>{
     document.body.style.overflow = "hidden"
@@ -67,26 +84,27 @@ function App({Component, pageProps}){
     setAnchorEl(null);
   };
 
-let list = []
+const list = React.useMemo(()=>{
+let myList = []
 for(let color in colors){
-  for(let x = 50; x<1000; ){
+  for(let x = 800; x<1000; ){
     let colorCode = colors[color][x];
     if(colorCode?.trim()){
-      list.push({
+      myList.push({
         colorName: color,
         colorCode
       })
     }
-    if(x===50) x = 100;
-    else x=x+100;
+    x += 100;
   }
 }
+return myList
+}, []);
 
-const theme = React.useMemo(()=>{
-  return (
-Mui.createTheme({
+const theme = React.useMemo(()=>{ 
+  return createTheme({
   palette: {
-    mode: isDark?"dark":"light",
+    mode: (isDarkMode)? "dark" : "light",
     ...((myColor)? 
       {
         primary: {
@@ -95,12 +113,12 @@ Mui.createTheme({
       } : {})
   }
 })
-)}, [isDark, myColor]);
+}, [isDarkMode, myColor]);
 
   React.useEffect(()=>{
    document.body.style.backgroundColor = theme.palette.mode=="dark"?theme.palette.background.default:"#f3f3f3";
    document.body.style.color = theme.palette.text.secondary;
-  },[isDark]);
+  },[isDarkMode]);
   
   React.useEffect(()=>{
     if(!acceptedCookie) {
@@ -118,8 +136,9 @@ Mui.createTheme({
   }
   
   return (
-  <Mui.ThemeProvider theme={theme}>    
-  <Redux.Provider store={reduxStore}>    
+  <ThemeProvider theme={theme}>    
+  <Provider store={reduxStore}>    
+  <CookiesProvider>    
     <Head>
       <title>{pageProps.title}</title>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -146,8 +165,18 @@ Mui.createTheme({
       }}>
         <InputBase placeholder="Search word..." sx={{my:"3px"}}/>
       </div>
-      <IconButton sx={{ml: "auto"}} onClick={()=>setIsDark(x=>!x)}>
-        {isDark? <LightModeIcon/> : <DarkModeIcon/>}
+      <IconButton 
+        sx={{ml: "auto"}} 
+        onClick={()=>{
+          let name = "isDarkMode";
+          if(cookies[name]){
+            removeCookie(name)
+          }
+          else {
+            setCookie(name, "yes")
+          }
+      }}>
+        {(isDarkMode)? <LightModeIcon/> : <DarkModeIcon/>}
       </IconButton>
     </div>
   </AppBar>
@@ -155,7 +184,6 @@ Mui.createTheme({
 <Container>
 
   <div style={{height:60}}></div>
-  
 
   <noscript style={{display:"block", margin: "2px auto"}}>
     <Alert 
@@ -165,6 +193,25 @@ Mui.createTheme({
       Your browser doesn't support Javascript, some functionalities may not work, please upgrade your browser.
     </Alert>
   </noscript>
+  
+  <div style={{display:"flex",justifyContent:"center"}}>
+  <TextField
+    label="Username"
+    onChange={(e)=>{
+      setCookieText(e.target.value)
+    }}
+  />
+  <Button
+    startIcon={ <SaveIcon/>}
+    sx={{ml:3,color:"success.main"}}
+    onClick={()=>{
+      setCookie("myName", cookieText)
+    }}
+  >
+   Save
+  </Button>
+  </div>
+  <center>{cookies.myName}</center>
   
   <center style={{margin:"10px 0"}}>
   <ButtonGroup>
@@ -279,8 +326,9 @@ Mui.createTheme({
   </div>
 </Drawer>
 
-</Redux.Provider>
-</Mui.ThemeProvider>
+</CookiesProvider>
+</Provider>
+</ThemeProvider>
 )}
 
 export default App
