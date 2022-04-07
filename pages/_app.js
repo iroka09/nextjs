@@ -44,7 +44,7 @@ function App({Component, pageProps}){
   const [acceptedCookie, setAcceptedCookie] = React.useState(false);
   
 
-  const [myColor, setMyColor] = React.useState();
+  const [myColor, setMyColor] = React.useState(colors.green[800]);
   
   const [isDarkMode, setDarkMode] = useState(false);
   
@@ -77,7 +77,7 @@ function App({Component, pageProps}){
   const handleClick = (event) => {
     setAnchorEl(ele.current);
   };
-  const handleClose = (byButton,colorCode, i) => {
+  const handleClose = (byButton,colorCode) => {
     if(byButton===true) {
       setMyColor(colorCode)
     }
@@ -190,7 +190,7 @@ const theme = React.useMemo(()=>{
       variant="outlined" 
       severity="error"
       >
-      Your browser doesn't support Javascript, some functionalities may not work, please upgrade your browser.
+      Your browser doesn't support Javascript, some functionalities won't work, please upgrade your browser.
     </Alert>
   </noscript>
   
@@ -211,12 +211,14 @@ const theme = React.useMemo(()=>{
    Save
   </Button>
   </div>
-  <center>{cookies.myName}</center>
+  <center>{cookies.myName || "INITIAL"}</center>
   
   <center style={{margin:"10px 0"}}>
-  <ButtonGroup>
+  <ButtonGroup
+    variant="text"
+  >
     <Button sx={{flex: 1}} ref={ele}>
-        {myColor||"SELECT"}
+        {myColor}
     </Button>
     <Button size="small" sx={{px:"1px"}} onClick={handleClick}>
         <KeyboardArrowDownIcon />
