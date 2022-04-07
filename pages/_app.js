@@ -18,6 +18,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Zoom from '@mui/material/Zoom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SaveIcon from '@mui/icons-material/Save';
@@ -39,55 +40,41 @@ function App({Component, pageProps}){
   
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   
+  const [index, setIndex] = React.useState(0);
+  
   const [isCookieDrawerOpen, setIsCookieDrawerOpen] = React.useState(false);
   
   const [acceptedCookie, setAcceptedCookie] = React.useState(false);
-  
 
-  const [myColor, setMyColor] = React.useState(colors.green[800]);
+  const [themeCode, setThemeCode] = React.useState();
   
   const [isDarkMode, setDarkMode] = useState(false);
   
-  const [cookieText, setCookieText] = useState();
-  
-  const [cookies, setCookie, removeCookie] = useCookies(["isDarkMode", "myName"])
-  
-  React.useEffect(()=>{
-    if(cookies.isDarkMode==="yes"){
-      setDarkMode(true)
-    }
-    else{
-      setDarkMode(false)
-    }
-  },[cookies.isDarkMode]);
-  
-  const disableScroll = ()=>{
-    document.body.style.overflow = "hidden"
-  }
-  
-  const enableScroll = ()=>{
-    document.body.style.overflow = "initial"
-  }
-  
-  
+  const [cookies, setCookie, removeCookie] = useCookies(["isDarkMode", "themeCode"])
+
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [index, setIndex] = React.useState(0);
+  
   const ele = React.useRef();
   const isMenuOpen = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(ele.current);
   };
-  const handleClose = (byButton,colorCode) => {
+  const handleClose = (byButton,hex,i) => {
     if(byButton===true) {
-      setMyColor(colorCode)
+      setCookie("themeCode", hex)
+      setIndex(i)
     }
     setAnchorEl(null);
   };
+  
+  const acceptCookieFn = ()=>{
+    setAcceptedCookie(true);
+  }
 
 const list = React.useMemo(()=>{
 let myList = []
 for(let color in colors){
-  for(let x = 800; x<1000; ){
+  for(let x = 700; x<1000; ){
     let colorCode = colors[color][x];
     if(colorCode?.trim()){
       myList.push({
@@ -105,21 +92,32 @@ const theme = React.useMemo(()=>{
   return createTheme({
   palette: {
     mode: (isDarkMode)? "dark" : "light",
-    ...((myColor)? 
+    ...((themeCode)? 
       {
         primary: {
-          main: myColor
+          main: themeCode
         }
       } : {})
   }
 })
-}, [isDarkMode, myColor]);
+}, [isDarkMode, themeCode]);
 
+//apply dark mode on <body> tag
   React.useEffect(()=>{
-   document.body.style.backgroundColor = theme.palette.mode=="dark"?theme.palette.background.default:"#f3f3f3";
+   document.body.style.backgroundColor = theme.palette.mode==="dark"?theme.palette.background.default:"#f3f3f3";
    document.body.style.color = theme.palette.text.secondary;
   },[isDarkMode]);
   
+    
+  const disableScroll = ()=>{
+    document.body.style.overflow = "hidden"
+  }
+  
+  const enableScroll = ()=>{
+    document.body.style.overflow = "initial"
+  }
+  
+  //accept cookie prompt
   React.useEffect(()=>{
     if(!acceptedCookie) {
       let fn = setTimeout(function() {
@@ -130,10 +128,22 @@ const theme = React.useMemo(()=>{
     }
   })
   
-  const acceptCookieFn = ()=>{
-    setAcceptedCookie(true);
-    //setIsCookieDrawerOpen(false)
-  }
+  //dark mode only
+  React.useEffect(()=>{
+    if(cookies.isDarkMode==="yes"){
+      setDarkMode(true)
+    }
+    else{
+      setDarkMode(false)
+    }
+  },[cookies.isDarkMode]);
+  
+  //theme Code only
+  React.useEffect(()=>{
+    if(cookies.themeCode){
+      setThemeCode(cookies.themeCode)
+    }
+  },[cookies.themeCode]);
   
   return (
   <ThemeProvider theme={theme}>    
@@ -168,12 +178,11 @@ const theme = React.useMemo(()=>{
       <IconButton 
         sx={{ml: "auto"}} 
         onClick={()=>{
-          let name = "isDarkMode";
-          if(cookies[name]){
-            removeCookie(name)
+          if(cookies.isDarkMode){
+            removeCookie("isDarkMode")
           }
           else {
-            setCookie(name, "yes")
+            setCookie("isDarkMode", "yes")
           }
       }}>
         {(isDarkMode)? <LightModeIcon/> : <DarkModeIcon/>}
@@ -194,34 +203,15 @@ const theme = React.useMemo(()=>{
     </Alert>
   </noscript>
   
-  <div style={{display:"flex",justifyContent:"center"}}>
-  <TextField
-    label="Username"
-    onChange={(e)=>{
-      setCookieText(e.target.value)
-    }}
-  />
-  <Button
-    startIcon={ <SaveIcon/>}
-    sx={{ml:3,color:"success.main"}}
-    onClick={()=>{
-      setCookie("myName", cookieText)
-    }}
-  >
-   Save
-  </Button>
-  </div>
-  <center>{cookies.myName || "INITIAL"}</center>
-  
-  <center style={{margin:"10px 0"}}>
+  <center style={{margin:"10px 0 30px"}}>
   <ButtonGroup
     variant="text"
   >
     <Button sx={{flex: 1}} ref={ele}>
-        {myColor}
+        {themeCode || "SELECT"}
     </Button>
     <Button size="small" sx={{px:"1px"}} onClick={handleClick}>
-        <KeyboardArrowDownIcon />
+       {(isMenuOpen)? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon />}
     </Button>
     </ButtonGroup>
     <Menu

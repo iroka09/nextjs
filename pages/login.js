@@ -139,7 +139,7 @@ export default function App(props) {
           mt: 1,
           boxShadow: `none`,
           "&:hover": {
-            boxShadow: (theme.palette.mode==="light")? `0 20px 20px -5px ${theme.palette.primary.light}` : "none",
+            boxShadow: (theme.palette.mode==="light")? `0 20px 25px -5px ${theme.palette.primary.light}` : "none",
           }
         })}
         fullWidth
@@ -149,7 +149,6 @@ export default function App(props) {
       </Button>
       <Divider sx={{my: 3}}>OR</Divider>
       <Button
-        disabledElevation
         color="success"
         fullWidth
         href="/"
