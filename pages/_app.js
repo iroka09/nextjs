@@ -112,7 +112,7 @@ const theme = React.useMemo(()=>{
       } : {})
   },
   typography: {
-    fontFamily: '"Smooch Sans", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Dosis", "Smooch Sans", "Roboto", "Helvetica", "Arial", sans-serif',
   }
 })
 }, [isDarkMode, appliedTheme]);
@@ -155,6 +155,8 @@ const theme = React.useMemo(()=>{
       <title>{pageProps.title}</title>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+      <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@524&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet" />
     </Head>
 
   <AppBar sx={{
