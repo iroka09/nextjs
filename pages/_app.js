@@ -40,35 +40,38 @@ function App({Component, pageProps}){
   
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   
-  const [index, setIndex] = React.useState(0);
+  const [selectedThemeCodeIndex, setSelectedThemeCodeIndex] = React.useState(Number(pageProps.cookies?.themeCode.split("_index=")[1]));
   
   const [isCookieDrawerOpen, setIsCookieDrawerOpen] = React.useState(false);
   
-  const [acceptedCookie, setAcceptedCookie] = React.useState(false);
+  const [acceptedCookiePolicy, setAcceptedCookiePolicy] = React.useState(pageProps.cookies?.acceptedCookiePolicy);
 
-  const [themeCode, setThemeCode] = React.useState();
+  const [themeCode, setThemeCode] = React.useState(pageProps.cookies?.themeCode.split("_index=")[0]);
   
-  const [isDarkMode, setDarkMode] = useState(false);
+  const [isDarkMode, setDarkMode] = useState(pageProps.cookies?.isDarkMode);
   
-  const [cookies, setCookie, removeCookie] = useCookies(["isDarkMode", "themeCode"])
+  const [cookies, setCookie, removeCookie] = useCookies([]) //dependency array of cookie names that should re-render this component when changed. e.g ["isDarkMode", "themeCode"]
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState();
   
   const ele = React.useRef();
-  const isMenuOpen = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const isThemeCodesMenuOpen = Boolean(anchorEl);
+  const handleThemeCodesMenu = (event) => {
     setAnchorEl(ele.current);
   };
-  const handleClose = (byButton,hex,i) => {
+  
+  const handleCloseThemeCodesMenu = (byButton,hex,i) => {
     if(byButton===true) {
-      setCookie("themeCode", hex)
-      setIndex(i)
+      setSelectedThemeCodeIndex(i)
+      setThemeCode(hex)
+      setCookie("themeCode", hex+"_index="+i)
     }
     setAnchorEl(null);
   };
   
-  const acceptCookieFn = ()=>{
-    setAcceptedCookie(true);
+  const handleAcceptCookiePolicy = ()=>{
+    setAcceptedCookiePolicy(true);
+    setCookie("acceptedCookiePolicy", "yes");
   }
 
 const list = React.useMemo(()=>{
@@ -117,9 +120,9 @@ const theme = React.useMemo(()=>{
     document.body.style.overflow = "initial"
   }
   
-  //accept cookie prompt
+  //accept cookie policy prompt
   React.useEffect(()=>{
-    if(!acceptedCookie) {
+    if(!acceptedCookiePolicy) {
       let fn = setTimeout(function() {
         setIsCookieDrawerOpen(true);
         disableScroll();
@@ -127,23 +130,6 @@ const theme = React.useMemo(()=>{
       return ()=>clearTimeout(fn)
     }
   })
-  
-  //dark mode only
-  React.useEffect(()=>{
-    if(cookies.isDarkMode==="yes"){
-      setDarkMode(true)
-    }
-    else{
-      setDarkMode(false)
-    }
-  },[cookies.isDarkMode]);
-  
-  //theme Code only
-  React.useEffect(()=>{
-    if(cookies.themeCode){
-      setThemeCode(cookies.themeCode)
-    }
-  },[cookies.themeCode]);
   
   return (
   <ThemeProvider theme={theme}>    
@@ -160,28 +146,29 @@ const theme = React.useMemo(()=>{
     py:0.6
   }}>
     <div style={{display:"flex",alignItems:"center"}}>
-      <IconButton onClick={()=>setIsDrawerOpen(true)}>
+      <IconButton sx={{color: "primary.contrastText"}} onClick={()=>setIsDrawerOpen(true)}>
         <MenuIcon />
       </IconButton>
       <div style={{
         padding: "0 20px",
         borderRadius: 4,
-        backgroundColor: "rgba(225,225,225,0.1)",
+        backgroundColor: "rgba(225,225,225,0.14)",
         marginLeft:2,
         display:"flex",
         alignItems:"center",
         justifyContent:"center",
-        color: "black"
       }}>
-        <InputBase placeholder="Search word..." sx={{my:"3px"}}/>
+        <InputBase placeholder="Search word..." sx={{my:"3px", color: "primary.contrastText"}}/>
       </div>
       <IconButton 
-        sx={{ml: "auto"}} 
+        sx={{ml: "auto", color: "primary.contrastText"}} 
         onClick={()=>{
-          if(cookies.isDarkMode){
+          if(isDarkMode){
+            setDarkMode(false)
             removeCookie("isDarkMode")
           }
           else {
+            setDarkMode(true)
             setCookie("isDarkMode", "yes")
           }
       }}>
@@ -210,14 +197,14 @@ const theme = React.useMemo(()=>{
     <Button sx={{flex: 1}} ref={ele}>
         {themeCode || "SELECT"}
     </Button>
-    <Button size="small" sx={{px:"1px"}} onClick={handleClick}>
-       {(isMenuOpen)? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon />}
+    <Button size="small" sx={{px:"1px"}} onClick={handleThemeCodesMenu}>
+       {(isThemeCodesMenuOpen)? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon />}
     </Button>
     </ButtonGroup>
     <Menu
         anchorEl={anchorEl}
-        open={isMenuOpen}
-        onClose={handleClose}
+        open={isThemeCodesMenuOpen}
+        onClose={handleCloseThemeCodesMenu}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
@@ -232,8 +219,8 @@ const theme = React.useMemo(()=>{
         list.map((_color, i)=>(
           <MenuItem 
               key={i}
-              selected={index===i}
-              onClick={()=>handleClose(true,_color.colorCode, i)}
+              selected={selectedThemeCodeIndex===i}
+              onClick={()=>handleCloseThemeCodesMenu(true,_color.colorCode, i)}
               sx={{color:_color.colorCode}}
           >
           {_color.colorName+" | "+_color.colorCode}
@@ -310,7 +297,7 @@ const theme = React.useMemo(()=>{
     <Divider orientation="vertical" />
     </div>
     <Button 
-      onClick={acceptCookieFn}
+      onClick={handleAcceptCookiePolicy}
       fullWidth
       sx={{borderRadius:0}}
     >Accept</Button>

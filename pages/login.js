@@ -163,19 +163,21 @@ export default function App(props) {
 }
 
 
-export async function getServerSideProps(context) {
- // delete context.req
- // delete context.res
- // console.log(context)
+export async function getServerSideProps({req, res, ...context}) {
+ // console.log(req.cookies)
   return ({
     props: {
-      title: context.resolvedUrl?.replace("/","").toUpperCase(),
-    }// will be passed to the page component as props
+      title: context.resolvedUrl.substr(1).toUpperCase(),
+      cookies: req.cookies,
+    }
   })
 }
 
+
+
+
 /*
- async function getStaticProps(context) { 
+export async function getStaticProps(context) { 
 console.log("\n\nstatic\n",context)
   return ({
     props: {

@@ -5,3 +5,12 @@ export default function(){
     <App />
   )
 }
+
+export function getServerSideProps({req}){
+  return({
+    props: {
+      title: req.headers.host?.replace("/","").toUpperCase() || "HOME",
+      cookies: req.cookies
+    }
+  })
+}

@@ -23,6 +23,7 @@
     "@mui/styles": "^5.5.0",
     "@reduxjs/toolkit": "^1.8.0",
     "axios": "^0.26.1",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "express-formidable": "^1.2.0",

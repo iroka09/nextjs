@@ -123,16 +123,17 @@ export default function App(props){
 
 
 
-export const getServerSideProps = (x)=>{
-  let loremText = 
-lorem.generateWords(500);
+export function getServerSideProps({req}){
 //lorem.generateSentences(5);
 //lorem.generateWords(1);
 //lorem.generateParagraphs(7);
-
-  return ({
+let loremText = 
+lorem.generateWords(500);
+  return({
     props: {
-      loremText
+      title: "UPLOAD",
+      cookies: req.cookies,
+      loremText,
     }
   })
 }
