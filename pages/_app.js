@@ -33,6 +33,9 @@ import {CookiesProvider, useCookies} from "react-cookie"
 import reduxStore from "../components/redux/store"
 import "../styles/global_style.css";
 
+const cookieObject = {
+  maxAge: 60*60*24*30 //1 month
+}
 
 
 
@@ -40,11 +43,11 @@ function App({Component, pageProps}){
   
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   
-  const [themeCode, setThemeCode] = React.useState(pageProps.cookies?.themeCode.split("_index=")[0]);
+  const [themeCode, setThemeCode] = React.useState(pageProps.cookies?.themeCode);
   
-  const [appliedTheme, setAppliedTheme] = React.useState(themeCode)
+  const [appliedTheme, setAppliedTheme] = React.useState(themeCode?.split("_index=")[0])
   
-  const [selectedThemeCodeIndex, setSelectedThemeCodeIndex] = React.useState(+(pageProps.cookies?.themeCode.split("_index=")[1] || Infinity));
+  const [selectedThemeCodeIndex, setSelectedThemeCodeIndex] = React.useState(+(pageProps.cookies?.themeCode?.split("_index=")[1] || Infinity));
   
   const [isCookieDrawerOpen, setIsCookieDrawerOpen] = React.useState(false);
   
@@ -63,21 +66,21 @@ function App({Component, pageProps}){
   };
   
   const handleAppliedTheme = ()=>{
-    setAppliedTheme(themeCode)
+    setAppliedTheme(themeCode?.split("_index=")[0]);
+    setCookie("themeCode", themeCode, cookieObject);
   }
   
   const handleCloseThemeCodesMenu = (byButton,hex,i) => {
     if(byButton===true) {
       setSelectedThemeCodeIndex(i)
-      setThemeCode(hex)
-      setCookie("themeCode", hex+"_index="+i)
+      setThemeCode(hex+"_index="+i)
     }
     setAnchorEl(null);
   };
   
   const handleAcceptCookiePolicy = ()=>{
     setAcceptedCookiePolicy(true);
-    setCookie("acceptedCookiePolicy", "yes");
+    setCookie("acceptedCookiePolicy", "yes" , cookieObject);
   }
 
 const list = React.useMemo(()=>{
@@ -107,9 +110,14 @@ const theme = React.useMemo(()=>{
           main: appliedTheme
         }
       } : {})
+  },
+  typography: {
+    fontFamily: '"Smooch Sans", "Roboto", "Helvetica", "Arial", sans-serif',
   }
 })
 }, [isDarkMode, appliedTheme]);
+
+// console.log(theme)
     
   const disableScroll = ()=>{
     document.body.style.overflow = "hidden"
@@ -122,8 +130,8 @@ const theme = React.useMemo(()=>{
   
 
 //apply dark mode on <body> tag
-  React.useLayoutEffect(()=>{
-   document.body.style.backgroundColor = theme.palette.mode==="dark"?theme.palette.background.default:"#F1F1F1";
+  React.useEffect(()=>{
+   document.body.style.backgroundColor = theme.palette.mode==="dark"?theme.palette.background.default:"#F4F2F3";
    document.body.style.color = theme.palette.text.secondary;
   },[isDarkMode]);
   
@@ -177,7 +185,7 @@ const theme = React.useMemo(()=>{
           }
           else {
             setDarkMode(true)
-            setCookie("isDarkMode", "yes")
+            setCookie("isDarkMode", "yes", cookieObject)
           }
       }}>
         {(isDarkMode)? <LightModeIcon/> : <DarkModeIcon/>}
@@ -189,7 +197,7 @@ const theme = React.useMemo(()=>{
 
   <div style={{height:60}}></div>
 
-  <noscript style={{display:"block", margin: "2px auto"}}>
+  <noscript style={{display:"block", margin: "5px auto"}}>
     <Alert 
       variant="outlined" 
       severity="error"
@@ -204,8 +212,8 @@ const theme = React.useMemo(()=>{
     alignItems:"center",
     flexDirection:"column"
   }}>
-  <code style={{color:themeCode||"black",marginBottom:10}}>
-  {(themeCode||"Please select theme")?.toUpperCase()}
+  <code style={{color:themeCode?.split("_index=")[0]||"black",marginBottom:10}}>
+  {(themeCode?.split("_index=")[0]||"Please select theme")?.toUpperCase()}
   </code>
   <ButtonGroup
     variant="text"
