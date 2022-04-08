@@ -40,13 +40,15 @@ function App({Component, pageProps}){
   
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   
-  const [selectedThemeCodeIndex, setSelectedThemeCodeIndex] = React.useState(Number(pageProps.cookies?.themeCode.split("_index=")[1]));
+  const [themeCode, setThemeCode] = React.useState(pageProps.cookies?.themeCode.split("_index=")[0]);
+  
+  const [appliedTheme, setAppliedTheme] = React.useState(themeCode)
+  
+  const [selectedThemeCodeIndex, setSelectedThemeCodeIndex] = React.useState(+(pageProps.cookies?.themeCode.split("_index=")[1] || Infinity));
   
   const [isCookieDrawerOpen, setIsCookieDrawerOpen] = React.useState(false);
   
   const [acceptedCookiePolicy, setAcceptedCookiePolicy] = React.useState(pageProps.cookies?.acceptedCookiePolicy);
-
-  const [themeCode, setThemeCode] = React.useState(pageProps.cookies?.themeCode.split("_index=")[0]);
   
   const [isDarkMode, setDarkMode] = useState(pageProps.cookies?.isDarkMode);
   
@@ -59,6 +61,10 @@ function App({Component, pageProps}){
   const handleThemeCodesMenu = (event) => {
     setAnchorEl(ele.current);
   };
+  
+  const handleAppliedTheme = ()=>{
+    setAppliedTheme(themeCode)
+  }
   
   const handleCloseThemeCodesMenu = (byButton,hex,i) => {
     if(byButton===true) {
@@ -95,22 +101,15 @@ const theme = React.useMemo(()=>{
   return createTheme({
   palette: {
     mode: (isDarkMode)? "dark" : "light",
-    ...((themeCode)? 
+    ...((appliedTheme)? 
       {
         primary: {
-          main: themeCode
+          main: appliedTheme
         }
       } : {})
   }
 })
-}, [isDarkMode, themeCode]);
-
-//apply dark mode on <body> tag
-  React.useEffect(()=>{
-   document.body.style.backgroundColor = theme.palette.mode==="dark"?theme.palette.background.default:"#f3f3f3";
-   document.body.style.color = theme.palette.text.secondary;
-  },[isDarkMode]);
-  
+}, [isDarkMode, appliedTheme]);
     
   const disableScroll = ()=>{
     document.body.style.overflow = "hidden"
@@ -119,6 +118,15 @@ const theme = React.useMemo(()=>{
   const enableScroll = ()=>{
     document.body.style.overflow = "initial"
   }
+  
+  
+
+//apply dark mode on <body> tag
+  React.useLayoutEffect(()=>{
+   document.body.style.backgroundColor = theme.palette.mode==="dark"?theme.palette.background.default:"#F1F1F1";
+   document.body.style.color = theme.palette.text.secondary;
+  },[isDarkMode]);
+  
   
   //accept cookie policy prompt
   React.useEffect(()=>{
@@ -142,8 +150,8 @@ const theme = React.useMemo(()=>{
     </Head>
 
   <AppBar sx={{
-    px:1, 
-    py:0.6
+    px: 1, 
+    py: 0.6
   }}>
     <div style={{display:"flex",alignItems:"center"}}>
       <IconButton sx={{color: "primary.contrastText"}} onClick={()=>setIsDrawerOpen(true)}>
@@ -190,12 +198,24 @@ const theme = React.useMemo(()=>{
     </Alert>
   </noscript>
   
-  <center style={{margin:"10px 0 30px"}}>
+  <div style={{
+    margin:"10px 0 30px", 
+    display:"flex", 
+    alignItems:"center",
+    flexDirection:"column"
+  }}>
+  <code style={{color:themeCode||"black",marginBottom:10}}>
+  {(themeCode||"Please select theme")?.toUpperCase()}
+  </code>
   <ButtonGroup
     variant="text"
   >
-    <Button sx={{flex: 1}} ref={ele}>
-        {themeCode || "SELECT"}
+    <Button 
+      sx={{flex: 1}} 
+      ref={ele}
+      onClick={handleAppliedTheme}
+      >
+      Apply
     </Button>
     <Button size="small" sx={{px:"1px"}} onClick={handleThemeCodesMenu}>
        {(isThemeCodesMenuOpen)? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon />}
@@ -228,7 +248,8 @@ const theme = React.useMemo(()=>{
         ))
       }
       </Menu>
-    </center>
+    <p>After selecting theme from the theme menu, press on the APPLY button to apply.</p>
+    </div>
   
   <Component {...pageProps} />
 

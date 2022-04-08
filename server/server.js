@@ -7,24 +7,19 @@ const cors = require("cors");
 const fs = require("fs");
 const cookieParser = require("cookie-parser");
 
-
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 const rootdir = process.cwd()
 const uploaddir = rootdir+"/uploads"
 const isDev = process.env.NODE_ENV !== "production";
 
- 
 const nextApp = next({
   dev: isDev,
 });
 
 const nextHandler = nextApp.getRequestHandler();
 
-nextApp
-.prepare()
-.then(()=>{
+nextApp.prepare().then(()=>{
   //=========== START ======
   
   app.use(cookieParser())
@@ -78,7 +73,7 @@ nextApp
   
   
   //this one is very import because nextjs also requests for other paths apart from /login on its own which it uses to render those page components
-  app.all("*", (req,res)=>{
+  app.all("*", (req, res)=>{
     nextHandler(req, res);
   })
   
