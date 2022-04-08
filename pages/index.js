@@ -9,7 +9,7 @@ export default function(){
 export function getServerSideProps({req}){
   return({
     props: {
-      title: req.headers.host?.replace("/","").toUpperCase() || "HOME",
+      title: req.headers.host?.replace("/","").split(".")[0].toUpperCase() || "HOME",
       cookies: req.cookies
     }
   })
