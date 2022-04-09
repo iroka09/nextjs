@@ -2,11 +2,13 @@
 import React, {useState, useEffect} from "react";
 import Head from "next/head"
 import Container from "@mui/material/Container"
+import CssBaseline from "@mui/material/CssBaseline"
 import Box from "@mui/material/Box"
 import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
 import InputBase from "@mui/material/InputBase"
 import Alert from "@mui/material/Alert"
+import Typography from "@mui/material/Typography"
 import AppBar from "@mui/material/AppBar"
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Drawer from '@mui/material/Drawer';
@@ -100,11 +102,11 @@ for(let color in colors){
 return myList
 }, []);
 
-const theme = React.useMemo(()=>{ 
-  return createTheme({
+const theme = React.useMemo(()=>(
+createTheme({
   palette: {
-    mode: (isDarkMode)? "dark" : "light",
-    ...((appliedTheme)? 
+    mode: isDarkMode? "dark" : "light",
+    ...(appliedTheme? 
       {
         primary: {
           main: appliedTheme
@@ -113,9 +115,16 @@ const theme = React.useMemo(()=>{
   },
   typography: {
     fontFamily: '"Dosis", "Smooch Sans", "Roboto", "Helvetica", "Arial", sans-serif',
+  },
+ components: {
+    MuiPaper: {
+      styleOverrides: {
+        borderRadius: 9999
+      }
+    }
   }
 })
-}, [isDarkMode, appliedTheme]);
+), [isDarkMode, appliedTheme]);
 
 // console.log(theme)
     
@@ -127,15 +136,6 @@ const theme = React.useMemo(()=>{
     document.body.style.overflow = "initial"
   }
   
-  
-
-//apply dark mode on <body> tag
-  React.useEffect(()=>{
-   document.body.style.backgroundColor = theme.palette.mode==="dark"?theme.palette.background.default:"#F4F2F3";
-   document.body.style.color = theme.palette.text.secondary;
-  },[isDarkMode]);
-  
-  
   //accept cookie policy prompt
   React.useEffect(()=>{
     if(!acceptedCookiePolicy) {
@@ -146,18 +146,16 @@ const theme = React.useMemo(()=>{
       return ()=>clearTimeout(fn)
     }
   })
-  
+
   return (
   <ThemeProvider theme={theme}>    
   <Provider store={reduxStore}>    
   <CookiesProvider>    
     <Head>
       <title>{pageProps.title}</title>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-      <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@524&display=swap" rel="stylesheet" />
-      <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet" />
     </Head>
+    
+    <CssBaseline />
 
   <AppBar sx={{
     px: 1, 
@@ -262,8 +260,19 @@ const theme = React.useMemo(()=>{
     </div>
   
   <Component {...pageProps} />
+  
+  </Container>
+  
+  <footer style={{backgroundColor: theme.palette.divider, padding: "5px 2px"}}>
+  
+    <Typography color="primary">
+      Customer Care
+    </Typography>
+    <Typography>
+      +234 813 077 0603
+    </Typography>
+  </footer>
 
-</Container>
 
 <SwipeableDrawer
   anchor="left"

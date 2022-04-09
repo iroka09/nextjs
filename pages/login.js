@@ -164,7 +164,9 @@ export default function App(props) {
 
 
 export async function getServerSideProps({req, res, ...context}) {
- // console.log(req.cookies)
+  // let date = new Date("1/jan/2021").toUTCString();
+ // res.setHeader("Set-Cookie","myName=; expires="+date)
+ //  console.log(req)
   return ({
     props: {
       title: context.resolvedUrl.substr(1).toUpperCase(),
