@@ -88,7 +88,7 @@ function App({Component, pageProps}){
 const list = React.useMemo(()=>{
 let myList = []
 for(let color in colors){
-  for(let x = 700; x<1000; ){
+  for(let x = 100; x<1000; ){
     let colorCode = colors[color][x];
     if(colorCode?.trim()){
       myList.push({
