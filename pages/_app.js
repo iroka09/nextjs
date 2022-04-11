@@ -35,7 +35,7 @@ import {CookiesProvider, useCookies} from "react-cookie"
 import reduxStore from "../components/redux/store"
 import "../styles/global_style.css";
 
-const cookieObject = {
+const cookieOptions = {
   maxAge: 60*60*24*30 //1 month
 }
 
@@ -49,7 +49,7 @@ function App({Component, pageProps}){
   
   const [appliedTheme, setAppliedTheme] = React.useState(themeCode?.split("_index=")[0])
   
-  const [selectedThemeCodeIndex, setSelectedThemeCodeIndex] = React.useState(+(pageProps.cookies?.themeCode?.split("_index=")[1] || Infinity));
+  const [selectedThemeCodeIndex, setSelectedThemeCodeIndex] = React.useState(+(themeCode?.split("_index=")[1] || Infinity));
   
   const [isCookieDrawerOpen, setIsCookieDrawerOpen] = React.useState(false);
   
@@ -62,14 +62,16 @@ function App({Component, pageProps}){
   const [anchorEl, setAnchorEl] = React.useState();
   
   const ele = React.useRef();
+  
   const isThemeCodesMenuOpen = Boolean(anchorEl);
-  const handleThemeCodesMenu = (event) => {
+  
+  const handleThemeCodesMenu = () => {
     setAnchorEl(ele.current);
   };
   
   const handleAppliedTheme = ()=>{
     setAppliedTheme(themeCode?.split("_index=")[0]);
-    setCookie("themeCode", themeCode, cookieObject);
+    setCookie("themeCode", themeCode, cookieOptions);
   }
   
   const handleCloseThemeCodesMenu = (byButton,hex,i) => {
@@ -82,18 +84,18 @@ function App({Component, pageProps}){
   
   const handleAcceptCookiePolicy = ()=>{
     setAcceptedCookiePolicy(true);
-    setCookie("acceptedCookiePolicy", "yes" , cookieObject);
+    setCookie("acceptedCookiePolicy", "yes" , cookieOptions);
   }
 
 const list = React.useMemo(()=>{
 let myList = []
 for(let color in colors){
   for(let x = 100; x<1000; ){
-    let colorCode = colors[color][x];
-    if(colorCode?.trim()){
+    let hex = colors[color][x];
+    if(hex?.trim()){
       myList.push({
         colorName: color,
-        colorCode
+        colorCode: hex,
       })
     }
     x += 100;
@@ -115,14 +117,17 @@ createTheme({
   },
   typography: {
     fontFamily: '"Dosis", "Smooch Sans", "Roboto", "Helvetica", "Arial", sans-serif',
+    button: {
+      textTransform: "initial"
+    }
   },
- components: {
+ /*components: {
     MuiPaper: {
       styleOverrides: {
         borderRadius: 9999
       }
     }
-  }
+  }*/
 })
 ), [isDarkMode, appliedTheme]);
 
@@ -142,7 +147,7 @@ createTheme({
       let fn = setTimeout(function() {
         setIsCookieDrawerOpen(true);
         disableScroll();
-      }, 2000);
+      }, 4000);
       return ()=>clearTimeout(fn)
     }
   })
@@ -168,16 +173,20 @@ createTheme({
       <div style={{
         padding: "0 20px",
         borderRadius: 4,
+        maxWidth: "70%",
         backgroundColor: "rgba(225,225,225,0.14)",
         marginLeft:2,
         display:"flex",
         alignItems:"center",
         justifyContent:"center",
       }}>
-        <InputBase placeholder="Search word..." sx={{my:"3px", color: "primary.contrastText"}}/>
+        <InputBase placeholder="Search word..." sx={{my:"2px", color: "primary.contrastText"}}/>
       </div>
+ 
+        <Divider sx={{m: "0 3px 0 auto", backgroundColor: theme.palette.background.paper,height:22}} orientation="vertical"/>
+      
       <IconButton 
-        sx={{ml: "auto", color: "primary.contrastText"}} 
+        sx={{color: "primary.contrastText"}} 
         onClick={()=>{
           if(isDarkMode){
             setDarkMode(false)
@@ -185,7 +194,7 @@ createTheme({
           }
           else {
             setDarkMode(true)
-            setCookie("isDarkMode", "yes", cookieObject)
+            setCookie("isDarkMode", "yes", cookieOptions)
           }
       }}>
         {(isDarkMode)? <LightModeIcon/> : <DarkModeIcon/>}

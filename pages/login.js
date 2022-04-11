@@ -22,6 +22,9 @@ import Search from "@mui/icons-material/Search"
 import Send from "@mui/icons-material/Send"
 import Visibility from "@mui/icons-material/Visibility"
 import VisibilityOff from "@mui/icons-material/VisibilityOff"
+import { LoremIpsum } from "lorem-ipsum";
+
+const lorem = new LoremIpsum();
 
 
 export default function App(props) {
@@ -157,7 +160,9 @@ export default function App(props) {
       </Button>
     </form>
   </Paper>
-  
+  <p>
+  {lorem.generateSentences(7)}
+  </p>
   </>
     )
 }
