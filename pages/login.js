@@ -58,10 +58,12 @@ export default function App(props) {
     setIsPassword(x=>!x)
   }
   
+  const myLorem = React.useMemo(()=>(
+    lorem.generateSentences(15)
+    ), [])
   
   return(
 <>
-
   <Paper sx={{
     px:1,
     display: "flex",
@@ -161,7 +163,7 @@ export default function App(props) {
     </form>
   </Paper>
   <p>
-  {lorem.generateSentences(7)}
+  {myLorem}
   </p>
   </>
     )

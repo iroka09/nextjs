@@ -121,17 +121,23 @@ createTheme({
       textTransform: "initial"
     }
   },
- /*components: {
+  components: {
     MuiPaper: {
       styleOverrides: {
-        borderRadius: 9999
+        root:{
+          border: "none"
+        }
+      }
+    },
+    MuiButton: {
+      defaultProps: {
+        disableRipple: true,
+        variant: "outlined"
       }
     }
-  }*/
+  }
 })
 ), [isDarkMode, appliedTheme]);
-
-// console.log(theme)
     
   const disableScroll = ()=>{
     document.body.style.overflow = "hidden"
