@@ -33,7 +33,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import TreeItem from '@mui/lab/TreeItem';
 import {
   ThemeProvider,
-  createTheme
+  createTheme,
+  experimental_sx as sx
 } from "@mui/material/styles"
 import {
   Provider
@@ -181,7 +182,14 @@ function App( {
       }, 4000);
       return ()=>clearTimeout(fn)
     }
+  });
+
+  const appBarColor = sx((x)=>{
+    console.log(x);
+    return ({
+    color: (theme.palette.mode === "dark")? "#888": "primary.contrastText"
   })
+})
 
   return (
     <ThemeProvider theme={theme}>
@@ -198,7 +206,7 @@ function App( {
     }}>
     <div style={ { display: "flex",
         alignItems: "center" }}>
-      <IconButton sx={ { color: "primary.contrastText" }} onClick={()=>setIsDrawerOpen(true)}>
+      <IconButton sx={appBarColor} onClick={()=>setIsDrawerOpen(true)}>
         <MenuIcon />
       </IconButton>
       <div style={ {
@@ -211,14 +219,13 @@ function App( {
           alignItems: "center",
           justifyContent: "center",
         }}>
-        <InputBase placeholder="Search word..." sx={ { my: "2px",
-            color: "primary.contrastText" }} />
+        <InputBase placeholder="Search word..." sx={appBarColor} />
       </div>
         <Divider sx={ { m: "0 3px 0 auto",
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: appBarColor.color,
           height: 22 }} orientation="vertical" />
       <IconButton
-        sx={ { color: "primary.contrastText" }}
+        sx={appBarColor}
         onClick={()=> {
           if (isDarkMode) {
             setDarkMode(false)
