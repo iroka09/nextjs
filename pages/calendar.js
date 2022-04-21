@@ -8,11 +8,14 @@ import IconButton from "@mui/material/IconButton"
 import CircularProgress from "@mui/material/CircularProgress"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import TextField from "@mui/material/TextField"
+import Typography from "@mui/material/Typography"
 import MenuItem from "@mui/material/MenuItem"
 import Button from "@mui/material/Button"
 import Checkbox from "@mui/material/Checkbox"
 import Box from "@mui/material/Box"
-import {useTheme} from "@mui/material/styles"
+import {
+  useTheme
+} from "@mui/material/styles"
 //import {useTheme} from "@mui/styles"
 import moment from "moment"
 
@@ -120,10 +123,10 @@ function App() {
    {data.map(obj=>(
           <li className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3">
     <div className="p-1 shadow-lg border rounded">
-    <Typography color="primary" variant="h4">
+    <Typography color="primary" variant="h5">
       {obj.monthName}
     </Typography>
-    <div className="font-bold flex justify-evenly items-center mb-1" style={{backgroundColor: muiTheme.palette.primary.main}}>
+    <div className="font-bold flex justify-evenly items-center mb-1" style={ { backgroundColor: muiTheme.palette.primary.main }}>
     {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(x=>(
             <span style={ {
               color: (x === "Sun")? "orange": "white",
@@ -173,10 +176,12 @@ function App() {
 
 export default memo(App)
 
-  export function getStaticProps() {
+  export function getServerSideProps(context) {
+    const req = context.req;
     return {
       props: {
-        title: "React Calendar By Iroka"
+        title: "React Calendar By Iroka",
+        cookies: req.cookies,
       }
     }
   }

@@ -181,7 +181,7 @@ function App( {
       let fn = setTimeout(function() {
         setIsCookieDrawerOpen(true);
         disableScroll();
-      }, 4000);
+      }, 6000);
       return ()=>clearTimeout(fn)
     }
   });
@@ -260,10 +260,6 @@ function App( {
         alignItems: "center",
         flexDirection: "column"
       }}>
-  <code style={ { color: themeCode?.split("_index=")[0] || "black",
-          marginBottom: 10 }}>
-  {(themeCode?.split("_index=")[0] || "select theme")?.toUpperCase()}
-  </code>
   <ButtonGroup
         variant="text"
         >
@@ -276,6 +272,10 @@ function App( {
     </Button>
     <Button size="small" sx={ { px: "1px" }} onClick={handleThemeCodesMenu}>
        {(isThemeCodesMenuOpen)? <KeyboardArrowUpIcon />: <KeyboardArrowDownIcon />}
+         <span style={ { color: themeCode?.split("_index=")[0] || "black",
+            marginBottom: 10 }}>
+  {(themeCode?.split("_index=")[0] || "select theme")?.toUpperCase()}
+  </span>
     </Button>
     </ButtonGroup>
     <Menu
