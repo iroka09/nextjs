@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .button {
+    @apply hover:bg-slate-100 hover:text-slate-800;
+  }
+}

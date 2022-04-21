@@ -44,7 +44,9 @@ import {
   useCookies
 } from "react-cookie"
 import reduxStore from "../components/redux/store"
+
 import "../styles/global_style.css";
+import "../styles/calendar.css";
 
 const cookieOptions = {
   maxAge: 60*60*24*30 //1 month
@@ -155,7 +157,7 @@ function App( {
         },
         MuiButton: {
           defaultProps: {
-            disableRipple: true,
+            disableRipple: false,
             //variant: "outlined"
           }
         }
@@ -184,12 +186,12 @@ function App( {
     }
   });
 
-  const appBarColor = sx((x)=>{
-    console.log(x);
+  const appBarColor = sx((x)=> {
+    //console.log(x);
     return ({
-    color: (theme.palette.mode === "dark")? "#888": "primary.contrastText"
+      color: (theme.palette.mode === "dark")? "#888": "primary.contrastText"
+    })
   })
-})
 
   return (
     <ThemeProvider theme={theme}>
@@ -260,7 +262,7 @@ function App( {
       }}>
   <code style={ { color: themeCode?.split("_index=")[0] || "black",
           marginBottom: 10 }}>
-  {(themeCode?.split("_index=")[0] || "Please select theme")?.toUpperCase()}
+  {(themeCode?.split("_index=")[0] || "select theme")?.toUpperCase()}
   </code>
   <ButtonGroup
         variant="text"
@@ -292,30 +294,31 @@ function App( {
         >
       {
         list.map((_color, i)=>(
-          <MenuItem
+          <li
             key={i}
-            selected={selectedThemeCodeIndex === i}
+            style={ {
+              color: _color.colorCode,
+              padding: "3px 5px",
+              ...((selectedThemeCodeIndex === i)? {
+                backgroundColor: "#eee"
+              }: {})}}
             onClick={()=>handleCloseThemeCodesMenu(true, _color.colorCode, i)}
-            sx={ { color: _color.colorCode }}
             >
           {_color.colorName+" | "+_color.colorCode}
-          </MenuItem>
+          </li>
         ))
         }
       </Menu>
-    <p>
-After selecting theme from the theme menu, press on the APPLY button to apply.
-      </p>
     </div>
   <Component {...pageProps} />
   </Container>
   <footer style={ { backgroundColor: theme.palette.divider,
-      padding: "5px 2px" }}>
+      padding: "5px" }}>
     <Typography color="primary">
       Customer Care
     </Typography>
     <Typography>
-      +234 813 077 0603
+      +2349014864168
     </Typography>
     </footer>
 
@@ -374,11 +377,11 @@ After selecting theme from the theme menu, press on the APPLY button to apply.
       >
         <div style={ { padding: "3px" }}>
           <center style={ { padding: "10px 0",
-        fontWeight: 400 }}>Cookie Policy</center>
+        fontWeight: 400 }}>Accept Cookies</center>
           <Divider />
   <div style={ { margin: "30px auto",
         width: "90%" }}>
-   We use Cookies to store our users' choice.
+   We use Cookies to remember our users' settings preference.
       </div>
   <div style={ { display: "flex",
           justifyContent: "space-around" }} onClick={()=>setIsCookieDrawerOpen(false)}>
