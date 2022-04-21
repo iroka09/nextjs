@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem"
 import Button from "@mui/material/Button"
 import Checkbox from "@mui/material/Checkbox"
 import Box from "@mui/material/Box"
+import {useTheme} from "@mui/material/styles"
 //import {useTheme} from "@mui/styles"
 import moment from "moment"
 
@@ -21,6 +22,7 @@ const yearArray = [...Array(10)].map((arr, index)=> {
 })
 
 function App() {
+  const muiTheme = useTheme()
   const [loading,
     setloading] = useState(true)
   const [data,
@@ -118,20 +120,20 @@ function App() {
    {data.map(obj=>(
           <li className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3">
     <div className="p-1 shadow-lg border rounded">
-    <div className="text-blue-800 text-[1.5rem] text-center">
-    {obj.monthName}
-          </div>
-    <div className="font-bold flex justify-evenly items-center bg-blue-600 mb-1">
+    <Typography color="primary" variant="h4">
+      {obj.monthName}
+    </Typography>
+    <div className="font-bold flex justify-evenly items-center mb-1" style={{backgroundColor: muiTheme.palette.primary.main}}>
     {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(x=>(
-              <span style={ {
-                color: (x === "Sun")? "orange": "white",
-                flexGrow: 1,
-                textAlign: "center"
-              }}
-                >
+            <span style={ {
+              color: (x === "Sun")? "orange": "white",
+              flexGrow: 1,
+              textAlign: "center"
+            }}
+              >
         {x}
       </span>
-            ))}
+          ))}
           </div>
     <ul className="grid grid-cols-7 gap-0 w-full border rounded">
     {obj.dateArray.map((num, i)=>(
