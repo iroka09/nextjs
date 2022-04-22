@@ -26,6 +26,7 @@ const yearArray = [...Array(10)].map((arr, index)=> {
 
 function App() {
   const muiTheme = useTheme()
+  const contrastText = muiTheme.palette.primary.contrastText;
   const [loading,
     setloading] = useState(true)
   const [data,
@@ -126,10 +127,10 @@ function App() {
     <div className="font-bold flex justify-evenly items-center mb-1" style={ { backgroundColor: muiTheme.palette.primary.main }}>
     {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(x=>(
             <span style={ {
-              color: (x === "Sun")? "orange": muiTheme.palette.primary.contrastText,
+              color: (x === "Sun")? "orange": contrastText,
               flexGrow: 1,
               textAlign: "center",
-              textShadow: "0.5px 0.5px 0 white"
+              textShadow: `0.5px 0.5px 0 ${(contrastText==="#fff")?"black":"white"}`
             }}
               >
         {x}

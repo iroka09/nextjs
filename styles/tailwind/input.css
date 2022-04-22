@@ -4,6 +4,6 @@
 
 @layer components {
   .button {
-    @apply hover:bg-slate-100 hover:text-slate-800;
+    @apply hover:bg-slate-100 hover:text-slate-800 transition duration-200;
   }
 }
