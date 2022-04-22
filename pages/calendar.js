@@ -79,29 +79,26 @@ function App() {
       m: 0,
       py: 2,
     })}>
-    <div className="hidden test w-[200px] h-[200px] absolute bg-blue-500 top-[50%] left-[50%] rounded flex justify-center items-center text-white translte-[-50%]">
-    testing
-    </div>
     <div className="flex justify-center items-center px-2 pb-2">
     <TextField
-        defaultValue={year}
-        label="Select Year"
-        variant="outlined"
-        select
-        onChange={handleDateChange}
-        SelectProps={ {
-          renderValue: (val)=>val
-        }}
-        sx={ { minWidth: "150px" }}
-        >
+      defaultValue={year}
+      label="Select Year"
+      variant="outlined"
+      select
+      onChange={handleDateChange}
+      SelectProps={ {
+        renderValue: (val)=>val
+      }}
+      sx={ { minWidth: "150px" }}
+      >
    {yearArray.map(x=>(
-          <MenuItem value={x} selected={x === year}>
+        <MenuItem value={x} selected={x === year}>
       <ListItemIcon>
          <Checkbox checked={x === year} />
       </ListItemIcon>
    {x}
    </MenuItem>
-        ))}
+      ))}
     </TextField>
     </div>
     <div className="text-3xl text-center text-red-700 mb-2 uppercase">
@@ -129,9 +126,10 @@ function App() {
     <div className="font-bold flex justify-evenly items-center mb-1" style={ { backgroundColor: muiTheme.palette.primary.main }}>
     {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(x=>(
             <span style={ {
-              color: (x === "Sun")? "orange": "white",
+              color: (x === "Sun")? "orange": muiTheme.palette.primary.contrastText,
               flexGrow: 1,
-              textAlign: "center"
+              textAlign: "center",
+              textShadow: "0.5px 0.5px 0 white"
             }}
               >
         {x}
