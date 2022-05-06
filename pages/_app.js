@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography"
 import AppBar from "@mui/material/AppBar"
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Drawer from '@mui/material/Drawer';
+import Collapse from '@mui/material/Collapse';
 import TextField from '@mui/material/TextField';
 import * as colors from '@mui/material/colors';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -29,6 +30,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import PaletteIcon from '@mui/icons-material/Palette';
 import MenuIcon from '@mui/icons-material/Menu';
 import TreeItem from '@mui/lab/TreeItem';
 import {
@@ -46,7 +48,6 @@ import {
 import reduxStore from "../components/redux/store"
 
 import "../styles/global_style.css";
-import "../styles/calendar.css";
 
 const cookieOptions = {
   maxAge: 60*60*24*30 //1 month
@@ -60,7 +61,9 @@ function App( {
 
   const [isDrawerOpen,
     setIsDrawerOpen] = React.useState(false);
-
+  
+  const [isPaletteIn, setIsPaletteIn] = React.useState(false);
+  
   const [themeCode,
     setThemeCode] = React.useState(pageProps.cookies?.themeCode);
 
@@ -223,11 +226,8 @@ function App( {
         }}>
         <InputBase placeholder="Search word..." sx={appBarColor} />
       </div>
-        <Divider sx={ { m: "0 3px 0 auto",
-          backgroundColor: appBarColor.color,
-          height: 22 }} orientation="vertical" />
       <IconButton
-        sx={appBarColor}
+        sx={{ml:"auto", ...appBarColor}}
         onClick={()=> {
           if (isDarkMode) {
             setDarkMode(false)
@@ -239,43 +239,39 @@ function App( {
         }}>
         {(isDarkMode)? <LightModeIcon />: <DarkModeIcon />}
       </IconButton>
+      <Divider sx={ { m: "0 3px",
+          backgroundColor: appBarColor.color,
+          height: 22 }} orientation="vertical" />
+      <IconButton onClick={()=>setIsPaletteIn(x=>!x)}>
+        <PaletteIcon/>  
+      </IconButton>
     </div>
-  </AppBar>
-      <Container>
-
-  <div style={ { height: 60 }}></div>
-
-  <noscript style={ { display: "block",
-        margin: "5px auto" }}>
-    <Alert
-        variant="outlined"
-        severity="error"
-        >
-      Your browser doesn't support Javascript, some functionalities won't work, please upgrade your browser.
-    </Alert>
-  </noscript>
+    <Collapse in={isPaletteIn}>
   <div style={ {
         margin: "10px 0 30px",
         display: "flex",
         alignItems: "center",
-        flexDirection: "column"
+        flexDirection: "column",
+        color: "white"
       }}>
   <ButtonGroup
         variant="text"
         >
     <Button
-          sx={ { flex: 1 }}
+          sx={ { flex: 1, color: "white" }}
           ref={ele}
           onClick={handleAppliedTheme}
           >
       Apply
     </Button>
     <Button size="small" sx={ { px: "1px" }} onClick={handleThemeCodesMenu}>
-       {(isThemeCodesMenuOpen)? <KeyboardArrowUpIcon />: <KeyboardArrowDownIcon />}
-         <span style={ { color: themeCode?.split("_index=")[0] || "black",
-            marginBottom: 10 }}>
-  {(themeCode?.split("_index=")[0] || "select theme")?.toUpperCase()}
-  </span>
+      <span style={ { color: themeCode?.split("_index=")[0] || "black",
+            marginBottom: 10, textShadow: "0.5px 0.5px 1px white" }}>
+        <span style={{color:"#fff"}}>
+        {(isThemeCodesMenuOpen)? <KeyboardArrowUpIcon />: <KeyboardArrowDownIcon />}
+        </span>
+      {(themeCode?.split("_index=")[0] || "select theme")?.toUpperCase()}
+      </span>
     </Button>
     </ButtonGroup>
     <Menu
@@ -310,6 +306,21 @@ function App( {
         }
       </Menu>
     </div>
+    </Collapse>
+  </AppBar>
+      <Container>
+
+  <div style={ { height: 60 }}></div>
+
+  <noscript style={ { display: "block",
+        margin: "5px auto" }}>
+    <Alert
+        variant="outlined"
+        severity="error"
+        >
+      Your browser doesn't support Javascript, some functionalities won't work, please upgrade your browser.
+    </Alert>
+  </noscript>
   <Component {...pageProps} />
   </Container>
   <footer style={ { backgroundColor: theme.palette.divider,

@@ -19,6 +19,8 @@ import {
 //import {useTheme} from "@mui/styles"
 import moment from "moment"
 
+// import "../styles/calendar.css";
+
 
 const yearArray = [...Array(10)].map((arr, index)=> {
   return new Date().getFullYear() - index;
@@ -92,8 +94,8 @@ function App() {
       }}
       sx={ { minWidth: "150px" }}
       >
-   {yearArray.map(x=>(
-        <MenuItem value={x} selected={x === year}>
+   {yearArray.map((x, index)=>(
+        <MenuItem value={x} selected={x === year} key={index}>
       <ListItemIcon>
          <Checkbox checked={x === year} />
       </ListItemIcon>
@@ -118,28 +120,30 @@ function App() {
         </div> < />
       )}
     <ul className="grid gap-y-6 gap-x-2 grid-cols-12 p-2">
-   {data.map(obj=>(
-          <li className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3">
+   {data.map((obj,index)=>(
+          <li className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3" key={index}>
     <div className="p-1 shadow-lg border rounded">
     <Typography color="primary" variant="h5">
       {obj.monthName}
     </Typography>
     <div className="font-bold flex justify-evenly items-center mb-1" style={ { backgroundColor: muiTheme.palette.primary.main }}>
-    {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(x=>(
+    {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((x,index)=>(
             <span style={ {
               color: (x === "Sun")? "orange": contrastText,
               flexGrow: 1,
               textAlign: "center",
               textShadow: `0.5px 0.5px 0 ${(contrastText==="#fff")?"black":"white"}`
             }}
-              >
+            key={index}>
         {x}
       </span>
           ))}
           </div>
     <ul className="grid grid-cols-7 gap-0 w-full border rounded">
     {obj.dateArray.map((num, i)=>(
-              <li className="col-span-1 text-center border-r border-b button box-border" style={
+              <li className="col-span-1 text-center border-r border-b button box-border" 
+              key={i}
+              style={
                 (obj.isThisMonth && num === Number(moment().format("D"))) ?
                 {
                   backgroundColor: "red",
