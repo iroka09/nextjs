@@ -21,6 +21,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
 import Zoom from '@mui/material/Zoom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -48,6 +49,7 @@ import {
 import reduxStore from "../components/redux/store"
 
 import "../styles/global_style.css";
+import "../styles/calendar.css";
 
 const cookieOptions = {
   maxAge: 60*60*24*30 //1 month
@@ -115,13 +117,13 @@ function App( {
     setCookie("acceptedCookiePolicy", "yes", cookieOptions);
   }
 
-  const list = React.useMemo(()=> {
-    let myList = []
+  const Stack = React.useMemo(()=> {
+    let myStack = []
     for (let color in colors) {
       for (let x = 100; x < 1000;) {
         let hex = colors[color][x];
         if (hex?.trim()) {
-          myList.push({
+          myStack.push({
             colorName: color,
             colorCode: hex,
           })
@@ -129,7 +131,7 @@ function App( {
         x += 100;
       }
     }
-    return myList
+    return myStack
   },
     []);
 
@@ -289,7 +291,7 @@ function App( {
         transitionComponent={Zoom}
         >
       {
-        list.map((_color, i)=>(
+        Stack.map((_color, i)=>(
           <li
             key={i}
             style={ {
@@ -331,6 +333,8 @@ function App( {
     <Typography>
       +2349014864168
     </Typography>
+    <br /> <br />
+   <div style={{display:"flex", justifyContent:"center"}}> Copyright 2022 - {new Date().getFullYear()} </div>
     </footer>
 
 
@@ -346,32 +350,12 @@ function App( {
         disableScroll()
       }}
       >
-    <TreeView
-        aria-label="multi-select"
-        defaultCollapseIcon={<ExpandMoreIcon />}
-        defaultExpandIcon={<ChevronRightIcon />}
-        multiSelect
-        sx={ {
-          height: 216,
-          flexGrow: 1,
-          maxWidth: 400,
-          overflowY: 'auto'
-        }}
-        >
-      <TreeItem nodeId="1" label="Applications">
-        <TreeItem nodeId="2" label="Calendar" />
-        <TreeItem nodeId="3" label="Chrome" />
-        <TreeItem nodeId="4" label="Webstorm" />
-      </TreeItem>
-      <TreeItem nodeId="5" label="Documents">
-        <TreeItem nodeId="6" label="MUI">
-          <TreeItem nodeId="7" label="src">
-            <TreeItem nodeId="8" label="index.js" />
-            <TreeItem nodeId="9" label="tree-view.js" />
-          </TreeItem>
-        </TreeItem>
-      </TreeItem>
-    </TreeView>
+    
+        <Button href="/" >Home</Button>
+        <Button href="/calendar" >Calendar</Button>
+        <Button href="/login" >Login</Button>
+        <Button href="/ecommerce" >E-Commerce</Button>
+    
       </SwipeableDrawer>
 
       <Drawer

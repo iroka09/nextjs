@@ -7,11 +7,13 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography";
 import {useTheme} from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
-// import Avatar from "@mui/material/Avatar"
-import CheckCircleIcon from "@mui/icons-material/CheckCircle"
+import Fab from "@mui/material/Fab"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+// import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart"
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
+import AddTaskIcon from "@mui/icons-material/AddTask"
 import Image from "next/image"
 import {LoremIpsum} from "lorem-ipsum"
 
@@ -19,7 +21,7 @@ const lorem = new LoremIpsum()
 
 function App(){
   const theme = useTheme();
-  //console.log(theme)
+  // console.log(theme.palette)
   const [itemList, setItemList] = React.useState([
       {
         id: 1,
@@ -60,16 +62,22 @@ function App(){
   return(
     <>
    { itemList.some(item=>item.addedToCart===true) &&
-    <div style={{height:0, width:"100%", position:"sticky", top:70, padding:"0 5px 5px", display:"flex", justifyContent:"flex-end"}}>
-    <Badge 
-      badgeContent={
+    <div style={{heiht:0, width:"100%", position:"sticky", top:70, padding:"0 5px 5px", display:"flex", justifyContent:"flex-end", zIndex:theme.zIndex.appBar-1}}>
+      <Badge 
+        badgeContent={
         itemList.filter(item=>item.addedToCart===true).length
-      } 
-      max={99}
-      color="error"
-      sx={{boxShadow:"0 2px 1px #aaa",bgcolor:"#fff", zIndex:theme.zIndex.appBar+1}}>
-      <ShoppingCartIcon />
-    </Badge>
+        } 
+        max={99}
+        color="success">
+          <ShoppingCartIcon 
+            sx={{
+              fontSize: 40,
+               "&:hover":  {
+                color: "#888",
+              }
+            }}
+            />
+      </Badge>
     </div>
    } 
     <Box display="flex" justifyContent="space-around" flexWrap="wrap">
@@ -77,15 +85,18 @@ function App(){
       <Card key={item.id} sx={{maxWidth: "300px", m:2, pb:2}}>
         <img src={item.src} style={{width:"100%", height:"250px", objectFit:"cover"}}/>
         <div style={{padding: "5px 10px", position:"relative"}}>
-           {item.addedToCart && <CheckCircleIcon color="success" sx={{position:"absolute",top:5,right:5}} />}
+           {item.addedToCart && <AddTaskIcon color="success" sx={{position:"absolute",top:7,right:7}} />}
           <Typography color="primary" variant="h5">{item.name}</Typography>
-          <Typography color="text.secondary" variant="body1">{item.description}</Typography>
-          <Stack spacing={1} justifyContent="center" sx={{mt:2}}>
+          <Typography color="text.secondary" variant="body2">{item.description}</Typography>
+          <Typography variant="h5" sx={{display:"flex",alignItems:"center",mt:1}}>
+            ${item.price}.{random.int(0,9)}0
+          </Typography>
+          <Stack spacing={1} justifyContent="center" sx={{mt:1}}>
             <Button 
               onClick={()=>handleAddToCart(item.id)}
               startIcon={item.addedToCart? <RemoveShoppingCartIcon/> :  <AddShoppingCartIcon/>}>
               {item.addedToCart?"REMOVE FROM CART":"ADD TO CART"}</Button>
-            <Button variant="contained">${item.price} BUY NOW</Button>
+            <Button variant="contained" startIcon={<AttachMoneyIcon/>}>BUY NOW</Button>
           </Stack>
         </div>
       </Card>
@@ -97,7 +108,7 @@ function App(){
 export function getServerSideProps({req}){
   return ({
     props: {
-      title: "E-commerce",
+      title: "E-Commerce",
       cookies: req.cookies
     }
   })

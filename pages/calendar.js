@@ -4,7 +4,7 @@ import React, {
   useState,
   useEffect
 } from "react"
-import IconButton from "@mui/material/IconButton"
+import IconButton from "@mui/material/IconButton" 
 import CircularProgress from "@mui/material/CircularProgress"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import TextField from "@mui/material/TextField"
@@ -141,7 +141,7 @@ function App() {
           </div>
     <ul className="grid grid-cols-7 gap-0 w-full border rounded">
     {obj.dateArray.map((num, i)=>(
-              <li className="col-span-1 text-center border-r border-b button box-border" 
+              <li className="col-span-1 text-center border-r border-b btn box-border" 
               key={i}
               style={
                 (obj.isThisMonth && num === Number(moment().format("D"))) ?
