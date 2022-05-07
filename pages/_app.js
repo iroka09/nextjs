@@ -334,7 +334,7 @@ function App( {
       +2349014864168
     </Typography>
     <br /> <br />
-   <div style={{display:"flex", justifyContent:"center"}}> Copyright 2022 - {new Date().getFullYear()} </div>
+   <div style={{display:"flex", justifyContent:"center"}}> &copy; 2021 - {new Date().getFullYear()} </div>
     </footer>
 
 
