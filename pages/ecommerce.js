@@ -30,7 +30,7 @@ function App(){
   const [itemList, setItemList] = useState([
       {
         id: 1,
-        name: "RED T-SHIRT",
+        name: "RED SHIRT",
         src: "/ecommerce/shirt1.jpg",
         description: lorem.generateWords(random.int(10,20)),
         price: "$"+random.int(10, 200)+"."+random.int(10,99),
@@ -38,10 +38,10 @@ function App(){
       },
       {
         id: 2,
-        name: "BLACK T-SHIRT",
+        name: "BLACK SHIRT",
         src: "/ecommerce/shirt2.jpg",
         description: lorem.generateWords(random.int(10,20)),
-        price: "$"+random.int(10, 200)+"."+random.int(10,99),
+        price: "$"+random.int(5, 100)+"."+random.int(10,99),
         addedToCart: false,
       },
       ...([...new Array(10)].map(()=>({
@@ -75,16 +75,15 @@ function App(){
     
   return(
     <>
-   <div style={{heiht:0, width:"100%", position:"sticky", top:70, padding:"0 5px 5px", display:"flex", zIndex:theme.zIndex.appBar+1}}>
       {showAddedCartsOnly &&
         <Button 
           variant="outlined"
           startIcon={<ArrowBackIcon/>}
-          variant={{bgcolor:"background.paper"}}
           onClick={handleSetShowAddedCartsOnly(false)}>
-        Back To Items
+            Back To Items
         </Button>
       }
+   <div style={{height:0, width:"100%", position:"sticky", top:70, padding:"0 5px 5px", display:"flex", zIndex:theme.zIndex.appBar-1}}>
       <Badge 
         badgeContent={
         itemList.filter(item=>item.addedToCart===true).length
@@ -104,8 +103,7 @@ function App(){
             />
       </Badge>
     </div>
-
-    <Box display="flex" justifyContent="space-around" flexWrap="wrap">
+    
       <CartContext.Provider 
         value={{
           itemList: ((showAddedCartsOnly)? itemList.filter(x=>x.addedToCart===true) : itemList),
@@ -116,7 +114,7 @@ function App(){
       }}>
       <RenderItems />
     </CartContext.Provider>
-    </Box>
+    
   </>
 )}
 
@@ -136,11 +134,11 @@ function RenderItems(){
           >
           {(isLoading)? <CircularProgress/> : 
           <Stack spacing={3} alignItems="center">
-            <Typography variant="h5" color="text.disabled">(Empty)</Typography>
+            <Typography variant="h4" color="text.disabled">(Empty)</Typography>
             <Button 
               onClick={handleSetShowAddedCartsOnly(false)}
               size="large"
-              startIcon={<ShoppingCartCheckoutIcon/>}
+              startIcon={<AddShoppingCartIcon/>}
               >
               Add To Cart
             </Button>
@@ -149,9 +147,12 @@ function RenderItems(){
         </Box>
       }
       
-      {isLoading || itemList.map(item=>(
+      {isLoading || 
+      <>
+       <Box display="flex" justifyContent="space-around" flexWrap="wrap">
+       {itemList.map(item=>(
       <Card key={item.id} sx={{maxWidth: "300px", m:2, pb:2}}>
-        <img src={item.src} style={{width:"100%", height:"250px", objectFit:"cover"}}/>
+        <img src={item.src} style={{width:"100%", height:"250px", objectFit:"cover"}} alt="Item picture"/>
         <div style={{padding: "5px 10px", position:"relative"}}>
            {item.addedToCart && <AddTaskIcon color="success" sx={{position:"absolute",top:7,right:7}} />}
           <Typography color="primary" variant="h5">{item.name}</Typography>
@@ -169,8 +170,21 @@ function RenderItems(){
         </div>
       </Card>
     ))}
+    </Box>
+    <div style={{display:"flex", justifyContent:"center", margin:"20px 0"}}>
+      {(showAddedCartsOnly && itemList.length>0) && 
+        <Button
+          variant="contained"
+          startIcon={<ShoppingCartCheckoutIcon/>}
+          size="large"
+        >
+          BUY NOW
+        </Button>
+      }
+    </div>
     </>
-  )
+    }
+  </>)
 }
 
 
