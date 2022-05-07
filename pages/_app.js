@@ -204,6 +204,15 @@ function App( {
   <CookiesProvider>
     <Head>
       <title>{pageProps.title}</title>
+      {
+        (pageProps.title.toLowerCase()==="e-commerce") && 
+          <>
+            <meta property="og:image" content="/ecommerce/shirt1.jpg" /> 
+            <meta property="og:type" content="article" />
+            <meta property="og:locale" content="en_GB" />
+            <meta property="og:description" content="Reactjs Project on E-Commerce using NextJS and Material-UI by Iroka Tochukwu C" />
+          </>
+        }
     </Head>
     <CssBaseline />
 

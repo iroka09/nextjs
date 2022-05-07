@@ -1,7 +1,9 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
 
-function Document() {
+function Document(props) {
+  console.log(props)
+  console.log(NextScript)
   return (
     <Html>
       <Head>
