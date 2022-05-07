@@ -205,7 +205,7 @@ function App( {
     <Head>
       <title>{pageProps.title}</title>
       {
-        (pageProps.title.toLowerCase()==="e-commerce") && 
+        (pageProps.title?.toLowerCase()==="e-commerce") && 
           <>
             <meta property="og:image" content="/ecommerce/shirt1.jpg" /> 
             <meta property="og:type" content="article" />
