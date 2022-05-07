@@ -20,6 +20,7 @@ import Image from "next/image"
 import {LoremIpsum} from "lorem-ipsum"
 
 const CartContext = createContext()
+const HeadPasserContext = createContext()
 const lorem = new LoremIpsum()
 
 function App(){
@@ -190,10 +191,12 @@ function RenderItems(){
 
 
 export function getServerSideProps({req}){
+  console.log(req)
   return ({
     props: {
       title: "E-Commerce",
-      cookies: req.cookies
+      cookies: req.cookies,
+      //baseUrl: req.url,
     }
   })
 }
