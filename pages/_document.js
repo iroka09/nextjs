@@ -1,10 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
 
-function Document(props) {
-  console.log(props)
-  console.log(NextScript)
-  return (
+export default ()=>(
     <Html>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,6 +15,3 @@ function Document(props) {
       </body>
     </Html>
   )
-}
-
-export default Document;

@@ -25,7 +25,8 @@ import Stack from '@mui/material/Stack';
 import Zoom from '@mui/material/Zoom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import TreeView from '@mui/lab/TreeView';
+//import TreeView from '@mui/lab/TreeView';
+//import TreeItem from '@mui/lab/TreeItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SaveIcon from '@mui/icons-material/Save';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -33,7 +34,6 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import PaletteIcon from '@mui/icons-material/Palette';
 import MenuIcon from '@mui/icons-material/Menu';
-import TreeItem from '@mui/lab/TreeItem';
 import {
   ThemeProvider,
   createTheme,
@@ -203,7 +203,7 @@ function App( {
   <Provider store={reduxStore}>
   <CookiesProvider>
     <Head>
-      <title>{pageProps.title}</title>
+      <title>{pageProps?.title || "No Title"}</title>
       {
         (pageProps.title?.toLowerCase()==="e-commerce") && 
           <>
@@ -213,6 +213,15 @@ function App( {
             <meta property="og:description" content="Reactjs Project on E-Commerce using NextJS and Material-UI by Iroka Tochukwu C" />
           </>
         }
+        {/*
+    <style jsx>{`
+     *, body{
+        background: red !important;
+        color: yellow;
+      }
+    `}
+    </style>
+    */}
     </Head>
     <CssBaseline />
 
