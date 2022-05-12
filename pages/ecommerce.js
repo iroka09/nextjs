@@ -181,8 +181,8 @@ function App(){
           <br/>
           <b>Total Amount:</b> {currency+getTotalAmount()}
           <br/>
+          <br/>
         </Typography>
-        
         <Button
           variant="contained"
           startIcon={<ShoppingCartCheckoutIcon/>
