@@ -81,6 +81,10 @@ function App(){
     setQuantity(Number(val))
   }
   
+  const handleCommingSoon = ()=>{
+    alert("Comming soon 😜")
+  }
+  
   const handleCloseModal = ()=>{
     setModalObj(obj=>({
       ...obj,
@@ -174,7 +178,7 @@ function App(){
      </CartContext.Provider>
      
       {(showAddedCartsOnly && itemList.filter(x=>x.addedToCart===true).length>0) && 
-      <div style={{margin:"20px 0"}}>
+      <div style={{margin:"20px 0", background: "#ddd"}}>
         <Divider sx={{my:3}}/>
         <Typography>
           <b>Total Items:</b> {itemList.filter(x=>x.addedToCart===true).length}
@@ -188,7 +192,7 @@ function App(){
           startIcon={<ShoppingCartCheckoutIcon/>
           }
           size="larger"
-          onClick={()=>alert("Comming soon 😜")}
+          onClick={handleCommingSoon}
         >
           BUY NOW
         </Button>
@@ -255,7 +259,7 @@ function RenderItems(){
           display="flex" 
           flexWrap="wrap"
           sx={{
-            bgColor: "secondary"
+            bgcolor: "#ddd"
           }}>
         {itemList.map(item=>(
           <Card key={item.id} sx={{
@@ -265,7 +269,7 @@ function RenderItems(){
             <div style={{padding: "5px 10px", position:"relative"}}>
            {item.addedToCart && <AddTaskIcon color="success" sx={{position:"absolute",top:7,right:7}} />
            }
-            <Typography color="primary" variant="h6">{item.name}</Typography>
+            <Typography color="primary" variant="h6">{item.name.toCapitalize()}</Typography>
            <Button sx={{my:2, color:"text.primary"}} onClick={()=>setModalObj(obj=>({
              show: true,
              itemId: item.id,
@@ -284,7 +288,7 @@ function RenderItems(){
               onClick={()=>handleAddToCart(item.id)}
               startIcon={item.addedToCart? <RemoveShoppingCartIcon/> :  <AddShoppingCartIcon/>}>
               {item.addedToCart?"REMOVE FROM CART":"ADD TO CART"}</Button>
-            {showAddedCartsOnly || <Button variant="contained" startIcon={<AttachMoneyIcon/>}>BUY NOW</Button>}
+            {showAddedCartsOnly || <Button variant="contained" startIcon={<AttachMoneyIcon/>} onClick={handleCommingSoon}>BUY NOW</Button>}
           </Stack>
         </div>
       </Card>
