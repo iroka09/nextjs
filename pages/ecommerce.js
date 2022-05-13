@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack"
 import Box from "@mui/material/Box"
 import CircularProgress from "@mui/material/CircularProgress"
 import Card from "@mui/material/Card"
+import Paper from "@mui/material/Paper"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography";
 import {useTheme} from "@mui/material/styles"
@@ -173,17 +174,17 @@ function App(){
           isLoading,
           showAddedCartsOnly,
           setModalObj,
+          handleCommingSoon
       }}>
         <RenderItems />
      </CartContext.Provider>
      
       {(showAddedCartsOnly && itemList.filter(x=>x.addedToCart===true).length>0) && 
-      <div style={{margin:"20px 0", background: (theme.palette.mode==="light")?"#ddd":"initial"}}>
-        <Divider sx={{my:3}}/>
+      <Paper sx={{mt:"20px", mb:2, p: "10px"}}>
         <Typography>
-          <b>Total Items:</b> {itemList.filter(x=>x.addedToCart===true).length}
+          <b>Total Items:</b> <span style={{color: "tomato"}}>{itemList.filter(x=>x.addedToCart===true).length}</span>
           <br/>
-          <b>Total Amount:</b> {currency+getTotalAmount()}
+          <b>Total Amount:</b> <span style={{color: "tomato"}}>{currency+getTotalAmount()}</span>
           <br/>
           <br/>
         </Typography>
@@ -196,7 +197,7 @@ function App(){
         >
           BUY NOW
         </Button>
-      </div>
+      </Paper>
     }
     
       <Modal
@@ -231,7 +232,7 @@ function App(){
 
 
 function RenderItems(){
-  const {itemList, handleAddToCart, handleSetShowAddedCartsOnly, showAddedCartsOnly, isLoading, setModalObj} = useContext(CartContext)
+  const {itemList, handleAddToCart, handleSetShowAddedCartsOnly, showAddedCartsOnly, isLoading, setModalObj, handleCommingSoon} = useContext(CartContext)
   return(
     <>
       {(itemList.length === 0 || isLoading) ?
@@ -259,7 +260,7 @@ function RenderItems(){
           display="flex" 
           flexWrap="wrap"
           sx={{
-            bgcolor: "#ddd"
+            //bgcolor: "#ddd"
           }}>
         {itemList.map(item=>(
           <Card key={item.id} sx={{
@@ -277,7 +278,7 @@ function RenderItems(){
            size="small"
            startIcon={<ExpandMoreIcon/>}
            >
-            Select Quantity ({item.quantity})
+            Select Quantity (<span style={{color: "tomato"}}>{item.quantity}</span>)
            </Button>
             <Typography variant="h4" s={{mt:2,mb:1}}>
             {currency+item.price}

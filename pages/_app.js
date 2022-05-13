@@ -171,6 +171,12 @@ function App( {
   ),
     [isDarkMode,
       appliedTheme]);
+      
+  useEffect(()=>{
+    if(theme.palette.mode === "light") {
+      document.body.style.backgroundColor = "#f0f0f0";
+    }
+  }, [theme.palette.mode])
 
   const disableScroll = ()=> {
     document.body.style.overflow = "hidden"
@@ -343,8 +349,7 @@ function App( {
   </noscript>
   <Component {...pageProps} />
   </Container>
-  <footer style={ { backgroundColor: theme.palette.divider,
-      padding: "5px" }}>
+  <footer style={{backgroundColor: "#000", color: "#fff", padding: "10px" }}>
     <Typography color="primary">
       Customer Care
     </Typography>
