@@ -178,7 +178,7 @@ function App(){
      </CartContext.Provider>
      
       {(showAddedCartsOnly && itemList.filter(x=>x.addedToCart===true).length>0) && 
-      <div style={{margin:"20px 0", background: "#ddd"}}>
+      <div style={{margin:"20px 0", background: (theme.palette.mode==="light")?"#ddd":"initial"}}>
         <Divider sx={{my:3}}/>
         <Typography>
           <b>Total Items:</b> {itemList.filter(x=>x.addedToCart===true).length}
