@@ -173,8 +173,11 @@ function App( {
       appliedTheme]);
       
   useEffect(()=>{
-    if(theme.palette.mode === "light") {
+    if(theme.palette.mode === "light"){
       document.body.style.backgroundColor = "#f0f0f0";
+      }
+    else {
+      document.body.style.backgroundColor = "#000";
     }
   }, [theme.palette.mode])
 

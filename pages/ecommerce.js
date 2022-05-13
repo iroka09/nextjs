@@ -66,7 +66,7 @@ const stockItems = [
     
 function App(){
   const theme = useTheme();
-  console.log(theme.palette.text)
+  // console.log(theme.palette.text)
   const [showAddedCartsOnly, setShowAddedCartsOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [totalItemsPrice, setTotalItemsPrice] = useState()
