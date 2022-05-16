@@ -45,7 +45,6 @@ const list = "Profile, Account, Settings, Logout".split(", ")
           vertical: 'top',
           horizontal: 'center',
         }}
-      transitionComponent={Zoom} 
       >
       {
         list.map((name, i)=>(

@@ -1,19 +1,24 @@
-import React, {useState, memo, createContext, useContext} from "react";
+import React, {useState, memo, createContext, useContext, useEffect, useMemo, useCallback} from "react";
 import random from "random"
 import Stack from "@mui/material/Stack"
 import Box from "@mui/material/Box"
 import CircularProgress from "@mui/material/CircularProgress"
-import Card from "@mui/material/Card"
 import Paper from "@mui/material/Paper"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography";
 import {useTheme} from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
 import Fab from "@mui/material/Fab"
-import Fade from "@mui/material/Fade"
+import Slide from "@mui/material/Slide"
 import Divider from "@mui/material/Divider"
 import TextField from "@mui/material/TextField"
-import Modal from "@mui/material/Modal"
+import Dialog from "@mui/material/Dialog"
+import DialogContent from "@mui/material/DialogContent"
+//import DialogContentText from "@mui/material/DialogContentText"
+import DialogActions from "@mui/material/DialogActions"
+import DialogTitle from "@mui/material/DialogTitle"
+import Zoom from "@mui/material/Zoom"
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
@@ -22,21 +27,25 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 import AddTaskIcon from "@mui/icons-material/AddTask"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import ExpandLessIcon from "@mui/icons-material/ExpandLess"
+import RenderItems from "../components/EcommerceRenderItems"
 
 import Image from "next/image"
+import Draggable from "react-draggable"
 import {LoremIpsum} from "lorem-ipsum"
 
-const currency = "$";
-const CartContext = createContext()
-const HeadPasserContext = createContext()
-const lorem = new LoremIpsum()
-String.prototype.toCapitalize = function(){
-  return (this).replace(/\s+/g, " ")
-  .split(" ").map(str=>{
-    return str[0]?.toUpperCase()+str.slice(1)?.toLowerCase()
-  })
+export const CartContext = createContext();
+
+export const capitalize = function(text){
+  return text?.replace(/\s+/g, " ")
+  .split(" ")
+  .map(str=> str[0]?.toUpperCase()+str.slice(1)?.toLowerCase())
   .join(" ");
 }
+
+const lorem = new LoremIpsum()
+const currency = "$"
+
 const stockItems = [
       {
         id: 1,
@@ -64,37 +73,47 @@ const stockItems = [
       })),
     ];
     
+const Transition = React.forwardRef((props, ref)=>{
+  return <Slide direction="up" ref={ref} {...props} />
+})
+    
 function App(){
   const theme = useTheme();
+  const scrollTopButtonRef = React.createRef()
   // console.log(theme.palette.text)
   const [showAddedCartsOnly, setShowAddedCartsOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [totalItemsPrice, setTotalItemsPrice] = useState()
   const [itemList, setItemList] = useState(stockItems);
   const [quantity, setQuantity] = useState(NaN);
-  const [modalObj, setModalObj] = useState({
-    show: false,
+  const [bodyWidth, setBodyWidth] = useState(100);
+  const [bodyHeight, setBodyHeight] = useState(100);
+  const [clientHeight, setClientHeight] = useState(100);
+  const [showFab, setShowFab] = useState(false);
+  
+  const [dialogObj, setDialogObj] = useState({
+    showDialog: false,
     itemId: 0,
   });
   
-  const handleQuatity = (e)=>{
+  const handleQuatity = useCallback((e)=>{
     let val = e.target.value
     setQuantity(Number(val))
-  }
+  })
   
-  const handleCommingSoon = ()=>{
+  const handleCommingSoon = useCallback(()=>{
     alert("Comming soon 😜")
-  }
+  })
   
-  const handleCloseModal = ()=>{
-    setModalObj(obj=>({
+  const handleCloseDialog = useCallback(()=>{
+    setDialogObj(obj=>({
       ...obj,
-      show: false
+      showDialog: false
     }));
     setQuantity(NaN);
-  }
+  })
   
-  const handleApplyQuantity = (id)=>{
+  const handleApplyQuantity = useCallback((id)=>{
     if(!Number.isInteger(quantity) || quantity<1){
       alert("Sorry, the value you entered is not allowed.");
       return;
@@ -106,36 +125,72 @@ function App(){
       return item
     })
     setItemList(newList)
-    handleCloseModal()
-  }
+    handleCloseDialog()
+  })
   
-  const handleAddToCart = (id)=>{
-    let newList = itemList.map(item=>{
-      if(item.id === id){
-         item.addedToCart = !item.addedToCart
-      }
-      return item
+  const handleAddToCart = useCallback((id)=>{
+    setItemList((items)=>{
+      let newList = items.map(item=>{
+        if(item.id === id){
+          item.addedToCart = !item.addedToCart
+        }
+        return item
+      })
+      return newList
     })
-    setItemList(newList)
-  }
+  })
     
-  const handleSetShowAddedCartsOnly = bool=> ()=>{
+  const handleSetShowAddedCartsOnly = useCallback((bool)=> ()=>{
     if(showAddedCartsOnly===bool) return;
     setIsLoading(true);
     setTimeout(function() {
       setIsLoading(false);
       setShowAddedCartsOnly(bool)
     }, random.int(500, 2000));
-  }
+  })
   
-  const getTotalAmount = (val)=>{
+  const getTotalAmount = useCallback((val)=>{
     let amount = val || 0;
     val || itemList.filter(x=>x.addedToCart===true).forEach(item=>{
       amount += (item.quantity*item.price)
     });
     return (+amount.toFixed(2)).toLocaleString("en");
-  }
-    
+  })
+  
+  useEffect(()=>{
+    let container = document.querySelector(".MuiContainer-root");
+    let width = container.clientWidth;
+    let height = container.scrollHeight;
+    let _clientHeight = container.clientHeight;
+    setBodyWidth(width);
+    setBodyHeight(height)
+    setClientHeight(_clientHeight)
+  }, [])
+  
+  useEffect(function (){
+    const FabEvent = ()=>{
+      window.scroll({
+        top: 100,
+        left: 100,
+        behavior: 'smooth'
+      });
+    }
+    const scrollEvent = ()=>{
+      if(window.pageYOffset > 100){
+        setShowFab(true);
+      }
+      else {
+        setShowFab(false)
+      }
+    }
+   window.addEventListener("scroll", scrollEvent);
+    scrollTopButtonRef.current.addEventListener("click", FabEvent);
+    return ()=> {
+      window.removeEventListener("scroll", scrollEvent);
+      scrollTopButtonRef.current.removeEventListener("click", FabEvent);
+    }
+  }, [])
+  
   return(
     <>
       {showAddedCartsOnly &&
@@ -145,18 +200,30 @@ function App(){
             Back To Items
         </Button>
       }
-   <div style={{position:"sticky", top:70, display:"flex", zIndex:theme.zIndex.appBar-1}}>
+      
+    <Zoom in={showFab}> 
+    <Fab
+      color="error"
+      ref={scrollTopButtonRef}
+      sx={{position:"fixed", zIndex: theme.zIndex.speedDial, bottom: 40, right: 30}}
+    >
+      <ExpandLessIcon sx={{fontSize: 30}}/>
+    </Fab>
+    </Zoom>
+  
       <Badge 
         badgeContent={
         itemList.filter(item=>item.addedToCart===true).length
         } 
         max={99}
-        color="success"
-        sx={{ml: "auto", mr:"5px"}}
-        onClick={handleSetShowAddedCartsOnly(true)}>
+        color="error"
+        sx={{position:"fixed", zIndex: theme.zIndex.speedDial, top:80, right: 20}}
+        onClick={handleSetShowAddedCartsOnly(true)}
+        >
           <ShoppingCartIcon 
             sx={{
               fontSize: 40,
+              color: "warning",
               transition: "0.3s",
                "&:active":  {
                 color: "primary.main",
@@ -164,7 +231,6 @@ function App(){
             }}
             />
       </Badge>
-    </div>
     
       <CartContext.Provider 
         value={{
@@ -173,20 +239,19 @@ function App(){
           handleSetShowAddedCartsOnly,
           isLoading,
           showAddedCartsOnly,
-          setModalObj,
+          setDialogObj,
+          currency,
           handleCommingSoon
-      }}>
+        }}>
         <RenderItems />
-     </CartContext.Provider>
+      </CartContext.Provider>
      
       {(showAddedCartsOnly && itemList.filter(x=>x.addedToCart===true).length>0) && 
       <Paper sx={{mt:"20px", mb:2, p: "10px"}}>
-        <Typography>
+        <Typography sx={{mb: 2}}>
           <b>Total Items:</b> <span style={{color: "tomato"}}>{itemList.filter(x=>x.addedToCart===true).length}</span>
           <br/>
           <b>Total Amount:</b> <span style={{color: "tomato"}}>{currency+getTotalAmount()}</span>
-          <br/>
-          <br/>
         </Typography>
         <Button
           variant="contained"
@@ -200,109 +265,31 @@ function App(){
       </Paper>
     }
     
-      <Modal
-        open={modalObj.show}
-        onClose={handleCloseModal}
-        >
-        <Box sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: {xs:"95%", sm:500},
-          bgcolor: 'background.paper',
-          boxShadow: 24,
-          p: 2,
-        }}>
-          <Typography variant="h5">{itemList.find(obj=> obj.id===modalObj.itemId)?.name}
+      <Dialog
+        open={dialogObj.showDialog}
+        onClose={handleCloseDialog}
+        TransitionComponent={Transition}
+      >
+        <DialogTitle>
+          <Typography variant="h5" 
+          >{capitalize(itemList.find(obj=> obj.id===dialogObj.itemId)?.name)}
           </Typography>
-          <Divider sx={{my:2}}/>
-          <div style={{dislay:"flex",justifyContent:"center"}}>
-            <TextField label="Item Quantity" onChange={handleQuatity} type="number"/>
-          </div>
-          <Divider sx={{my:2}}/>
-          <Button variant="contained" fullWidth onClick={()=>handleApplyQuantity(modalObj.itemId)}>
-            Apply Change
+        </DialogTitle>
+        <DialogContent dividers>
+          <TextField variant="standard" label="Item Quantity" onChange={handleQuatity} type="number" autoFocus/>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={()=>handleApplyQuantity(dialogObj.itemId)}>
+            Apply 
           </Button>
-        </Box>
-      </Modal>
+        </DialogActions>
+      </Dialog>
   </>
 )}
 
 
-
-function RenderItems(){
-  const {itemList, handleAddToCart, handleSetShowAddedCartsOnly, showAddedCartsOnly, isLoading, setModalObj, handleCommingSoon} = useContext(CartContext)
-  return(
-    <>
-      {(itemList.length === 0 || isLoading) ?
-        <Box 
-          sx={{height:"30vh", width:"100%"}} 
-          display="flex" 
-          justifyContent="center" 
-          alignItems="center"
-          >
-          {(isLoading)? <CircularProgress/> : 
-          <Stack spacing={3} alignItems="center">
-            <Typography variant="h4" color="text.disabled" sx={{fontWeight: 200}}>(Empty)</Typography>
-            <Button 
-              onClick={handleSetShowAddedCartsOnly(false)}
-              size="large"
-              startIcon={<AddShoppingCartIcon/>}
-              >
-              Add To Cart
-            </Button>
-          </Stack>
-          }
-        </Box> 
-        :
-        <Box 
-          display="flex" 
-          flexWrap="wrap"
-          sx={{
-            //bgcolor: "#ddd"
-          }}>
-        {itemList.map(item=>(
-          <Card key={item.id} sx={{
-          width:{xs:"100%", sm: "300px"}, mx:1, mb:2, pb:2,
-          }}>
-            <img src={item.src} style={{width:"100%", height:"200px", objectFit:"cover"}} alt="Item picture"/>
-            <div style={{padding: "5px 10px", position:"relative"}}>
-           {item.addedToCart && <AddTaskIcon color="success" sx={{position:"absolute",top:7,right:7}} />
-           }
-            <Typography color="primary" variant="h6">{item.name.toCapitalize()}</Typography>
-           <Button sx={{my:2, color:"text.primary"}} onClick={()=>setModalObj(obj=>({
-             show: true,
-             itemId: item.id,
-           }))} 
-           size="small"
-           startIcon={<ExpandMoreIcon/>}
-           >
-            Select Quantity (<span style={{color: "tomato"}}>{item.quantity}</span>)
-           </Button>
-            <Typography variant="h4" s={{mt:2,mb:1}}>
-            {currency+item.price}
-          </Typography>
-          <Stack spacing={1} sx={{mt:1}}>
-            <Button
-              variant="outlined"
-              onClick={()=>handleAddToCart(item.id)}
-              startIcon={item.addedToCart? <RemoveShoppingCartIcon/> :  <AddShoppingCartIcon/>}>
-              {item.addedToCart?"REMOVE FROM CART":"ADD TO CART"}</Button>
-            {showAddedCartsOnly || <Button variant="contained" startIcon={<AttachMoneyIcon/>} onClick={handleCommingSoon}>BUY NOW</Button>}
-          </Stack>
-        </div>
-      </Card>
-    ))}
-    </Box>}
-
-  </>)
-}
-
-
-
 export function getServerSideProps({req}){
-  // console.log(req)
+   //console.log(req.protocol)
   return ({
     props: {
       title: "E-Commerce",

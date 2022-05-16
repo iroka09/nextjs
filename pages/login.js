@@ -68,7 +68,10 @@ export default function App(props) {
     px:1,
     display: "flex",
     alignItems:"center",
-    maxWidth: "80%",
+    maxWidth: {
+      xs: "100%",
+      sm: "500px",
+    },
     mx: "auto",
     mt: 0,
     color: "#888"
@@ -88,7 +91,7 @@ export default function App(props) {
         justifyContent: "center",
         alignItems: "center",
         boxSizing: "border-box",
-        maxWidth: "90vw",
+        maxWidth: "500px",
         pt: 3,
         pb: 2,
         my:8,
@@ -140,13 +143,9 @@ export default function App(props) {
       <Button 
         variant="contained"
         type="submit"
-        sx={(theme)=>({
+        sx={{
           mt: 1,
-          boxShadow: `none`,
-          "&:hover": {
-            boxShadow: (theme.palette.mode==="light")? `0 20px 25px -5px ${theme.palette.primary.light}` : "none",
-          }
-        })}
+        }}
         fullWidth
         onClick={handleSubmit}
       >

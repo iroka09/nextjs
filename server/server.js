@@ -13,6 +13,7 @@ const rootdir = process.cwd()
 const uploaddir = rootdir+"/uploads"
 const isDev = process.env.NODE_ENV !== "production";
 
+
 const nextApp = next({
   dev: isDev,
 });
@@ -34,6 +35,16 @@ nextApp.prepare().then(()=>{
     multiples: true,
     maxFileSize: bytes("300MB")
   }));
+  
+//REDIRECT TO HTTPS (SECURED)
+app.use((req,res,next)=>{
+  if(!isDev && req.protocol === "http") {
+    app.enable("trust proxy");
+    res.redirect("https://"+req.header("host")+req.url);
+    return 
+  }
+  next();
+})
   
   app.get("/", (req,res)=>{
     nextApp.render(req, res, "/")

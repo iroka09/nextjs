@@ -6,12 +6,14 @@ import Head from "next/head"
 import Container from "@mui/material/Container"
 import CssBaseline from "@mui/material/CssBaseline"
 import Box from "@mui/material/Box"
+import ListItemIcon from "@mui/material/ListItemIcon"
 import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
 import InputBase from "@mui/material/InputBase"
 import Alert from "@mui/material/Alert"
 import Typography from "@mui/material/Typography"
 import AppBar from "@mui/material/AppBar"
+import Toolbar from "@mui/material/Toolbar"
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Drawer from '@mui/material/Drawer';
 import Collapse from '@mui/material/Collapse';
@@ -29,6 +31,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 //import TreeItem from '@mui/lab/TreeItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SaveIcon from '@mui/icons-material/Save';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -55,12 +58,16 @@ const cookieOptions = {
   maxAge: 60*60*24*30 //1 month
 }
 
+// import * as ButtonClasses from "@mui/material/Button"
+
 
 
 function App( {
   Component, pageProps
 }) {
-
+  
+  // console.log(ButtonClasses.buttonClasses)
+  
   const [isDrawerOpen,
     setIsDrawerOpen] = React.useState(false);
   
@@ -91,6 +98,9 @@ function App( {
   const [anchorEl,
     setAnchorEl] = React.useState();
 
+const [menuAnchor, setMenuAnchor] = React.useState(null);
+const menuRef = React.createRef()
+
   const ele = React.useRef();
 
   const isThemeCodesMenuOpen = Boolean(anchorEl);
@@ -102,6 +112,7 @@ function App( {
   const handleAppliedTheme = ()=> {
     setAppliedTheme(themeCode?.split("_index=")[0]);
     setCookie("themeCode", themeCode, cookieOptions);
+    setIsPaletteIn(false)
   }
 
   const handleCloseThemeCodesMenu = (byButton, hex, i) => {
@@ -140,11 +151,11 @@ function App( {
       palette: {
         mode: isDarkMode? "dark": "light",
         ...(appliedTheme?
-          {
-            primary: {
-              main: appliedTheme
-            }
-          }: {})
+        {
+          primary: {
+            main: appliedTheme
+          }
+        } : {})
       },
       typography: {
         fontFamily: '"Dosis", "Smooch Sans", "Roboto", "Helvetica", "Arial", sans-serif',
@@ -152,20 +163,30 @@ function App( {
           textTransform: "initial"
         }
       },
+      //styleOverrides, defaultProps, variants
       components: {
-        MuiPaper: {
+        MuiButton: {
           styleOverrides: {
             root: {
-              border: "none"
+              textTransform: "initial"
             }
           }
         },
         MuiButton: {
           defaultProps: {
             disableRipple: false,
-            //variant: "outlined"
           }
-        }
+        },
+        MuiButton: {
+          variants: [
+            {
+              props: {variant: "contained", name: "iroka"},
+              style: {
+                borderRadius: 1
+              }
+            }
+          ]
+        },
       }
     })
   ),
@@ -234,29 +255,30 @@ function App( {
     </Head>
     <CssBaseline />
 
-  <AppBar sx={ {
-      px: 1,
-      py: 0.6
-    }}>
-    <div style={ { display: "flex",
-        alignItems: "center" }}>
-      <IconButton sx={appBarColor} onClick={()=>setIsDrawerOpen(true)}>
+  <AppBar position="fixed">
+    <Toolbar>
+  
+      <IconButton sx={{...appBarColor, mr:"auto"}} onClick={()=>setIsDrawerOpen(true)} edge="start">
         <MenuIcon />
       </IconButton>
+      
       <div style={ {
           padding: "0 20px",
           borderRadius: 4,
           maxWidth: "70%",
           backgroundColor: "rgba(225,225,225,0.14)",
-          marginLeft: 2,
+          marginLeft: 20,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}>
         <InputBase placeholder="Search word..." sx={appBarColor} />
       </div>
-      <IconButton
-        sx={{ml:"auto", ...appBarColor}}
+    
+      
+    
+        <IconButton
+        sx={{ml:"auto", ...appBarColor, display:{xs:"none",sm:"initial"}}}
         onClick={()=> {
           if (isDarkMode) {
             setDarkMode(false)
@@ -270,11 +292,72 @@ function App( {
       </IconButton>
       <Divider sx={ { m: "0 3px",
           backgroundColor: appBarColor.color,
-          height: 22 }} orientation="vertical" />
-      <IconButton onClick={()=>setIsPaletteIn(x=>!x)}>
+          height: 22, display:{xs:"none",sm:"initial"}}} orientation="vertical" />
+      <IconButton onClick={()=>setIsPaletteIn(x=>!x)} sx={{display:{xs:"none",sm:"initial"}}}>
         <PaletteIcon/>  
       </IconButton>
-    </div>
+      
+      <IconButton
+        edge="end"
+        sx={{
+          display:{xs:"initial",sm:"none"},
+          ...appBarColor,
+          ml: "auto",
+        }}
+        onClick={()=>setMenuAnchor(menuRef)}>
+        <MoreVertIcon />
+      </IconButton>
+      
+      <Menu
+        anchorEl={menuAnchor}
+        open={!!menuAnchor}
+        onClose={()=>setMenuAnchor(null)}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem onClick={()=>{
+          setMenuAnchor(null);
+          setIsPaletteIn(true)
+        }}>
+          <ListItemIcon>
+            <PaletteIcon/> 
+          </ListItemIcon>
+           Choose Theme
+        </MenuItem>
+        <MenuItem
+          onClick={()=> {
+          if (isDarkMode) {
+            setDarkMode(false)
+            removeCookie("isDarkMode")
+          } else {
+            setDarkMode(true)
+            setCookie("isDarkMode", "yes", cookieOptions)
+          }
+        }}>
+        {(isDarkMode)? 
+        (<> 
+          <ListItemIcon>
+            <LightModeIcon /> 
+          </ListItemIcon>
+            Light Mode
+        </>) : 
+        (<>
+          <ListItemIcon>
+            <DarkModeIcon /> 
+          </ListItemIcon>
+            Dark Mode
+        </>)
+        }
+        </MenuItem>
+      </Menu>
+      
+    </Toolbar>
     <Collapse in={isPaletteIn}>
   <div style={ {
         margin: "10px 0 30px",
@@ -284,8 +367,8 @@ function App( {
         color: "white"
       }}>
   <ButtonGroup
-        variant="text"
-        >
+    variant="text"
+    >
     <Button
           sx={ { flex: 1, color: "white" }}
           ref={ele}
@@ -307,11 +390,11 @@ function App( {
         anchorEl={anchorEl}
         open={isThemeCodesMenuOpen}
         onClose={handleCloseThemeCodesMenu}
-        anchorOrigin={ {
+        anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
         }}
-        transformOrigin={ {
+        transformOrigin={{
           vertical: 'top',
           horizontal: 'center',
         }}
@@ -337,7 +420,7 @@ function App( {
     </div>
     </Collapse>
   </AppBar>
-      <Container>
+      <Container >
 
   <div style={ { height: 60 }}></div>
 
@@ -352,7 +435,8 @@ function App( {
   </noscript>
   <Component {...pageProps} />
   </Container>
-  <footer style={{backgroundColor: "#000", color: "#fff", padding: "10px" }}>
+  
+  <footer style={{backgroundColor: "#000", color: "#fff", padding: "10px", marginTop: 50 }}>
     <Typography color="primary">
       Customer Care
     </Typography>
