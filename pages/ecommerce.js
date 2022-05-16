@@ -170,18 +170,13 @@ function App(){
   useEffect(function (){
     const FabEvent = ()=>{
       window.scroll({
-        top: 100,
-        left: 100,
+        top: 0,
+        left: 0,
         behavior: 'smooth'
       });
     }
     const scrollEvent = ()=>{
-      if(window.pageYOffset > 100){
-        setShowFab(true);
-      }
-      else {
-        setShowFab(false)
-      }
+      (window.pageYOffset > 200)? setShowFab(true) : setShowFab(false)
     }
    window.addEventListener("scroll", scrollEvent);
     scrollTopButtonRef.current.addEventListener("click", FabEvent);
