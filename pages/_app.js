@@ -5,6 +5,8 @@ import React, {
 import Head from "next/head"
 import Container from "@mui/material/Container"
 import CssBaseline from "@mui/material/CssBaseline"
+import Fab from "@mui/material/Fab"
+import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 import Box from "@mui/material/Box"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import Divider from "@mui/material/Divider"
@@ -67,7 +69,8 @@ function App( {
 }) {
   
   // console.log(ButtonClasses.buttonClasses)
-  
+  const scrollTopButtonRef = React.createRef();
+  const [showFab, setShowFab] = useState(false);
   const [isDrawerOpen,
     setIsDrawerOpen] = React.useState(false);
   
@@ -172,19 +175,31 @@ const menuRef = React.createRef()
             }
           }
         },
-        MuiButton: {
+        MuiFab: {
           defaultProps: {
-            disableRipple: false,
+            disableRipple: true,
           }
         },
-        MuiButton: {
+        MuiBox: {
           variants: [
             {
-              props: {variant: "contained", name: "iroka"},
-              style: {
-                borderRadius: 1
-              }
-            }
+              props: {variant: "xsDisplay"},
+              style: sx({
+                display: {
+                  xs: "initial",
+                  sm: "none",
+                }
+              })
+            },
+            {
+              props: {variant: "smDisplay"},
+              style: sx({
+                display: {
+                  xs: "none",
+                  sm: "initial",
+                }
+              })
+            },
           ]
         },
       }
@@ -220,6 +235,28 @@ const menuRef = React.createRef()
       return ()=>clearTimeout(fn)
     }
   });
+
+
+  useEffect(function (){
+    const FabEvent = ()=>{
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
+    const scrollEvent = ()=>{
+      (window.pageYOffset > 200)? setShowFab(true) : setShowFab(false)
+    }
+   window.addEventListener("scroll", scrollEvent);
+    scrollTopButtonRef.current.addEventListener("click", FabEvent);
+    return ()=> {
+      alert(5)
+      window.removeEventListener("scroll", scrollEvent);
+      scrollTopButtonRef.current.removeEventListener("click", FabEvent);
+    }
+  }, [])
+  
 
   const appBarColor = sx((x)=> {
     //console.log(x);
@@ -435,6 +472,18 @@ const menuRef = React.createRef()
   </noscript>
   <Component {...pageProps} />
   </Container>
+  
+    
+    <Zoom in={showFab}> 
+    <Fab
+      color="error"
+      ref={scrollTopButtonRef}
+      sx={{position:"fixed", zIndex: theme.zIndex.speedDial, bottom: 40, right: 30}}
+    >
+      <ExpandLessIcon sx={{fontSize: 30}}/>
+    </Fab>
+    </Zoom>
+  
   
   <footer style={{backgroundColor: "#000", color: "#fff", padding: "10px", marginTop: 50 }}>
     <Typography color="primary">

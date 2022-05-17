@@ -8,7 +8,6 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography";
 import {useTheme} from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
-import Fab from "@mui/material/Fab"
 import Slide from "@mui/material/Slide"
 import Divider from "@mui/material/Divider"
 import TextField from "@mui/material/TextField"
@@ -17,8 +16,6 @@ import DialogContent from "@mui/material/DialogContent"
 //import DialogContentText from "@mui/material/DialogContentText"
 import DialogActions from "@mui/material/DialogActions"
 import DialogTitle from "@mui/material/DialogTitle"
-import Zoom from "@mui/material/Zoom"
-
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
@@ -27,7 +24,6 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 import AddTaskIcon from "@mui/icons-material/AddTask"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 import RenderItems from "../components/EcommerceRenderItems"
 
 import Image from "next/image"
@@ -63,9 +59,9 @@ const stockItems = [
         addedToCart: false,
         quantity: 1,
       },
-      ...[...new Array(random.int(8,15))].map(()=>({
+      ...[...new Array(random.int(15,20))].map(()=>({
         id: Math.random(),
-        name: lorem.generateWords(1),
+        name: lorem.generateWords(2),
         src: `https://picsum.photos/300/200?x=${Math.random()}`,
         price: random.int(10, 200)+"."+random.int(10,99),
         addedToCart: false,
@@ -79,7 +75,6 @@ const Transition = React.forwardRef((props, ref)=>{
     
 function App(){
   const theme = useTheme();
-  const scrollTopButtonRef = React.createRef()
   // console.log(theme.palette.text)
   const [showAddedCartsOnly, setShowAddedCartsOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -89,7 +84,7 @@ function App(){
   const [bodyWidth, setBodyWidth] = useState(100);
   const [bodyHeight, setBodyHeight] = useState(100);
   const [clientHeight, setClientHeight] = useState(100);
-  const [showFab, setShowFab] = useState(false);
+  
   
   const [dialogObj, setDialogObj] = useState({
     showDialog: false,
@@ -167,25 +162,6 @@ function App(){
     setClientHeight(_clientHeight)
   }, [])
   
-  useEffect(function (){
-    const FabEvent = ()=>{
-      window.scroll({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-      });
-    }
-    const scrollEvent = ()=>{
-      (window.pageYOffset > 200)? setShowFab(true) : setShowFab(false)
-    }
-   window.addEventListener("scroll", scrollEvent);
-    scrollTopButtonRef.current.addEventListener("click", FabEvent);
-    return ()=> {
-      window.removeEventListener("scroll", scrollEvent);
-      scrollTopButtonRef.current.removeEventListener("click", FabEvent);
-    }
-  }, [])
-  
   return(
     <>
       {showAddedCartsOnly &&
@@ -195,24 +171,14 @@ function App(){
             Back To Items
         </Button>
       }
-      
-    <Zoom in={showFab}> 
-    <Fab
-      color="error"
-      ref={scrollTopButtonRef}
-      sx={{position:"fixed", zIndex: theme.zIndex.speedDial, bottom: 40, right: 30}}
-    >
-      <ExpandLessIcon sx={{fontSize: 30}}/>
-    </Fab>
-    </Zoom>
-  
+    
       <Badge 
         badgeContent={
         itemList.filter(item=>item.addedToCart===true).length
         } 
         max={99}
         color="error"
-        sx={{position:"fixed", zIndex: theme.zIndex.speedDial, top:80, right: 20}}
+        sx={{position:"fixed", zIndex: theme.zIndex.speedDial, top:80, right: 25}}
         onClick={handleSetShowAddedCartsOnly(true)}
         >
           <ShoppingCartIcon 
