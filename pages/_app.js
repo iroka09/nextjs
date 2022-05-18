@@ -1,6 +1,6 @@
 import React, {
   useState,
-  useEffect
+  useEffect,
 } from "react";
 import Head from "next/head"
 import Container from "@mui/material/Container"
@@ -32,7 +32,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 //import TreeView from '@mui/lab/TreeView';
 //import TreeItem from '@mui/lab/TreeItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import SaveIcon from '@mui/icons-material/Save';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -67,8 +66,6 @@ const cookieOptions = {
 function App( {
   Component, pageProps
 }) {
-  
-  // console.log(ButtonClasses.buttonClasses)
   const scrollTopButtonRef = React.createRef();
   const [showFab, setShowFab] = useState(false);
   const [isDrawerOpen,
@@ -177,7 +174,8 @@ const menuRef = React.createRef()
         },
         MuiFab: {
           defaultProps: {
-            disableRipple: true,
+            disableRipple: false,
+            opacity: 0.5
           }
         },
         MuiBox: {

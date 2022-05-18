@@ -8,3 +8,15 @@ body {
   padding: 0;
   margin: 0;
 }
+
+@keyframes answer {
+  0% {
+    backgroundColor: #5b5;
+  }
+  50% {
+    backgroundColor: #5b5;
+  }
+  100% {
+    backgroundColor: #5b5
+  }
+}

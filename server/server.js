@@ -5,6 +5,7 @@ const expressFormidable = require("express-formidable");
 const bytes = require("bytes");
 const cors = require("cors");
 const fs = require("fs");
+const axios = require("axios")
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -81,7 +82,19 @@ app.use((req,res,next)=>{
     })
   });
   
-  
+  app.get("/questions", async (req,res)=>{
+    try{
+      if(!isDev){
+        throw "error"
+      }
+      req.questions = JSON.parse(fs.readFileSync("./questions.json").toString())
+    }
+    catch(err){
+      let resp = await axios.get("https://opentdb.com/api.php?amount=50");
+      req.questions = resp.data;
+    }
+    nextHandler(req, res)
+  })
   
   //this one is very import because nextjs also requests for other paths apart from /login on its own which it uses to render those page components
   app.all("*", (req, res)=>{

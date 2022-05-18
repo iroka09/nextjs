@@ -1,5 +1,6 @@
 import React, {useState, memo, createContext, useContext, useEffect, useMemo, useCallback} from "react";
 import random from "random"
+import axios from "axios"
 import Stack from "@mui/material/Stack"
 import Box from "@mui/material/Box"
 import CircularProgress from "@mui/material/CircularProgress"
@@ -152,16 +153,6 @@ function App(){
     return (+amount.toFixed(2)).toLocaleString("en");
   })
   
-  useEffect(()=>{
-    let container = document.querySelector(".MuiContainer-root");
-    let width = container.clientWidth;
-    let height = container.scrollHeight;
-    let _clientHeight = container.clientHeight;
-    setBodyWidth(width);
-    setBodyHeight(height)
-    setClientHeight(_clientHeight)
-  }, [])
-  
   return(
     <>
       {showAddedCartsOnly &&
@@ -250,7 +241,16 @@ function App(){
 
 
 export function getServerSideProps({req}){
-   //console.log(req.protocol)
+  axios({
+    method: "get",
+    url: "https://opentdb.com/api.php?amount=50",
+  })
+  .then(data=>{
+    console.log(data)
+  })
+  .catch(err=>{
+    console.log(err)
+  });
   return ({
     props: {
       title: "E-Commerce",
