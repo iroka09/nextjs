@@ -10,13 +10,7 @@ body {
 }
 
 @keyframes answer {
-  0% {
-    backgroundColor: #5b5;
-  }
   50% {
-    backgroundColor: #5b5;
-  }
-  100% {
-    backgroundColor: #5b5
+    background-color: #5c5;
   }
 }

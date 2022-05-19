@@ -4,6 +4,7 @@ import random from "random"
 import Paper from "@mui/material/Paper"
 import {useTheme} from "@mui/material/styles"
 import Box from "@mui/material/Box"
+import Fade from "@mui/material/Fade"
 import Grid from "@mui/material/Grid"
 import Fab from "@mui/material/Fab"
 import Divider from "@mui/material/Divider"
@@ -18,7 +19,7 @@ const colorArray = "primary, secondary, error, warning, info".split(", ")
 function App({questionsObj}){
   const theme = useTheme()
   const [qNum, setQNum] = useState(0);
-  const [showNextBtn, setShowNextBtn] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
   const [answered, setAnswered] = useState({
     bool: false,
     clickedIndex: NaN
@@ -33,8 +34,11 @@ function App({questionsObj}){
     return x;
   }, [qNum]);
   
-  const handleAnswerClick = (i)=>{
-    if(answered.bool) return
+  const handleAnswerClick = (i, val)=>{
+    if(answered.bool) return;
+    if(val.toLowerCase() === result.correct_answer.toLowerCase()){
+      setCorrectAnswers(x=>++x)
+    }
     setAnswered(obj=>({
       ...obj,
       bool: true,
@@ -68,8 +72,22 @@ function App({questionsObj}){
   
   return (
   <>
-    <Paper sx={{p:2, my:2, display:"flex"}}>
-      <Typography variant="h6" sx={{ml:"auto"}} color="secondary">
+    <Typography variant="h5" component="h1" align="center" margin="10px 0 2px">WHO WANTS TO BE A MILLIONAIRE</Typography>
+    <Fade in={answered.bool}>
+    <Box display="flex" justifyContent="flex-end" sx={{mb:1}}>
+      <Fab 
+        onClick={()=>handleNavigation("next")}
+        color="secondary"
+        variant="extended">
+        Next Question
+      </Fab>
+    </Box>
+   </Fade>
+    <Paper sx={{p:2, mb:1, display:"flex", justifyContent:"space-between"}}>
+      <Typography variant="h6" color="success.main">
+        Points: ({correctAnswers})
+      </Typography>
+      <Typography variant="h6" color="secondary">
         {qNum+1}/{results.length}
       </Typography>
     </Paper>
@@ -92,14 +110,14 @@ function App({questionsObj}){
                 borderRadius: 999,
                 display:"flex",
                 py:1, px:1,
-                transition: "0.3s",
+                transition: "0.2s",
                 ...(answered.bool? 
                   {
                     backgroundColor: (answered.clickedIndex===i)? 
-                    ((val.toLowerCase() === result.correct_answer.toLowerCase())? "green":"red") : ""
+                    ((val.toLowerCase() === result.correct_answer.toLowerCase())? "#4c4":"#c44") : ""
                   } : {
                   "&:hover": {
-                    transform: "scale(1.04)"
+                    transform: "scale(1.05)"
                   },
                   "&:active": {
                     backgroundColor:"#8ac"
@@ -107,12 +125,13 @@ function App({questionsObj}){
                 }),
                 ...((answered.bool && answered.clickedIndex!==i && val.toLowerCase() === result.correct_answer.toLowerCase())? 
                     {
-                      animationName: "answer",
-                      animationDuration: "2s",
+                      animation: "answer 1s infinite"
                     } : {}
                 ),
               }}
-              onClick={()=>handleAnswerClick(i)}
+              onClick={()=>{
+                handleAnswerClick(i, val);
+              }}
             >
               <Avatar sx={{bgcolor: getHexColor[i], mr:3}}>
                 {i===0&&"A"||i===1&&"B"||i===2&&"C"||i===3&&"D"}
@@ -123,16 +142,6 @@ function App({questionsObj}){
         ))}
       </Grid>
     </Paper>
-    {answered.bool &&
-    <Box display="flex" justifyContent="flex-end" marginTop="20px">
-      <Fab 
-        onClick={()=>handleNavigation("next")}
-        color="secondary"
-        variant="extended">
-        Next Question
-      </Fab>
-    </Box>
-    }
   </>)
 }
 
