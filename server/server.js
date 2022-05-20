@@ -22,6 +22,9 @@ const nextApp = next({
 const nextHandler = nextApp.getRequestHandler();
 
 nextApp.prepare().then(()=>{
+  app.listen(PORT, (err)=>{
+    console.log(err || "Listening on port: "+PORT)
+  })
   //=========== START ======
   
   app.use(cookieParser())
@@ -100,12 +103,6 @@ app.use((req,res,next)=>{
   app.all("*", (req, res)=>{
     nextHandler(req, res);
   })
-  
-  app.listen(PORT, (err)=>{
-    console.log(err || "Listening on port: "+PORT)
-  })
-  
-  
   
 //============ END =====
 })

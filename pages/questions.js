@@ -12,9 +12,6 @@ import Avatar from "@mui/material/Avatar"
 import Typography from "@mui/material/Typography"
 import validator, {unescape, escape} from "validator"
 
-const colorArray = "primary, secondary, error, warning, info".split(", ")
-
-
 
 function App({questionsObj}){
   const theme = useTheme()
@@ -31,6 +28,7 @@ function App({questionsObj}){
   const answers = useMemo(()=>{
     let x = [...result.incorrect_answers];
     x.splice(random.int(0,3), 0, result.correct_answer);
+    x.sort((a,b)=>Math.random()-0.5);
     return x;
   }, [qNum]);
   
@@ -72,7 +70,7 @@ function App({questionsObj}){
   
   return (
   <>
-    <Typography variant="h5" component="h1" align="center" margin="10px 0 2px">WHO WANTS TO BE A MILLIONAIRE</Typography>
+    <Typography variant="h5" component="h1" align="center" margin="30px 0 5px">WHO WANTS TO BE A MILLIONAIRE</Typography>
     <Fade in={answered.bool}>
     <Box display="flex" justifyContent="flex-end" sx={{mb:1}}>
       <Fab 
@@ -91,8 +89,7 @@ function App({questionsObj}){
         {qNum+1}/{results.length}
       </Typography>
     </Paper>
-    <Paper sx={{p:4, userSelect:"none", animationName: "answer",
-      animationDuration: "2s",}}>
+    <Paper sx={{p:4,}}>
       <Typography variant="h6" color="info" sx={{mb:2}} fontWeight="bold">
         {result.category}
       </Typography>
@@ -106,15 +103,16 @@ function App({questionsObj}){
             <Paper
               sx={{
                 width:"100%", 
-                alignItems: "center",
-                borderRadius: 999,
                 display:"flex",
+                alignItems: "center",
+                userSelect:"none",
+                borderRadius: 999,
                 py:1, px:1,
                 transition: "0.2s",
                 ...(answered.bool? 
                   {
                     backgroundColor: (answered.clickedIndex===i)? 
-                    ((val.toLowerCase() === result.correct_answer.toLowerCase())? "#4c4":"#c44") : ""
+                    ((val.toLowerCase() === result.correct_answer.toLowerCase())? "#8f8":"#f88") : ""
                   } : {
                   "&:hover": {
                     transform: "scale(1.05)"
@@ -125,7 +123,7 @@ function App({questionsObj}){
                 }),
                 ...((answered.bool && answered.clickedIndex!==i && val.toLowerCase() === result.correct_answer.toLowerCase())? 
                     {
-                      animation: "answer 1s infinite"
+                      animation: "answer 0.3s infinite"
                     } : {}
                 ),
               }}
