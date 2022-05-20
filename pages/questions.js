@@ -123,7 +123,7 @@ function App({questionsObj}){
                 }),
                 ...((answered.bool && answered.clickedIndex!==i && val.toLowerCase() === result.correct_answer.toLowerCase())? 
                     {
-                      animation: "answer 0.3s infinite"
+                      animation: "answer 0.7s infinite"
                     } : {}
                 ),
               }}
