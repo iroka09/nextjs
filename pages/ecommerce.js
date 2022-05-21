@@ -241,16 +241,16 @@ function App(){
 
 
 export function getServerSideProps({req}){
-  axios({
+  /*axios({
     method: "get",
     url: "https://opentdb.com/api.php?amount=50",
   })
   .then(data=>{
-    console.log(data)
+   console.log(data)
   })
   .catch(err=>{
     console.log(err)
-  });
+  });*/
   return ({
     props: {
       title: "E-Commerce",

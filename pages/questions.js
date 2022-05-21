@@ -12,11 +12,10 @@ import Avatar from "@mui/material/Avatar"
 import Typography from "@mui/material/Typography"
 import validator, {unescape, escape} from "validator"
 
-
 function App({questionsObj}){
   const theme = useTheme()
   const [qNum, setQNum] = useState(0);
-  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [points, setPoints] = useState(0);
   const [answered, setAnswered] = useState({
     bool: false,
     clickedIndex: NaN
@@ -35,7 +34,7 @@ function App({questionsObj}){
   const handleAnswerClick = (i, val)=>{
     if(answered.bool) return;
     if(val.toLowerCase() === result.correct_answer.toLowerCase()){
-      setCorrectAnswers(x=>++x)
+      setPoints(x=>++x)
     }
     setAnswered(obj=>({
       ...obj,
@@ -83,7 +82,7 @@ function App({questionsObj}){
    </Fade>
     <Paper sx={{p:2, mb:1, display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" color="success.main">
-        Points: ({correctAnswers})
+        Points: ({points})
       </Typography>
       <Typography variant="h6" color="secondary">
         {qNum+1}/{results.length}

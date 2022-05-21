@@ -76,7 +76,7 @@ app.use((req,res,next)=>{
   
   app.post("/upload", (req, res)=>{
     res.send("DONE");
-    console.log(req.files)
+    //console.log(req.files)
     fs.readdirSync(uploaddir).forEach(filename=>{
       fs.unlink(uploaddir+"/"+filename, (err)=>{
         let name = filename;

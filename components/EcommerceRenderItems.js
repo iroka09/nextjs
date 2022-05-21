@@ -1,5 +1,6 @@
 import React, {useContext, memo} from "react"
 import {CartContext, capitalize} from "../pages/ecommerce"
+import Image from "next/image"
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import Card from "@mui/material/Card"
@@ -39,7 +40,14 @@ function RenderItems(){
         {itemList.map(item=>(
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
           <Card>
-            <img src={item.src} style={{width:"100%", height:"200px", objectFit:"cover"}} alt="Item picture"/>
+            <Image 
+              loader={()=>item.src}
+              src={item.src}
+              width="100%" 
+              height={200}
+              alt="Item picture"
+              
+              />
             <div style={{padding: "5px 10px", position:"relative"}}>
            {item.addedToCart && <AddTaskIcon color="success" sx={{position:"absolute",top:7,right:7}} />
            }
