@@ -9,6 +9,15 @@ body {
   margin: 0;
 }
 
+
+.hover_effect:hover{
+  background-color: #eee;
+}
+
+.hover_effect:active{
+  background-color: #ddf;
+}
+
 @keyframes answer {
   50% {
     background-color: #8f8;

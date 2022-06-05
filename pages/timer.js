@@ -20,9 +20,9 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 function renderTime(str=""){
   return str
   .split(":")
-  .map(val=> {
-    return (Number(val)<10)? "0"+val : val
-  })
+  .map(val=>(
+    (Number(val)<10)? "0"+val : val
+  ))
   .join(":")
 }
 
@@ -87,7 +87,7 @@ function App(){
     
     <Box 
       position="relative" 
-      height="83vh"
+      height="78vh"
       boxSizing="border-box"
       >
       
@@ -100,7 +100,7 @@ function App(){
       </Typography>
       
     {isRunning ||
-      <Stack justifyContent="center" spacing={2} direction="row" sx={{mt:20}}>
+      <Stack justifyContent="center" spacing={1} direction="row" sx={{mt:20}}>
       {[{
         type: "h",
         ref: hRef,
@@ -126,7 +126,9 @@ function App(){
               timeMax: obj.max,
             }))
           }}
-          avatar={<ExpandMoreIcon/>}
+          avatar={(obj.type===anchor.timeType && anchor.el)?
+            <ExpandLessIcon/> : <ExpandMoreIcon/>
+          }
           label={time[obj.type]} 
         />
       ))}
@@ -150,6 +152,7 @@ function App(){
         vertical: 'top',
         horizontal: 'center',
       }}
+      sx={{maxHeight: 200}}
     >
       {[...new Array(anchor.timeMax+1)].map((a,k)=>(
         <li 
@@ -157,7 +160,7 @@ function App(){
           className="hover_effect"
           style={{
             padding: "5px 20px",
-            borderBottom:"1px solid #ccc",
+            borderBottom:"1px solid #555",
           }}
           onClick={()=>{
             setTime(x=>({
@@ -199,7 +202,7 @@ function App(){
             {(isRunning)? <PauseIcon/> : <PlayArrowIcon/>}
           </Fab>
         </Grid>
-        <Grid item xs={4} sx={{display:"flex", justifyContent:"center"}}></Grid>
+        <Grid item xs={4}></Grid>
       </Grid> 
     </Stack>
   </Box>
