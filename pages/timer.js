@@ -13,6 +13,14 @@ import PauseIcon from "@mui/icons-material/Pause"
 import HistoryIcon from "@mui/icons-material/History"
 
 
+function renderTime(str){
+  return str.split(":")
+  .map(val=> val<10? "0"+val : val)
+  .join(":")
+}
+
+
+
 function App(){
   
   const [time, setTime] = useState({
@@ -47,23 +55,52 @@ function App(){
     }
   }
   
+  useEffect(()=>{
+    let tm = setInterval(()=>{
+      setTime(obj=>({
+        ...obj,
+        s: ++obj.s
+      }))
+    }, 1000);
+    
+    return ()=>clearInterval(tm)
+  })
+  
   return (
-    <>
-      <Head>
-        <title>Timer project</title>
-      </Head>
+  <>
+    <Head>
+      <title>Timer project</title>
+    </Head>
+    
+    <Box 
+      position="relative" 
+      height="90vh"
+      boxSizing="border-box"
+      >
       
-      <Stack spacing={4} justifyContent="center" position="fixed" width="100%" bottom="0">
-        <IconButton>
+      <Typography color="primary" variant="h3" sx={{
+        display:"flex",
+        justifyContent:"center",
+        mt:4,
+      }} fontWeight="300">
+        {renderTime(`${time.h}:${time.m}:${time.s}`)}
+      </Typography>
+      
+      <Stack spacing={4} justifyContent="center" position="absolute" width="100%" bottom="20px" direction="row">
+        <IconButton color="primary">
           <HistoryIcon />
         </IconButton>
-        <Fab>
+        <Fab color="primary" onClick={()=>setIsRunning(x=>!x)}>
           {(isRunning)? <PauseIcon/> : <PlayArrowIcon/>}
         </Fab>
+        <IconButton color="primary">
+          <HistoryIcon />
+        </IconButton>
       </Stack>
-    </>
-  )
+    </Box>
+  </>)
 }
+
 
 
 export function getServerSideProps({req}){
