@@ -40,7 +40,7 @@ function App(){
   })
   
   const [time, setTime] = useState({
-    h: 0, m: 3, s: 0
+    h: 0, m: 0, s: 0
   });
   
   const [isRunning, setIsRunning] = useState(false);
@@ -188,7 +188,7 @@ function App(){
           <IconButton color="primary" onClick={()=>{
               setIsRunning(false);
               setTime({
-                s:0, m:0, h:4
+                s:0, m:0, h:0
               })
             }}>
             <HistoryIcon />
