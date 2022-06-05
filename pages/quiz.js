@@ -22,7 +22,7 @@ function App(props){
     bool: false,
     clickedIndex: NaN
   })
-  const questions = props.questions || questionsObj;
+  const questions = props.questions ?? questionsObj;
   const results = questions.results;
   
   const result = results[qNum];

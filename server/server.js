@@ -91,7 +91,7 @@ app.use((req,res,next)=>{
     })
   });
   
-  app.get("/questions", async (req,res)=>{
+  app.get("/quiz", async (req,res)=>{
     let resp = await axios.get("https://opentdb.com/api.php?amount=50");
     req.questions = resp.data;
     nextHandler(req, res)
