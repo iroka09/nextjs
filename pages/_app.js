@@ -250,7 +250,6 @@ const menuRef = React.useRef()
    window.addEventListener("scroll", scrollEvent);
     scrollTopButtonRef.current.addEventListener("click", FabEvent);
     return ()=> {
-      alert(5)
       window.removeEventListener("scroll", scrollEvent);
       scrollTopButtonRef.current.removeEventListener("click", FabEvent);
     }
