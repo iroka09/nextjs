@@ -520,6 +520,7 @@ const menuRef = React.useRef()
         <Button href="/login" >Login</Button>
         <Button href="/ecommerce" >E-Commerce</Button>
         <Button href="/quiz" >Quiz</Button>
+        <Button href="/timer" >Timer</Button>
       </SwipeableDrawer>
 
       <Drawer
