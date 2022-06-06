@@ -4,6 +4,7 @@ import Head from "next/head"
 import dynamic from "next/dynamic"
 import Button from "@mui/material/Button"
 import { EditorState } from 'draft-js';
+import { EditorProps } from 'react-draft-wysiwyg';
 
 const Editor =  dynamic<EditorProps>(()=> import('react-draft-wysiwyg').then(x=>x.Editor), {ssr: false})
 
