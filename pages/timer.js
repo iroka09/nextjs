@@ -15,6 +15,13 @@ import PauseIcon from "@mui/icons-material/Pause"
 import HistoryIcon from "@mui/icons-material/History"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
+import WheelPicker from 'react-wheelpicker'
+ 
+
+
+const wheelArray = [...Array(59)].map((a,i)=>i)
+
+
 
 
 function renderTime(str=""){
@@ -44,6 +51,8 @@ function App(){
   });
   
   const [isRunning, setIsRunning] = useState(false);
+  
+  const [wheelIndex, setWheelIndex] = useState(0);
   
   const handleSetAnchor = (type, ref)=>{
     setAnchor(x=>({
@@ -100,6 +109,21 @@ function App(){
       </Typography>
       
     {isRunning ||
+    <>
+    
+     <WheelPicker
+        animation="wheel"
+        data={wheelArray}
+        height={40}
+        parentHeight={250}
+        fontSize={13}
+        defaultSelection={wheelIndex}
+        updateSelection={(index)=>{
+          setWheelIndex(clickedIndex)
+        }}
+        scrollerId="scroll-select-subject"
+      />
+    
       <Stack justifyContent="center" spacing={1} direction="row" sx={{mt:20}}>
       {[{
         type: "h",
@@ -133,6 +157,7 @@ function App(){
         />
       ))}
       </Stack>
+    </>
     }
       
     <Menu
