@@ -1,16 +1,23 @@
 
-import React, {useState} from "react"
+import React, {useState, useEffect, memo} from "react"
 import Head from "next/head"
+import dynamic from "next/dynamic"
 import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
+
+const Editor =  dynamic(()=> import('react-draft-wysiwyg')
+    .then(mod=> mod.Editor), {ssr: false})
 
 
-export default function App(){
+function App(){
   const [contentState, setContentState] = useState({})
 
   const onContentStateChange = (x) => {
     setContentState(x);
   }
+
+  useEffect(()=>{
+    alert(Editor)
+  }, [])
 
   return (
     <>
@@ -31,6 +38,8 @@ export default function App(){
     </>
   )
 }
+
+export default memo(App)
 
 export function getServerSideProps({req}){
   return({
