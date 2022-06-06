@@ -24,6 +24,7 @@ export default function App(){
         initialContentState={contentState}
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor"
+        toolbarClassName="demo-toolbar"
         onContentStateChange={onContentStateChange}
       />
       
