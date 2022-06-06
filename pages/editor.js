@@ -27,7 +27,7 @@ function App(){
         <title>Editor Draft</title>
       </Head>
       
-      <Editor.Editor
+      <Editor
         initialContentState={contentState}
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor"
