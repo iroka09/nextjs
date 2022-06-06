@@ -13,9 +13,9 @@ function App(){
   
   const [loadedEditor, setLoadedEditor] = useState(false)
 
-  const handleEditorState = (text) => {
+  /*const handleEditorState = (text) => {
     setEditorState(text);
-  }
+  }*/
 
   useEffect(()=>{
    // setLoadedEditor(true)
@@ -35,7 +35,7 @@ function App(){
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor"
         toolbarClassName="demo-toolbar"
-        onEditorStateChange={handleEditorState}
+        onEditorStateChange={}
       />
     }
     <Button
