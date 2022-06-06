@@ -31,11 +31,11 @@ function App(){
       
     {loadedEditor &&
       <Editor
-        initialEditorState={editorState}
+        
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor"
         toolbarClassName="demo-toolbar"
-        onEditorStateChange={}
+        
       />
     }
     <Button
