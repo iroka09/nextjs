@@ -34,7 +34,10 @@ function App(props){
     return x;
   }, [qNum]);
   
+  let allowNextClick = true;
+  
   const handleAnswerClick = (i, val)=>{
+    allowNextClick = true
     if(answered.bool) return;
     if(val.toLowerCase() === result.correct_answer.toLowerCase()){
       setPoints(x=>++x)
@@ -47,6 +50,10 @@ function App(props){
   }
   
   const handleNavigation = (type) =>{
+    if(!allowNextClick) {
+      return;
+    }
+    allowNextClick = false
     setQNum(x=>{
       setAnswered(obj=>({
         ...obj,
@@ -77,6 +84,20 @@ function App(props){
     </Head>
     
     <Typography variant="h5" component="h1" align="center" margin="30px 0 5px">QUIZ</Typography>
+  <Typography variant="h6">
+  Difficulty: {result.difficulty}
+  </Typography>
+    <Paper sx={{p:2, mb:1, display:"flex", justifyContent:"space-between"}}>
+      <Typography variant="h6" color="success.main">
+        Points: ({points})
+      </Typography>
+      <Typography variant="h6" color="secondary">
+        {qNum+1}/{results.length}
+      </Typography>
+    </Paper>
+    
+<Paper sx={{p:4}}>
+    
   <Box display="flex" justifyContent="flex-end" sx={{mb:1}}>
     <Fade in={answered.bool} timeout={800}>
       <Fab 
@@ -91,18 +112,6 @@ function App(props){
       </Fab>
     </Fade>
   </Box>
-  <Typography variant="h6">
-  Difficulty: {result.difficulty}
-  </Typography>
-    <Paper sx={{p:2, mb:1, display:"flex", justifyContent:"space-between"}}>
-      <Typography variant="h6" color="success.main">
-        Points: ({points})
-      </Typography>
-      <Typography variant="h6" color="secondary">
-        {qNum+1}/{results.length}
-      </Typography>
-    </Paper>
-    <Paper sx={{p:4,}}>
       <Typography variant="h6" color="info" sx={{mb:2}} fontWeight="bold">
         {result.category}
       </Typography>
