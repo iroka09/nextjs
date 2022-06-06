@@ -18,6 +18,7 @@ function App(props){
   const theme = useTheme()
   const [qNum, setQNum] = useState(0);
   const [points, setPoints] = useState(0);
+  const [allowNextClick, setAllowNextClick] = useState(false);
   const [answered, setAnswered] = useState({
     bool: false,
     clickedIndex: NaN
@@ -34,10 +35,7 @@ function App(props){
     return x;
   }, [qNum]);
   
-  let allowNextClick = true;
-  
   const handleAnswerClick = (i, val)=>{
-    allowNextClick = true
     if(answered.bool) return;
     if(val.toLowerCase() === result.correct_answer.toLowerCase()){
       setPoints(x=>++x)
@@ -46,14 +44,15 @@ function App(props){
       ...obj,
       bool: true,
       clickedIndex: i
-    }))
+    }));
+    setAllowNextClick(true)
   }
   
   const handleNavigation = (type) =>{
     if(!allowNextClick) {
       return;
     }
-    allowNextClick = false
+    setAllowNextClick(false)
     setQNum(x=>{
       setAnswered(obj=>({
         ...obj,
@@ -99,7 +98,7 @@ function App(props){
 <Paper sx={{p:4}}>
     
   <Box display="flex" justifyContent="flex-end" sx={{mb:1}}>
-    <Fade in={answered.bool} timeout={800}>
+    <Fade in={allowNextClick} timeout={800} >
       <Fab 
         onClick={()=>handleNavigation("next")}
         {...{
