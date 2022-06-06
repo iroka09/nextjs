@@ -16,7 +16,7 @@ function App(){
   }
 
   useEffect(()=>{
-    alert(Editor)
+    alert(JSON.stringify(Editor,0,3))
   }, [])
 
   return (
@@ -27,7 +27,7 @@ function App(){
         <title>Editor Draft</title>
       </Head>
       
-      <Editor
+      <Editor.Editor
         initialContentState={contentState}
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor"
