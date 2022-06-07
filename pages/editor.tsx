@@ -6,15 +6,15 @@ import Button from "@mui/material/Button"
 import { EditorState } from 'draft-js';
 import { EditorProps } from 'react-draft-wysiwyg';
 
-const Editor =  dynamic(()=> import('react-draft-wysiwyg').then(x=>x.Editor), {ssr: false})
+const Editor =  dynamic<EditorProps>(()=> import('react-draft-wysiwyg').then(x=>x.Editor), {ssr: false})
 
 function App(){
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   
   const [loadedEditor, setLoadedEditor] = useState(false)
 
-  const onEditorStateChange = (text) => {
-    setEditorState(text);
+  const onEditorStateChange = () => {
+   // setEditorState(text);
   }
 
   useEffect(()=>{
