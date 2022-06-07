@@ -24,9 +24,8 @@ body {
   }
 }
 
-.toolbar-class > *{
-  border: 3px solid black;
-  background: cyan;
+.toolbar-class {
+  background: #111 !important;
 }
 
 .wrapper-class{

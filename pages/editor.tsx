@@ -3,6 +3,7 @@ import React, {useState, useEffect, memo} from "react"
 import Head from "next/head"
 import dynamic from "next/dynamic"
 import Button from "@mui/material/Button"
+import {useTheme} from "@mui/material/styles"
 import { EditorState } from 'draft-js';
 import { EditorProps } from 'react-draft-wysiwyg';
 
@@ -12,6 +13,8 @@ function App(){
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   
   const [loadedEditor, setLoadedEditor] = useState(false)
+
+  const theme = useTheme()
 
   const onEditorStateChange = (text: any) => {
     setEditorState(text);
@@ -31,7 +34,7 @@ function App(){
       
    <Editor
     editorState={editorState}
-    toolbarClassName="toolbar-class"
+    toolbarClassName={(theme.palette.mode==="dark")? "toolbar-class" : ""}
     wrapperClassName="wrapper-class"
     editorClassName="editor-class"
     onEditorStateChange={onEditorStateChange}
@@ -56,7 +59,7 @@ function App(){
     <Button
       variant="contained"
       onClick={()=>setLoadedEditor(true)}
-      sx={{mt: 2}}
+      sx={{mt: }}
     >
       Submit
     </Button>
