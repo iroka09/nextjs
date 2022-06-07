@@ -24,7 +24,7 @@ body {
   }
 }
 
-.toolbar-class {
+.toolbar-class, .toolbar-class *{
   background: #111 !important;
 }
 
@@ -35,4 +35,5 @@ body {
 .editor-class {
   border: 1px solid #aaa;
   max-height: 80vh;
+  padding: 3px 2px !important;
 }
