@@ -48,7 +48,7 @@ function App(){
                     image: {
                         urlEnabled: true,
                         uploadEnabled: true,
-                        uploadCallback:file=>alert(file),
+                        uploadCallback:()=>alert("yes"),
                         previewImage: true,
                         alt: { present: false, mandatory: false }
                     },
