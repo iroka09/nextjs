@@ -23,3 +23,15 @@ body {
     background-color: #8f8;
   }
 }
+
+.toolbar-class{
+  background: black;
+}
+
+.wrapper-class{
+  background: red;
+}
+
+.editor-class{
+  background: green;
+}

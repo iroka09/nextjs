@@ -22,7 +22,7 @@ function App(){
   }, [])
 
   return (
-    <div>
+    <>
     
       <Head>
         <meta charSet="utf-8" />
@@ -30,50 +30,50 @@ function App(){
       </Head>
       
    <Editor
-        editorState={editorState}
-                toolbarClassName="toolbar-class"
-                wrapperClassName="wrapper-class"
-                editorClassName="editor-class"
-                onEditorStateChange={onEditorStateChange}
-                
-        
-        toolbar={{
-                    options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'history'],
-                    inline: { inDropdown: true },
-                    list: { inDropdown: true },
-                    textAlign: { inDropdown: true },
-                    link: { inDropdown: true },
-                    history: { inDropdown: true },
-                    image: {
-                        urlEnabled: true,
-                        uploadEnabled: true,
-                        uploadCallback:(file:any)=>alert(file),
-                        previewImage: true,
-                        alt: { present: false, mandatory: false }
-                    },
-                }}
-      />
+    editorState={editorState}
+    toolbarClassName="toolbar-class"
+    wrapperClassName="wrapper-class"
+    editorClassName="editor-class"
+    onEditorStateChange={onEditorStateChange}
+    toolbar={{
+      options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'history'],
+      inline: { inDropdown: true },
+      list: { inDropdown: true },
+      textAlign: { inDropdown: true },
+      link: { inDropdown: true },
+      history: { inDropdown: true },
+      image: {
+        urlEnabled: true,
+        uploadEnabled: true,
+        uploadCallback: (file: any)=>{
+          alert(JSON.stringify(file,0,2))
+        },
+        previewImage: true,
+        alt: { present: false, mandatory: false }
+      },
+    }}
+  />
     <Button
       variant="contained"
       onClick={()=>setLoadedEditor(true)}
-      sx={{my:7}}
+      sx={{mt: 3}}
     >
       Submit
     </Button>
-    </div>
+    </>
   )
 }
 
 export default memo(App)
-/*
-export function getServerSideProps({req}){
+
+export function getServerSideProps(ctx:any){
   return({
     props: {
-      cookies: req.cookies
+      cookies: ctx.req.cookies
     }
   })
 }
-*/
+
 /*
 {loadedEditor &&
       <Editor
