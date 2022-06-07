@@ -46,7 +46,7 @@ function App(){
         urlEnabled: true,
         uploadEnabled: true,
         uploadCallback: (file: any)=>{
-          alert(JSON.stringify(file,0,2))
+          alert(file.length)
         },
         previewImage: true,
         alt: { present: false, mandatory: false }
