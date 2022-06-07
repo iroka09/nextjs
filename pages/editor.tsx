@@ -13,9 +13,9 @@ function App(){
   
   const [loadedEditor, setLoadedEditor] = useState(false)
 
-  /*const handleEditorState = (text) => {
+  const onEditorStateChange = (text) => {
     setEditorState(text);
-  }*/
+  }
 
   useEffect(()=>{
    // setLoadedEditor(true)
@@ -31,11 +31,28 @@ function App(){
       
     {loadedEditor &&
       <Editor
+        editorState={editorState}
+                toolbarClassName="toolbar-class"
+                wrapperClassName="wrapper-class"
+                editorClassName="editor-class"
+                onEditorStateChange={onEditorStateChange}
+                
         
-        wrapperClassName="demo-wrapper"
-        editorClassName="demo-editor"
-        toolbarClassName="demo-toolbar"
-        
+        toolbar={{
+                    options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'history'],
+                    inline: { inDropdown: true },
+                    list: { inDropdown: true },
+                    textAlign: { inDropdown: true },
+                    link: { inDropdown: true },
+                    history: { inDropdown: true },
+                    image: {
+                        urlEnabled: true,
+                        uploadEnabled: true,
+                        uploadCallback:file=>alert(file),
+                        previewImage: true,
+                        alt: { present: false, mandatory: false }
+                    },
+                }}
       />
     }
     <Button
