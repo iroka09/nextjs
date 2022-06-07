@@ -13,8 +13,8 @@ function App(){
   
   const [loadedEditor, setLoadedEditor] = useState(false)
 
-  const onEditorStateChange = () => {
-   // setEditorState(text);
+  const onEditorStateChange = (text: any) => {
+    setEditorState(text);
   }
 
   useEffect(()=>{
@@ -29,8 +29,7 @@ function App(){
         <title>Editor Draft</title>
       </Head>
       
-    {loadedEditor &&
-      <Editor
+   <Editor
         editorState={editorState}
                 toolbarClassName="toolbar-class"
                 wrapperClassName="wrapper-class"
@@ -48,19 +47,18 @@ function App(){
                     image: {
                         urlEnabled: true,
                         uploadEnabled: true,
-                        uploadCallback:()=>alert("yes"),
+                        uploadCallback:(file:any)=>alert(file),
                         previewImage: true,
                         alt: { present: false, mandatory: false }
                     },
                 }}
       />
-    }
     <Button
-      variant="outlined"
+      variant="contained"
       onClick={()=>setLoadedEditor(true)}
       sx={{my:7}}
     >
-      SHOW EDITOR
+      Submit
     </Button>
     </div>
   )
