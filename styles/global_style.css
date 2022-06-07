@@ -25,13 +25,13 @@ body {
 }
 
 .toolbar-class{
-  background: black;
+  border: 3px solid black;
 }
 
 .wrapper-class{
-  background: red;
+  border: 3px solid red;
 }
 
 .editor-class{
-  background: green;
+  border: 3px solid yellow;
 }
