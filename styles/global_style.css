@@ -25,7 +25,8 @@ body {
 }
 
 .toolbar-class, .toolbar-class *{
-  background: #111 !important;
+  background: #222 !important;
+  color: #777 !important;
 }
 
 .wrapper-class{
