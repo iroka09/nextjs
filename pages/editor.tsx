@@ -59,7 +59,7 @@ function App(){
     <Button
       variant="contained"
       onClick={()=>setLoadedEditor(true)}
-      sx={{mt: }}
+      sx={{mt: 2}}
     >
       Submit
     </Button>
