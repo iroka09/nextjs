@@ -24,16 +24,16 @@ body {
   }
 }
 
-.toolbar-class{
+.toolbar-class > *{
   border: 3px solid black;
   background: cyan;
 }
 
 .wrapper-class{
-  marginTop: 50px;
+  margin-top: 50px;
 }
 
-.editor-class{
-  border: 1px solid #ddd;
-  border-radius: 0 0 5px 5px;
+.editor-class {
+  border: 1px solid #aaa;
+  max-height: 80vh;
 }
