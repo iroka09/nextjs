@@ -50,7 +50,7 @@ function App(){
 }
 
 export default memo(App)
-
+/*
 export function getServerSideProps({req}){
   return({
     props: {
@@ -58,7 +58,7 @@ export function getServerSideProps({req}){
     }
   })
 }
-
+*/
 /*
 {loadedEditor &&
       <Editor
