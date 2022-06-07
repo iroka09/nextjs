@@ -26,12 +26,14 @@ body {
 
 .toolbar-class{
   border: 3px solid black;
+  background: cyan;
 }
 
 .wrapper-class{
-  border: 3px solid red;
+  marginTop: 50px;
 }
 
 .editor-class{
-  border: 3px solid yellow;
+  border: 1px solid #ddd;
+  border-radius: 0 0 5px 5px;
 }
