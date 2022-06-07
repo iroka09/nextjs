@@ -66,6 +66,7 @@ function App(){
 
 export default memo(App)
 
+/*
 export function getServerSideProps(ctx:any){
   return({
     props: {
@@ -73,6 +74,7 @@ export function getServerSideProps(ctx:any){
     }
   })
 }
+*/
 
 /*
 {loadedEditor &&
