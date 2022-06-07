@@ -25,8 +25,8 @@ body {
 }
 
 .toolbar-class, .toolbar-class *{
-  background: #222 !important;
-  color: #777 !important;
+  background: #555 !important;
+  color: #222 !important;
 }
 
 .wrapper-class{
@@ -36,5 +36,5 @@ body {
 .editor-class {
   border: 1px solid #aaa;
   max-height: 80vh;
-  padding: 3px 2px !important;
+  padding: 3px !important;
 }
