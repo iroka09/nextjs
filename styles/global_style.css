@@ -25,16 +25,17 @@ body {
 }
 
 .toolbar-class, .toolbar-class *{
-  background: #555 !important;
-  color: #222 !important;
+  background: black !important;
+  border-color: #444 !important;
+  color: white !important;
 }
 
 .wrapper-class{
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 .editor-class {
-  border: 1px solid #aaa;
+  border: 1px solid #888;
   max-height: 80vh;
   padding: 3px !important;
 }
