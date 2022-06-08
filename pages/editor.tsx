@@ -28,7 +28,7 @@ function App(){
     <>
     
       <Head>
-        <meta charSet="utf-8" />
+        <meta charSet="UTF-8" />
         <title>Editor Draft</title>
       </Head>
       
@@ -72,15 +72,15 @@ function App(){
 
 export default memo(App)
 
-/*
-export function getServerSideProps(ctx:any){
+
+export function getServerSideProps(ctx: any){
   return({
     props: {
       cookies: ctx.req.cookies
     }
   })
 }
-*/
+
 
 /*
 {loadedEditor &&
