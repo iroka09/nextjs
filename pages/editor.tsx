@@ -12,7 +12,7 @@ const Editor =  dynamic<EditorProps>(()=> import('react-draft-wysiwyg').then(x=>
 function App(){
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   
-  const [loadedEditor, setLoadedEditor] = useState(false)
+  const [submited, setSubmited] = useState(false)
 
   const theme = useTheme()
 
@@ -58,10 +58,13 @@ function App(){
   />
     <Button
       variant="contained"
-      onClick={()=>setLoadedEditor(true)}
+      onClick={()=>{
+      setSubmited(true);
+      setTimeout(()=>setSubmited(false), 5000)
+      }}
       sx={{mt: 2}}
     >
-      Submit
+    {submited?  "Submiting...": "Submit"}
     </Button>
     </>
   )
