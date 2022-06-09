@@ -4,10 +4,10 @@ import random from "random"
 import {experimental_sx as sx} from "@mui/material/styles"
 
 export default function App(props){
- // const router = useRouter()
-  return <h1>hiiii</h1>
- // console.log(router)
-  /*return(
+  const router = useRouter()
+  //return <h1>hiiii</h1>
+  console.log(router)
+  return(
     <>
     <h1 style={sx({
       my: 5,
@@ -25,7 +25,7 @@ export default function App(props){
       No fallback: {props.myName}
     </h4>}
     </>
-  )*/
+  )
 }
 
 export function getStaticPaths(){
