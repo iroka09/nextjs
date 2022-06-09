@@ -10,8 +10,8 @@ import { EditorProps } from 'react-draft-wysiwyg';
 
 const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
   .then(x=>x.Editor), {
-  ssr:boolean : false,
-  loading:any : (
+  ssr: false,
+  loading: ()=> (
     <div style={{
       height: 300,
       width: "100%",
