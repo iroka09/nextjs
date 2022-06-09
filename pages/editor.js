@@ -6,9 +6,9 @@ import Button from "@mui/material/Button"
 import CircularProgress from "@mui/material/CircularProgress"
 import {useTheme} from "@mui/material/styles"
 import { EditorState } from 'draft-js';
-import { EditorProps } from 'react-draft-wysiwyg';
+// import { EditorProps } from 'react-draft-wysiwyg';
 
-const Editor =  dynamic <EditorProps> (()=> import('react-draft-wysiwyg')
+const Editor =  dynamic (()=> import('react-draft-wysiwyg')
   .then(x=>x.Editor), {
   ssr: false,
   loading: (
@@ -31,7 +31,7 @@ function App(){
 
   const theme = useTheme()
 
-  const onEditorStateChange = (text: any) => {
+  const onEditorStateChange = (text) => {
     setEditorState(text);
   }
 
@@ -63,7 +63,7 @@ function App(){
       image: {
         urlEnabled: true,
         uploadEnabled: true,
-        uploadCallback: (file: any)=>{
+        uploadCallback: (file)=>{
           alert(file.length)
         },
         previewImage: true,
@@ -78,6 +78,7 @@ function App(){
       setTimeout(()=>setSubmited(false), 5000)
       }}
       sx={{mt: 2}}
+      startIcon={submited&&<CircularProgress />}
     >
     {submited?  "Submiting...": "Submit"}
     </Button>
@@ -88,7 +89,7 @@ function App(){
 export default memo(App)
 
 
-export function getServerSideProps(ctx: any){
+export function getServerSideProps(ctx){
   return({
     props: {
       cookies: ctx.req.cookies
