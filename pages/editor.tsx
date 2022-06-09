@@ -6,12 +6,12 @@ import Button from "@mui/material/Button"
 import CircularProgress from "@mui/material/CircularProgress"
 import {useTheme} from "@mui/material/styles"
 import { EditorState } from 'draft-js';
-// import { EditorProps } from 'react-draft-wysiwyg';
+import { EditorProps } from 'react-draft-wysiwyg';
 
-const Editor =  dynamic (()=> import('react-draft-wysiwyg')
+const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
   .then(x=>x.Editor), {
-  ssr: false,
-  loading: (
+  ssr:boolean : false,
+  loading:any : (
     <div style={{
       height: 300,
       width: "100%",
@@ -31,7 +31,7 @@ function App(){
 
   const theme = useTheme()
 
-  const onEditorStateChange = (text) => {
+  const onEditorStateChange = (text: any) => {
     setEditorState(text);
   }
 
@@ -63,7 +63,7 @@ function App(){
       image: {
         urlEnabled: true,
         uploadEnabled: true,
-        uploadCallback: (file)=>{
+        uploadCallback: (file:any)=>{
           alert(file.length)
         },
         previewImage: true,
@@ -89,7 +89,7 @@ function App(){
 export default memo(App)
 
 
-export function getServerSideProps(ctx){
+export function getServerSideProps(ctx:any){
   return({
     props: {
       cookies: ctx.req.cookies
