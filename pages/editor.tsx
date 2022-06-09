@@ -13,15 +13,15 @@ const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
   ssr: false,
   loading: ()=> (
     <div style={{
-      height: 300,
+      height: 200,
       width: "100%",
       display:"flex",
       justifyContent:"center",
       alignItems:"center",
     }}>
-      <CircularProgress />
+      Loading Editor...
     </div>
-  )
+  ),
 })
 
 function App(){
@@ -49,9 +49,9 @@ function App(){
       
    <Editor
     editorState={editorState}
-    toolbarClassName={(theme.palette.mode==="dark")? "toolbar-class" : ""}
-    wrapperClassName="wrapper-class"
-    editorClassName="editor-class"
+    toolbarClassName={(theme.palette.mode==="dark")? "toolbar-draft-editor" : ""}
+    wrapperClassName="wrapper-draft-editor"
+    editorClassName="editor-draft-editor"
     onEditorStateChange={onEditorStateChange}
     toolbar={{
       options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'history'],
@@ -78,7 +78,7 @@ function App(){
       setTimeout(()=>setSubmited(false), 5000)
       }}
       sx={{mt: 2}}
-      startIcon={submited&&<CircularProgress />}
+      startIcon={submited &&<CircularProgress size={20} sx={{color: "primary.contrastText"}}/>}
     >
     {submited?  "Submiting...": "Submit"}
     </Button>

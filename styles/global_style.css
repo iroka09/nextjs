@@ -24,17 +24,17 @@ body {
   }
 }
 
-.toolbar-class, .toolbar-class *{
-  background: #777 !important;
+.toolbar-draft-editor, .toolbar-draft-editor *{
+  background: #666 !important;
   border-color: #555 !important;
   color: black !important;
 }
 
-.wrapper-class{
+.wrapper-draft-editor{
   margin-top: 40px;
 }
 
-.editor-class {
+.editor-draft-editor {
   border: 1px solid #bbb;
   max-height: 80vh;
   padding: 5px !important;
