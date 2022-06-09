@@ -6,7 +6,7 @@ import {experimental_sx as sx} from "@mui/material/styles"
 export default function App(props){
   const router = useRouter()
   //return <h1>hiiii</h1>
-  //console.log(router)
+  console.log(router)
   return(
     <>
     <h1 style={{
