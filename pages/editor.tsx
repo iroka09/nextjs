@@ -88,25 +88,3 @@ function App(){
 
 export default memo(App)
 
-
-export function getServerSideProps(ctx:any){
-  return({
-    props: {
-      cookies: ctx.req.cookies
-    }
-  })
-}
-
-
-/*
-{loadedEditor &&
-      <Editor
-        initialContentState={contentState}
-        wrapperClassName="demo-wrapper"
-        editorClassName="demo-editor"
-        toolbarClassName="demo-toolbar"
-        onContentStateChange={onContentStateChange}
-      />
-      }
-
-*/
