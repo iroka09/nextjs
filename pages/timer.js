@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef, useMemo, useCallback} from "react"
 import moment from "moment"
 import Head from "next/head"
+import dynamic from "next/dynamic"
 import Box from "@mui/material/Box"
 import Chip from "@mui/material/Chip"
 import Stack from "@mui/material/Stack"
@@ -16,6 +17,20 @@ import HistoryIcon from "@mui/icons-material/History"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 
+const ScrollPicker = dynamic(()=> import("react-scrollable-picker"), {
+  ssr: false,
+  loading: (
+    <h3 
+      sx={{
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        margin: "50px 0",
+      }}>
+      Please wait...
+    </h3>
+  )
+})
 
 function renderTime(str=""){
   return str
@@ -53,6 +68,44 @@ function App(){
       [type]: ref
     }))
   }
+  
+  
+const [pickerObj, setPickerObj] = useState({
+      valueGroups: {
+        title: 'Mr.',
+        firstName: 'Micheal',
+        secondName: 'Jordan'
+      }, 
+      optionGroups: {
+        title: [
+          { value: 'mr', label: 'Mr.' },
+          { value: 'ms', label: 'Ms.' },
+          { value: 'dr', label: 'Dr.' },
+        ],
+        firstName: [
+          { value: 'John', label: 'John' },
+          { value: 'Micheal', label: 'Micheal' },
+          { value: 'Elizabeth', label: 'Elizabeth' },
+        ],
+        secondName: [
+          { value: 'Lennon', label: 'Lennon' },
+          { value: 'Jackson', label: 'Jackson' },
+          { value: 'Jordan', label: 'Jordan' },
+          { value: 'Legend', label: 'Legend' },
+          { value: 'Taylor', label: 'Taylor' }
+        ],
+      },
+  });
+  
+const handlePickerChange = (name, value) => {
+    setPickerObj(({valueGroups}) => ({
+      valueGroups: {
+        ...valueGroups,
+        [name]: value
+      }
+    }));
+  };
+ 
  
   useEffect(()=>{
     let tm;
@@ -70,15 +123,15 @@ function App(){
           m = (s<1)? --m : m;
           h = (m<1)? --h : h;
           //==
-          s = (h<0&&m<0&&s<1)? 0 : (s<1)? 59 : s;
-          m = (h<0&&m<1)? 0 : (m<1)? 59 : m;
+          s = (h<0 && m<0 && s<1)? 0 : (s<1)? 59 : s;
+          m = (h<0 && m<1)? 0 : (m<1)? 59 : m;
           h = (h<0)? 0 : h;
           //==
           return {s, m, h}
         })
       }, 1000);
     }
-    return ()=>clearInterval(tm)
+    return ()=> clearInterval(tm)
   }, [isRunning])
   
   return (
@@ -96,10 +149,17 @@ function App(){
       <Typography color="primary" variant="h3" sx={{
         display:"flex",
         justifyContent:"center",
-        my:8,
+        my:9,
       }} fontWeight="300">
         {renderTime(`${time.h}:${time.m}:${time.s}`)}
       </Typography>
+      
+      <ScrollPicker
+        optionGroups={optionGroups}
+        valueGroups={valueGroups}
+        onChange={handlePickerChange} 
+      />
+    
       
     {isRunning ||
     <>
