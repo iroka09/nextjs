@@ -33,12 +33,15 @@ import Head from "next/head"
 import Draggable from "react-draggable"
 import {LoremIpsum} from "lorem-ipsum"
 
-
-
+/*
 import shirt1 from "../public/ecommerce/shirt1.jpg"
 import shirt2 from "../public/ecommerce/shirt2.jpg"
-import pic3 from "../public/pic3.jpg"
+import pic3 from "../public/pic3.jpg".
+*/
 
+const shirt1 = "/ecommerce/shirt1.jpg"
+const shirt2 = "/ecommerce/shirt2.jpg"
+const pic3 = "/pic3.jpg"
 
 
 export const CartContext = createContext();
