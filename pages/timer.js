@@ -16,7 +16,7 @@ import PauseIcon from "@mui/icons-material/Pause"
 import HistoryIcon from "@mui/icons-material/History"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
-
+/*
 const ScrollPicker = dynamic(()=> import("react-scrollable-picker"), {
   ssr: false,
   loading: (
@@ -32,6 +32,14 @@ const ScrollPicker = dynamic(()=> import("react-scrollable-picker"), {
   )
 })
 
+
+      <ScrollPicker
+        optionGroups={optionGroups}
+        valueGroups={valueGroups}
+        onChange={handlePickerChange} 
+      />
+    
+*/
 const renderTime = (str="")=> (
   str
   .split(":")
@@ -155,12 +163,6 @@ const handlePickerChange = (name, value) => {
         {renderTime(`${time.h}:${time.m}:${time.s}`)}
       </Typography>
       
-      <ScrollPicker
-        optionGroups={optionGroups}
-        valueGroups={valueGroups}
-        onChange={handlePickerChange} 
-      />
-    
       
     {isRunning ||
     <>
@@ -252,7 +254,8 @@ const handlePickerChange = (name, value) => {
         <Grid item xs={4} 
           sx={{
             display:"flex", 
-            justifyContent:"flex-end"}}
+            justifyContent:"flex-end",
+          }}
           >
           <IconButton color="primary" onClick={()=>{
               setIsRunning(false);
@@ -272,12 +275,8 @@ const handlePickerChange = (name, value) => {
       </Grid> 
     </Stack>
   </Box>
-
   </>)
 }
-
-
-export default React.memo(App)
 
 export function getServerSideProps({req}){
   return ({
@@ -286,3 +285,5 @@ export function getServerSideProps({req}){
     }
   })
 }
+
+export default React.memo(App)
