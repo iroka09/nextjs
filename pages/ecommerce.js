@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import {useTheme} from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
 import Slide from "@mui/material/Slide"
+import Fade from "@mui/material/Fade"
 import Divider from "@mui/material/Divider"
 import TextField from "@mui/material/TextField"
 import Dialog from "@mui/material/Dialog"
@@ -93,7 +94,7 @@ function App(){
     itemId: 0,
   });
   
-  const handleQuatity = useCallback((e)=>{
+  const handleQuantityChange = useCallback((e)=>{
     let val = e.target.value
     setQuantity(Number(val))
   })
@@ -227,6 +228,10 @@ function App(){
     }
     
       <Dialog
+        sx={{
+          width: "90%",
+          maxWidth: 600,
+        }}
         open={dialogObj.showDialog}
         onClose={handleCloseDialog}
         TransitionComponent={Transition}
@@ -239,7 +244,7 @@ function App(){
           </Typography>
         </DialogTitle>
         <DialogContent dividers>
-          <TextField variant="standard" label="Quantity" onChange={handleQuatity} type="number" autoFocus={false}/>
+          <TextField variant="standard" label="Quantity" onChange={handleQuantityChange} type="number" autoFocus={false}/>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>
