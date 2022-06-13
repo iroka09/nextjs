@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useRef, useMemo, useCallback} from "react"
 import moment from "moment"
 import Head from "next/head"
-import dynamic from "next/dynamic"
 import Box from "@mui/material/Box"
 import Chip from "@mui/material/Chip"
 import Stack from "@mui/material/Stack"
@@ -16,38 +15,16 @@ import PauseIcon from "@mui/icons-material/Pause"
 import HistoryIcon from "@mui/icons-material/History"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
-/*
-const ScrollPicker = dynamic(()=> import("react-scrollable-picker"), {
-  ssr: false,
-  loading: (
-    <h3 
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: 100,
-      }}>
-      Please wait...
-    </h3>
-  )
-})
 
 
-      <ScrollPicker
-        optionGroups={optionGroups}
-        valueGroups={valueGroups}
-        onChange={handlePickerChange} 
-      />
-    
-*/
-const renderTime = (str="")=> (
-  str
+function renderTime(str=""){
+  return str
   .split(":")
   .map(val=>(
     (Number(val)<10)? "0"+val : val
   ))
   .join(":")
-)
+}
 
 
 function App(){
@@ -57,9 +34,9 @@ function App(){
   const sRef = useRef()
   
   const [anchor, setAnchor] = useState({
-    el: null, //element ref
-    timeType: "", //s,m or h
-    timeMax: 0, //(59 for s,m) (12 for h)
+    el: null,
+    timeType: "",
+    timeMax: 0,
   })
   
   const [time, setTime] = useState({
@@ -68,7 +45,7 @@ function App(){
   
   const [isRunning, setIsRunning] = useState(false);
   
-//  const [wheelIndex, setWheelIndex] = useState(0);
+  const [wheelIndex, setWheelIndex] = useState(0);
   
   const handleSetAnchor = (type, ref)=>{
     setAnchor(x=>({
@@ -76,45 +53,6 @@ function App(){
       [type]: ref
     }))
   }
-  
-  
-const [pickerObj, setPickerObj] = useState({
-      valueGroups: {
-        title: 'Mr.',
-        firstName: 'Micheal',
-        secondName: 'Jordan'
-      }, 
-      optionGroups: {
-        title: [
-          { value: 'mr', label: 'Mr.' },
-          { value: 'ms', label: 'Ms.' },
-          { value: 'dr', label: 'Dr.' },
-        ],
-        firstName: [
-          { value: 'John', label: 'John' },
-          { value: 'Micheal', label: 'Micheal' },
-          { value: 'Elizabeth', label: 'Elizabeth' },
-        ],
-        secondName: [
-          { value: 'Lennon', label: 'Lennon' },
-          { value: 'Jackson', label: 'Jackson' },
-          { value: 'Jordan', label: 'Jordan' },
-          { value: 'Legend', label: 'Legend' },
-          { value: 'Taylor', label: 'Taylor' }
-        ],
-      },
-  });
-  
-const handlePickerChange = (name, value) => {
-    setPickerObj(val => ({
-      ...val,
-      valueGroups: {
-        ...val.valueGroups,
-        [name]: value
-      }
-    }));
-  };
- 
  
   useEffect(()=>{
     let tm;
@@ -132,15 +70,15 @@ const handlePickerChange = (name, value) => {
           m = (s<1)? --m : m;
           h = (m<1)? --h : h;
           //==
-          s = (h<0 && m<0 && s<1)? 0 : (s<1)? 59 : s;
-          m = (h<0 && m<1)? 0 : (m<1)? 59 : m;
+          s = (h<0&&m<0&&s<1)? 0 : (s<1)? 59 : s;
+          m = (h<0&&m<1)? 0 : (m<1)? 59 : m;
           h = (h<0)? 0 : h;
           //==
           return {s, m, h}
         })
       }, 1000);
     }
-    return ()=> clearInterval(tm)
+    return ()=>clearInterval(tm)
   }, [isRunning])
   
   return (
@@ -158,11 +96,10 @@ const handlePickerChange = (name, value) => {
       <Typography color="primary" variant="h3" sx={{
         display:"flex",
         justifyContent:"center",
-        my:9,
+        my:8,
       }} fontWeight="300">
         {renderTime(`${time.h}:${time.m}:${time.s}`)}
       </Typography>
-      
       
     {isRunning ||
     <>
@@ -254,8 +191,7 @@ const handlePickerChange = (name, value) => {
         <Grid item xs={4} 
           sx={{
             display:"flex", 
-            justifyContent:"flex-end",
-          }}
+            justifyContent:"flex-end"}}
           >
           <IconButton color="primary" onClick={()=>{
               setIsRunning(false);
@@ -275,8 +211,12 @@ const handlePickerChange = (name, value) => {
       </Grid> 
     </Stack>
   </Box>
+
   </>)
 }
+
+
+export default React.memo(App)
 
 export function getServerSideProps({req}){
   return ({
@@ -285,5 +225,3 @@ export function getServerSideProps({req}){
     }
   })
 }
-
-export default React.memo(App)
