@@ -15,7 +15,7 @@ export default function App(props){
     </h1>
     
     {router.isFallback? 
-    <h1>Loading...</h2> :
+    <h2>Loading...</h2> :
     <h4>
       No fallback: {props.myName}
     </h4>}
