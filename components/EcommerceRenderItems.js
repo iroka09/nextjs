@@ -56,15 +56,22 @@ useEffect(()=>{
               style={{
                 position:"relative",
                 width:"100%",
-                height: 300,
+                height: 250,
               }}
             >
               <Image
+                loader={(obj)=>{
+                  /*if(obj.src?.match(/^http:\/\/|^https:\/\//i)){
+                    return obj.src
+                  }*/
+                  return obj.src
+                }}
                 src={item.src}
                 alt="Item Picture"
                 layout='fill'
                 objectFit= "cover"
                 placeholder="blur"
+                quality={100}
                 blurDataURL={imageLoading}
               />
             </div>
