@@ -41,12 +41,12 @@ useEffect(()=>{
   }
 })*/
   // console.log(useContext(CartContext))
-  const [val, setVal] = useState({})
+ // const [val, setVal] = useState({})
   
   useEffect(()=>{
-    alert(
+ /* alert(
       Object.entries(obj)
-    )
+    )*/
   }, [val])
   
   return(
@@ -70,7 +70,7 @@ useEffect(()=>{
               <Image
                 src={item.src}
                 loader={(obj)=>{
-                  setVal(obj)
+                  // setVal(obj)
                   if(obj.src?.match(/^http:\/\/|^https:\/\//i)){
                     return obj.src
                   }
