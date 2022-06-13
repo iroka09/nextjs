@@ -5,8 +5,7 @@ import {experimental_sx as sx} from "@mui/material/styles"
 
 export default function App(props){
   const router = useRouter()
-  //return <h1>hiiii</h1>
-  console.log(router)
+  //console.log(router)
   return(
     <>
     <h1 style={{
@@ -16,9 +15,7 @@ export default function App(props){
     </h1>
     
     {router.isFallback? 
-    <h4>
-      isFallback is true: {props.myName}
-    </h4> : 
+    <h1>Loading...</h2> :
     <h4>
       No fallback: {props.myName}
     </h4>}
@@ -36,7 +33,7 @@ export function getStaticPaths(){
         params: {name: "tochi"},
       },
     ],
-    fallback: true
+    fallback: "blocking" //true, false, blocking.
   })
 }
 
@@ -48,6 +45,6 @@ export function getStaticProps({params}){
       myName: params.name,
       num,
     },
-    revalidate: 8
+    revalidate: 10 //regenerate this page after 10sec, below it uses built page.
   })
 }

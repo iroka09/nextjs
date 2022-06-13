@@ -60,10 +60,11 @@ useEffect(()=>{
               }}
             >
               <Image
-                loader={(obj)=>{
+                loader={obj=>{
                   /*if(obj.src?.match(/^http:\/\/|^https:\/\//i)){
                     return obj.src
                   }*/
+                  console.log(obj)
                   return obj.src
                 }}
                 src={item.src}
