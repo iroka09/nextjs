@@ -1,4 +1,4 @@
-import React, {useContext, memo, useRef, useEffect} from "react"
+import React, {useContext, memo, useRef, useState, useEffect} from "react"
 import {CartContext, capitalize} from "../pages/ecommerce"
 import Image from "next/image"
 import Box from "@mui/material/Box"
@@ -41,6 +41,14 @@ useEffect(()=>{
   }
 })*/
   // console.log(useContext(CartContext))
+  const [val, setVal] = useState({})
+  
+  useEffect(()=>{
+    alert(
+      JSON.stringify(obj,0,3)
+    )
+  }, [val])
+  
   return(
     <>
       {(itemList.length > 0 && !isLoading) ?
@@ -65,9 +73,7 @@ useEffect(()=>{
                   /*if(obj.src?.match(/^http:\/\/|^https:\/\//i)){
                     return obj.src
                   }*/
-                  alert(
-                  JSON.stringify(obj,0,3)
-                  )
+                  setVal(obj)
                   return obj.src
                 }}
                 alt="Item Picture"
