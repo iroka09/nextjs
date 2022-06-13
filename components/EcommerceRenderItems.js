@@ -65,7 +65,9 @@ useEffect(()=>{
                   /*if(obj.src?.match(/^http:\/\/|^https:\/\//i)){
                     return obj.src
                   }*/
-                  console.log(obj)
+                  alert(
+                  JSON.stringify(obj,0,3)
+                  )
                   return obj.src
                 }}
                 alt="Item Picture"
