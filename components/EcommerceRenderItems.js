@@ -61,10 +61,13 @@ useEffect(()=>{
            {item.addedToCart && <AddTaskIcon color="success" sx={{position:"absolute",top:7,right:7}} />
            }
             <Typography color="primary" variant="h6" >{capitalize(item.name)}</Typography>
-           <Button sx={{my:1, color:"text.primary"}} onClick={()=>setDialogObj(obj=>({
-             showDialog: true,
-             itemId: item.id,
-           }))} 
+           <Button 
+              sx={{my:1, color:"text.primary"}} 
+              onClick={()=>setDialogObj(obj=>({
+                showDialog: true,
+                itemId: item.id,
+                }))
+              } 
            size="small"
            startIcon={<ExpandMoreIcon/>}
            >
@@ -84,6 +87,7 @@ useEffect(()=>{
             <Button
               variant="contained" 
               startIcon={<AttachMoneyIcon/>} 
+              disableElevation
               onClick={handleCommingSoon}
               >
               BUY NOW

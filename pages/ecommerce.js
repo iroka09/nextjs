@@ -77,7 +77,7 @@ const Transition = React.forwardRef((props, ref)=>{
     
 function App(){
   const theme = useTheme();
-  console.log(process.env)
+  //console.log(process.env)
   const [showAddedCartsOnly, setShowAddedCartsOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [totalItemsPrice, setTotalItemsPrice] = useState()
@@ -110,13 +110,17 @@ function App(){
     setQuantity(NaN);
   })
   
-  const handleApplyQuantity = useCallback((id)=>{
-    if(!Number.isInteger(quantity) || quantity<1){
-      alert("Sorry, the value you entered is not allowed.");
+  const handleApplyQuantity = useCallback(()=>{
+    if(isNaN(quantity)){
+      alert("Please enter a value.");
+      return;
+    }
+    else if(!Number.isInteger(quantity) || quantity<1){
+      alert("Sorry, only integer number is allowed.");
       return;
     }
     let newList = itemList.map(item=>{
-      if(item.id === id){
+      if(item.id === dialogObj.itemId){
          item.quantity = quantity
       }
       return item
@@ -127,13 +131,13 @@ function App(){
   
   const handleAddToCart = useCallback((id)=>{
     setItemList((items)=>{
-      let newList = items.map(item=>{
+      let newItem = items.map(item=>{
         if(item.id === id){
           item.addedToCart = !item.addedToCart
         }
         return item
       })
-      return newList
+      return newItem
     })
   })
     
@@ -146,8 +150,8 @@ function App(){
     }, random.int(500, 2000));
   })
   
-  const getTotalAmount = useCallback((val)=>{
-    let amount = val || 0;
+  const getTotalAmount = useCallback((val=0)=>{
+    let amount = val;
     val || itemList.filter(x=>x.addedToCart===true).forEach(item=>{
       amount += (item.quantity*item.price)
     });
@@ -203,7 +207,7 @@ function App(){
         <RenderItems />
       </CartContext.Provider>
      
-      {(showAddedCartsOnly && itemList.filter(x=>x.addedToCart===true).length>0) && 
+      {(showAddedCartsOnly && itemList.filter(x=>x.addedToCart===true).length>=0) && 
       <Paper sx={{mt:"20px", mb:2, p: "10px"}}>
         <Typography sx={{mb: 2}}>
           <b>Total Items:</b> <span style={{color: "tomato"}}>{itemList.filter(x=>x.addedToCart===true).length}</span>
@@ -235,37 +239,19 @@ function App(){
           </Typography>
         </DialogTitle>
         <DialogContent dividers>
-          <TextField variant="standard" label="Item Quantity" onChange={handleQuatity} type="number" autoFocus={false}/>
+          <TextField variant="standard" label="Quantity" onChange={handleQuatity} type="number" autoFocus={false}/>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={()=>handleApplyQuantity(dialogObj.itemId)}>
-            Apply 
+          <Button onClick={handleCloseDialog}>
+            Cancel
+          </Button>
+          <Button onClick={handleApplyQuantity}>
+            Ok
           </Button>
         </DialogActions>
       </Dialog>
   </>
 )}
-
-
-export function getServerSideProps({req}){
-  /*axios({
-    method: "get",
-    url: "https://opentdb.com/api.php?amount=50",
-  })
-  .then(data=>{
-   console.log(data)
-  })
-  .catch(err=>{
-    console.log(err)
-  });*/
- // console.log(req.env)
-  return ({
-    props: {
-      cookies: req.cookies,
-      //baseUrl: req.url,
-    }
-  })
-}
 
 
 
