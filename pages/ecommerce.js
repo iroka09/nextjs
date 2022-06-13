@@ -226,7 +226,7 @@ function App(){
         <RenderItems />
       </CartContext.Provider>
      
-      {(showAddedCartsOnly && itemList.filter(x=>x.addedToCart===true).length>=0) && 
+      {(showAddedCartsOnly) && 
       <Paper sx={{mt:"20px", mb:2, p: "10px"}}>
         <Typography sx={{mb: 2}}>
           <b>Total Items:</b> <span style={{color: "tomato"}}>{itemList.filter(x=>x.addedToCart===true).length}</span>

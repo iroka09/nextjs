@@ -42,13 +42,13 @@ useEffect(()=>{
 })*/
   // console.log(useContext(CartContext))
  // const [val, setVal] = useState({})
-  
+  /*
   useEffect(()=>{
- /* alert(
+    alert(
       Object.entries(obj)
-    )*/
+    )
   }, [val])
-  
+  */
   return(
     <>
       {(itemList.length > 0 && !isLoading) ?
