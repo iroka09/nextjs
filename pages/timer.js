@@ -21,25 +21,25 @@ const ScrollPicker = dynamic(()=> import("react-scrollable-picker"), {
   ssr: false,
   loading: (
     <h3 
-      sx={{
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        margin: "50px 0",
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: 100,
       }}>
       Please wait...
     </h3>
   )
 })
 
-function renderTime(str=""){
-  return str
+const renderTime = (str="")=> (
+  str
   .split(":")
   .map(val=>(
     (Number(val)<10)? "0"+val : val
   ))
   .join(":")
-}
+)
 
 
 function App(){
@@ -49,9 +49,9 @@ function App(){
   const sRef = useRef()
   
   const [anchor, setAnchor] = useState({
-    el: null,
-    timeType: "",
-    timeMax: 0,
+    el: null, //element ref
+    timeType: "", //s,m or h
+    timeMax: 0, //(59 for s,m) (12 for h)
   })
   
   const [time, setTime] = useState({
@@ -60,7 +60,7 @@ function App(){
   
   const [isRunning, setIsRunning] = useState(false);
   
-  const [wheelIndex, setWheelIndex] = useState(0);
+//  const [wheelIndex, setWheelIndex] = useState(0);
   
   const handleSetAnchor = (type, ref)=>{
     setAnchor(x=>({
@@ -98,9 +98,10 @@ const [pickerObj, setPickerObj] = useState({
   });
   
 const handlePickerChange = (name, value) => {
-    setPickerObj(({valueGroups}) => ({
+    setPickerObj(val => ({
+      ...val,
       valueGroups: {
-        ...valueGroups,
+        ...val.valueGroups,
         [name]: value
       }
     }));

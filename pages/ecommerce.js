@@ -235,37 +235,19 @@ function App(){
           </Typography>
         </DialogTitle>
         <DialogContent dividers>
-          <TextField variant="standard" label="Item Quantity" onChange={handleQuatity} type="number" autoFocus={false}/>
+          <TextField variant="standard" label="Quantity" onChange={handleQuatity} type="number" autoFocus={false}/>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={()=>handleApplyQuantity(dialogObj.itemId)}>
-            Apply 
+          <Button onClick={()=>handleCloseDialog()}>
+            Cancel
+          </Button>
+          <Button onClick={()=>handleApplyQuantity(dialogObj.itemId)}>
+            Ok
           </Button>
         </DialogActions>
       </Dialog>
   </>
 )}
-
-
-export function getServerSideProps({req}){
-  /*axios({
-    method: "get",
-    url: "https://opentdb.com/api.php?amount=50",
-  })
-  .then(data=>{
-   console.log(data)
-  })
-  .catch(err=>{
-    console.log(err)
-  });*/
- // console.log(req.env)
-  return ({
-    props: {
-      cookies: req.cookies,
-      //baseUrl: req.url,
-    }
-  })
-}
 
 
 

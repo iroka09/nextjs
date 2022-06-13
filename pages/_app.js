@@ -59,7 +59,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 
 const cookieOptions = {
-  maxAge: 60*60*24*30 //1 month
+  maxAge: 1000*60*60*24*30 //1 month
 }
 
 // import * as ButtonClasses from "@mui/material/Button"
@@ -163,7 +163,7 @@ const menuRef = React.useRef()
       typography: {
         fontFamily: '"Dosis", "Smooch Sans", "Roboto", "Helvetica", "Arial", sans-serif',
         button: {
-          textTransform: "initial"
+          textTransform: "capitalize"
         }
       },
       //styleOverrides, defaultProps, variants
@@ -212,26 +212,25 @@ const menuRef = React.useRef()
   useEffect(()=>{
     if(theme.palette.mode === "light"){
       document.body.style.backgroundColor = "#f0f0f0";
-      }
+    }
     else {
       document.body.style.backgroundColor = "#000";
     }
   }, [theme.palette.mode])
 
   const disableScroll = ()=> {
-    document.body.style.overflow = "hidden"
+   // document.body.style.overflow = "hidden"
   }
 
   const enableScroll = ()=> {
-    document.body.style.overflow = "initial"
+  //  document.body.style.overflow = "initial"
   }
 
   //accept cookie policy prompt
   React.useEffect(()=> {
     if (!acceptedCookiePolicy) {
       let fn = setTimeout(function() {
-        setIsCookieDrawerOpen(true);
-        disableScroll();
+      //  setIsCookieDrawerOpen(true);
       }, 6000);
       return ()=>clearTimeout(fn)
     }
@@ -247,10 +246,10 @@ const menuRef = React.useRef()
       });
     }
     const scrollEvent = ()=>{
-      (window.pageYOffset > 200)? setShowFab(true) : setShowFab(false)
+      setShowFab(window.pageYOffset > 200 ? true : false)
     }
    window.addEventListener("scroll", scrollEvent);
-    scrollTopButtonRef.current.addEventListener("click", FabEvent);
+    //scrollTopButtonRef.current.addEventListener("click", FabEvent);
     return ()=> {
       window.removeEventListener("scroll", scrollEvent);
       scrollTopButtonRef.current.removeEventListener("click", FabEvent);
@@ -474,15 +473,22 @@ const menuRef = React.useRef()
   </Container>
   
     
-    <Zoom in={showFab}> 
+  <Zoom in={showFab}> 
     <Fab
       color="error"
       ref={scrollTopButtonRef}
       sx={{position:"fixed", zIndex: theme.zIndex.speedDial, bottom: 40, right: 30}}
+      onClick={()=>{
+        window.scroll({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      }}
     >
       <ExpandLessIcon sx={{fontSize: 30}}/>
     </Fab>
-    </Zoom>
+  </Zoom>
   
   
   <footer style={{backgroundColor: "#000", color: "#fff", padding: "10px", marginTop: 50 }}>
