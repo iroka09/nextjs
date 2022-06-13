@@ -14,7 +14,7 @@ import AddTaskIcon from "@mui/icons-material/AddTask"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 
-import imageLoading from "../public/image_loading.jpg"
+const imageLoading = "/image_loading.jpg"
 
 
 
