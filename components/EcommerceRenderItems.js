@@ -45,7 +45,7 @@ useEffect(()=>{
   
   useEffect(()=>{
     alert(
-      JSON.stringify(obj,0,3)
+      Object.entries(obj)
     )
   }, [val])
   
@@ -70,11 +70,11 @@ useEffect(()=>{
               <Image
                 src={item.src}
                 loader={(obj)=>{
-                  /*if(obj.src?.match(/^http:\/\/|^https:\/\//i)){
-                    return obj.src
-                  }*/
                   setVal(obj)
-                  return obj.src
+                  if(obj.src?.match(/^http:\/\/|^https:\/\//i)){
+                    return obj.src
+                  }
+                  return "/pic"+(index+1)+".jpg"
                 }}
                 alt="Item Picture"
                 layout='fill'
