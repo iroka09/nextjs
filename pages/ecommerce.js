@@ -33,6 +33,14 @@ import Head from "next/head"
 import Draggable from "react-draggable"
 import {LoremIpsum} from "lorem-ipsum"
 
+
+
+import shirt1 from "../public/ecommerce/shirt1.jpg"
+import shirt2 from "../public/ecommerce/shirt2.jpg"
+import pic3 from "../public/pic3.jpg"
+
+
+
 export const CartContext = createContext();
 
 export const capitalize = (text)=>{
@@ -49,7 +57,7 @@ const stockItems = [
       {
         id: 1,
         name: "red shirt",
-        src: "/ecommerce/shirt1.jpg",
+        src: {shirt1},
         price: random.int(10, 200)+"."+random.int(10,99),
         addedToCart: false,
         quantity: 1,
@@ -57,7 +65,15 @@ const stockItems = [
       {
         id: 2,
         name: "black shirt",
-        src: "/ecommerce/shirt2.jpg",
+        src: {shirt2},
+        price: random.int(5, 100)+"."+random.int(10,99),
+        addedToCart: false,
+        quantity: 1,
+      },
+      {
+        id: 3,
+        name: "Iroka Tochi",
+        src: {pic3},
         price: random.int(5, 100)+"."+random.int(10,99),
         addedToCart: false,
         quantity: 1,

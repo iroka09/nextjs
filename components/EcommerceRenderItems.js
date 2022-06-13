@@ -14,6 +14,8 @@ import AddTaskIcon from "@mui/icons-material/AddTask"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 
+import imageLoading from "../public/image_loading.jpg"
+
 
 
 function RenderItems(){
@@ -50,14 +52,23 @@ useEffect(()=>{
         {itemList.map((item,index)=>(
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
           <Card>
-           <img 
-              src={item.src}
-              alt="Item Picture"
+            <div
               style={{
-                objectFit: "cover",
+                position:"relative",
+                width:"100%",
+                height: 300,
               }}
-            />
-            <div style={{padding: "5px 10px", position:"relative"}}>
+            >
+              <Image
+                src={item.src}
+                alt="Item Picture"
+                layout='fill'
+                objectFit= "cover"
+                placeholder="blur"
+                blurDataURL={imageLoading}
+              />
+            </div>
+            <div style={{padding: 10, position:"relative"}}>
            {item.addedToCart && <AddTaskIcon color="success" sx={{position:"absolute",top:7,right:7}} />
            }
             <Typography color="primary" variant="h6" >{capitalize(item.name)}</Typography>
