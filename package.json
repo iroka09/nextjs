@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "start-dev": "next start",
-    "heroku-postbuild": "npm run build",
+    "heroku-postbuild": "npm i react-scrollable-picker --force && next build",
     "tailwind-calendar": "tailwindcss -i ./styles/tailwind/input.css -o ./styles/calendar.css --watch"
   },
   "keywords": [],
@@ -42,7 +42,6 @@
     "react-draggable": "^4.4.5",
     "react-highlight": "^0.14.0",
     "react-redux": "^7.2.6",
-    "react-scrollable-picker": "^1.0.2",
     "react-swipeable-views": "^0.14.0",
     "sass": "^1.49.9",
     "validator": "^13.7.0"
