@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "start-dev": "next start",
-    "heroku-postbuild": "npm i react-scrollable-picker --force && npm i --save-dev typescript @types/node && next build",
+    "heroku-prebuild": "npm i react-scrollable-picker --force && npm i --save-dev typescript @types/node",
     "tailwind-calendar": "tailwindcss -i ./styles/tailwind/input.css -o ./styles/calendar.css --watch"
   },
   "keywords": [],
