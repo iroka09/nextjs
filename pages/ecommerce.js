@@ -28,7 +28,6 @@ import AddTaskIcon from "@mui/icons-material/AddTask"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import RenderItems from "../components/EcommerceRenderItems"
 
-import Image from "next/image"
 import Head from "next/head"
 import Draggable from "react-draggable"
 import {LoremIpsum} from "lorem-ipsum"
