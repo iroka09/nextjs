@@ -246,23 +246,31 @@ function App(){
     }
     
       <Dialog
-        sx={{
-          width: "90%",
-          maxWidth: 600,
-        }}
         open={dialogObj.showDialog}
         onClose={handleCloseDialog}
         TransitionComponent={Transition}
       >
         <DialogTitle>
-          <Typography variant="h5" >
+          <Typography 
+            variant="h5"
+            >
             {capitalize(
               itemList.find(obj=> obj.id===dialogObj.itemId)?.name
               )}
           </Typography>
         </DialogTitle>
         <DialogContent dividers>
-          <TextField variant="standard" label="Quantity" onChange={handleQuantityChange} type="number" autoFocus={false}/>
+          <TextField 
+            variant="standard" 
+            label="Quantity" 
+            onChange={handleQuantityChange}
+            type="number" 
+            autoFocus={false}
+            sx={{
+              width: "80vw",
+              maxWidth: 500
+            }}
+            />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>
