@@ -266,10 +266,6 @@ function App(){
             onChange={handleQuantityChange}
             type="number" 
             autoFocus={false}
-            sx={{
-              width: "80vw",
-              maxWidth: 500
-            }}
             />
         </DialogContent>
         <DialogActions>

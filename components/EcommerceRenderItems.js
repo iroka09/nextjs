@@ -81,7 +81,7 @@ useEffect(()=>{
                 objectFit= "cover"
                 placeholder="blur"
                 quality={100}
-                blurDataURL={item.src}
+                blurDataURL={item.src+"/?blur"}
               />
             </div>
             <div style={{padding: 10, position:"relative"}}>
