@@ -27,7 +27,7 @@ const yearArray = [...Array(10)].map((arr, index)=> {
   return new Date().getFullYear() - index;
 })
 
-function App() {
+function App(props) {
   const muiTheme = useTheme()
   const contrastText = muiTheme.palette.primary.contrastText;
   const [loading,
@@ -35,9 +35,9 @@ function App() {
   const [data,
     setData] = useState([])
   const [year,
-    setYear] = useState(moment().year())
+    setYear] = useState(props.year)
   const [fullDate,
-    setFullDate] = useState(moment().format("dddd, DD/MMMM/YYYY"))
+    setFullDate] = useState(moment(props.year+"", "YYYY").format("dddd, DD/MMMM/YYYY"))
   const [ButtonedBtn,
     setButtonedBtn] = useState({});
   // const theme = useTheme();
@@ -183,13 +183,14 @@ function App() {
  </> )
 }
 
-export default memo(App)
 
-  export function getServerSideProps(context) {
-    const req = context.req;
+  export function getStaticProps(context) {
+    let thisYear = new Date().getFullYear()
     return {
       props: {
-        cookies: req.cookies,
+        year: random.int(2000, thisYear),
       }
     }
   }
+  
+export default memo(App)

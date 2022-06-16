@@ -6,4 +6,12 @@ module.exports = ({
   images: {
     domains: ["picsum.photos"]
   },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  api:  {
+    bodyParser: {
+      sizeLimit: '1mb',
+    } || false, //for ./pages/api/***.js routes
+  },
 })

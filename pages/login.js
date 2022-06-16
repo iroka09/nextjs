@@ -64,6 +64,7 @@ export default function App(props) {
   
   return(
 <>
+<h1>{props.name}</h1>
   <Paper sx={{
     px:1,
     display: "flex",
@@ -177,6 +178,7 @@ export async function getServerSideProps({req, res, ...context}) {
     props: {
       title: context.resolvedUrl.substr(1).toUpperCase(),
       cookies: req.cookies,
+      name: req.name || "No name"
     }
   })
 }

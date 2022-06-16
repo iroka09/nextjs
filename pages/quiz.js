@@ -23,7 +23,7 @@ function App(props){
     bool: false,
     clickedIndex: NaN
   })
-  const questions = props.questions ?? questionsObj;
+  const questions = props.questions
   const results = questions.results;
   
   const result = results[qNum];
@@ -166,11 +166,20 @@ function App(props){
 
 
 export async function getServerSideProps({req}){
- // console.log(req.questions)
+  let data = QuestionsObj;
+  if(process.env.NODE_ENV==="production"){
+    try{
+      let resp = await axios.get("https://opentdb.com/api.php?amount=50");
+      data = resp.data
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
   return ({
     props: {
       cookies: req.cookies,
-      questions: req.questions
+      questions: req.questions || data
     }
   })
 }
