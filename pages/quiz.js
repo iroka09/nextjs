@@ -166,7 +166,7 @@ function App(props){
 
 
 export async function getServerSideProps({req}){
-  let data = QuestionsObj;
+  let data = questionsObj;
   if(process.env.NODE_ENV==="production"){
     try{
       let resp = await axios.get("https://opentdb.com/api.php?amount=50");
