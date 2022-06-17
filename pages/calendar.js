@@ -58,7 +58,7 @@ function App(props) {
   
   const handleRevalidate = ()=>{
     setRevalidateResult("Requesting...")
-    axios.get("/api/calendar?secret=7070")
+    axios.get("/api/revalidate/?secret=7070")
     .then((res)=>{
       let message = res.data?.message
       setRevalidateResult(message)
@@ -209,7 +209,7 @@ function App(props) {
        Revalidate
       </Button>
     }
-      <span>{revalidateResult}</span> 
+      <span >{revalidateResult}</span> 
   </Stack>
  </> )
 }
