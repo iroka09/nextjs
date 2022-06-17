@@ -57,7 +57,7 @@ function App(props) {
   }
   
   const handleRevalidate = ()=>{
-    setRevalidateResult("requesting")
+    setRevalidateResult("Requesting...")
     axios.get("/api/calendar?secret=7070")
     .then((res)=>{
       let message = res.data?.message
@@ -65,6 +65,7 @@ function App(props) {
     })
     .catch((err)=>{
       setRevalidateResult("Error in request.")
+      alert(JSON.stringify(err,0,3))
     })
     .finally(()=>{
       setTimeout(()=>setRevalidateResult(""), 5000)
@@ -202,8 +203,8 @@ function App(props) {
     </div>
     </Box>
     
-  <Stack direction="row" spacing={3}> 
-    {revalidateResult==="requesting" || 
+  <Stack direction="row" spacing={3} sx={{mt:3}}> 
+    {revalidateResult==="Requesting..." || 
       <Button onClick={handleRevalidate}>
        Revalidate
       </Button>
