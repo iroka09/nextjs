@@ -6,10 +6,10 @@ export default async function handler(req, res) {
   }
   try {
     await res.unstable_revalidate('/calendar')
-    return res.json({ revalidated: true })
+    return res.json({ message: "successful" })
   } catch (err) {
     // If there was an error, Next.js will continue
     // to show the last successfully generated page
-    return res.status(500).send('Error revalidating')
+    return res.status(500).json({message:'Error revalidating'})
   }
 }

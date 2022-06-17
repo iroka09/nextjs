@@ -19,6 +19,7 @@ import {
 //import {useTheme} from "@mui/styles"
 import moment from "moment"
 import random from "random"
+import axios from "axios"
 import Head from "next/head"
 
 let _now =  new Date().getFullYear();
@@ -40,8 +41,9 @@ function App(props) {
     setYear] = useState(props.year)
   const [fullDate,
     setFullDate] = useState(moment(props.year+"", "YYYY").format("dddd, DD/MMMM/YYYY"))
-  const [ButtonedBtn,
-    setButtonedBtn] = useState({});
+  const [ButtonedBtn, setButtonedBtn] = useState({});
+  
+  const [revalidateResult, setRevalidateResult] = useState();
   // const theme = useTheme();
 
   const yearRef = useRef(year);
@@ -51,6 +53,21 @@ function App(props) {
     setTimeout(function() {
       setYear(e.target.value);
     }, 2000);
+  }
+  
+  const handleRevalidate = ()=>{
+    setRevalidateResult("requesting")
+    axios.get("/api/calendar?secret=7070")
+    .then((res)=>{
+      let message = res.data?.message
+      setRevalidateResult(message)
+    })
+    .catch((err)=>{
+      setRevalidateResult("Error in request.")
+    })
+    .finally(()=>{
+      setTimeout(()=>setRevalidateResult(""), 5000)
+    })
   }
 
   useEffect(()=> {
@@ -183,17 +200,27 @@ function App(props) {
       </ul>
     </div>
     </Box>
+    
+  <Stack> 
+    {revalidateResult==="requesting" || 
+      <Button onClick={handleRevalidate}>
+       Revalidate
+      </Button>
+    }
+      <span>{revalidateResult}</span> 
+  </Stack>
  </> )
 }
 
 
   export function getStaticProps(context) {
     let thisYear = new Date().getFullYear()
-    return {
+    return ({
       props: {
         year: random.int(1999, thisYear),
-      }
-    }
+      },
+      revalidate: false //or 20
+    })
   }
   
 export default memo(App)
