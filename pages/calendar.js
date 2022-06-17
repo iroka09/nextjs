@@ -22,7 +22,7 @@ import random from "random"
 import Head from "next/head"
 
 let _now =  new Date().getFullYear();
-const yearArray = [...Array(2000, _now)].map((arr, index)=> {
+const yearArray = [...Array(_now-1999)].map((arr, index)=> {
   return _now - index;
 })
 
@@ -191,7 +191,7 @@ function App(props) {
     let thisYear = new Date().getFullYear()
     return {
       props: {
-        year: random.int(2000, thisYear),
+        year: random.int(1999, thisYear),
       }
     }
   }
