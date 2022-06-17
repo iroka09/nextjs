@@ -9,6 +9,7 @@ import CircularProgress from "@mui/material/CircularProgress"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import TextField from "@mui/material/TextField"
 import Typography from "@mui/material/Typography"
+import Stack from "@mui/material/Stack"
 import MenuItem from "@mui/material/MenuItem"
 import Button from "@mui/material/Button"
 import Checkbox from "@mui/material/Checkbox"
@@ -201,7 +202,7 @@ function App(props) {
     </div>
     </Box>
     
-  <Stack> 
+  <Stack direction="row" spacing={3}> 
     {revalidateResult==="requesting" || 
       <Button onClick={handleRevalidate}>
        Revalidate
