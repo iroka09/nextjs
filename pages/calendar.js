@@ -21,14 +21,15 @@ import moment from "moment"
 import random from "random"
 import Head from "next/head"
 
-// import "../styles/calendar.css";
-
-
-const yearArray = [...Array(10)].map((arr, index)=> {
-  return new Date().getFullYear() - index;
+let _now =  new Date().getFullYear();
+const yearArray = [...Array(2000, _now)].map((arr, index)=> {
+  return _now - index;
 })
 
+
+
 function App(props) {
+  
   const muiTheme = useTheme()
   const contrastText = muiTheme.palette.primary.contrastText;
   const [loading,
@@ -120,11 +121,12 @@ function App(props) {
     <div>
     {(loading === true) && (
         <>
-        <div className="flex justify-center items-center fixed z-[10] inset-0 bg-black bg-opacity-30">
-        </div>
-        <div className="flex justify-center items-center fixed z-[11] inset-0 bg-none">
-      <CircularProgress sx={ { color: "info.dark" }} disableShrink />
-        </div> < />
+          <div className="flex justify-center items-center fixed z-[10] inset-0 bg-black bg-opacity-30">
+          </div>
+          <div className="flex justify-center items-center fixed z-[11] inset-0 bg-none">
+            <CircularProgress sx={ { color: "info.dark" }} disableShrink />
+          </div> 
+        </>
       )}
     <ul className="grid gap-y-6 gap-x-2 grid-cols-12 p-2">
    {data.map((obj,index)=>(
