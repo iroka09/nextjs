@@ -60,7 +60,7 @@ function App(props) {
   
 
   const handleRevalidate = ()=>{
-    clearTimeout(timeoutsRef.current.revalidationResult)
+    clearTimeout(timeoutsRef.current?.revalidationResult)
     setRevalidateResult("Requesting for revalidation...")
     axios.get("/api/revalidate/?secret=7070")
     .then((res)=>{
@@ -223,13 +223,13 @@ console. log(router)
 }
 
 
-  export function getStaticProps(context) {
-    let thisYear = new Date().getFullYear()
+  export function getStaticProps(ctx) {
+    let year = new Date().getFullYear()
     return ({
       props: {
-        year: random.int(1999, thisYear),
+        year: random.int(1999, year),
       },
-      revalidate: false //or 20
+      revalidate: false,  //or 20
     })
   }
   
