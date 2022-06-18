@@ -2,7 +2,8 @@ import {NextResponse} from "next/server"
 
 export function middleware(req, event){
   const {ip, geo, nextUrl, query,  cookies, headers, ...others} = req
-  console. log(query,"====", cookies,"=====", headers)
+  //console. log(query,"====", cookies,"=====", headers)
+  console. log(req)
   req.name = "Iroka"
   
   return NextResponse.next() //equivalent to next() in expressjs

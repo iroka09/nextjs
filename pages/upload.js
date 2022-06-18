@@ -27,12 +27,13 @@ export default function App(props){
   
   const [value, setValue] = useState(0);
   const [info, setInfo] = useState();
-  const [isUploading, setIsUploading] = useState(false);
+  const [isUploading, setIsUploading] = useState();
   const cancelRef = useRef(()=>{});
   
   
   const handleUpload =(e)=>{
     try{
+    setInfo()
     const files = e.target.files;
     const formData = new FormData();
     const maxSize = "300MB";
@@ -40,14 +41,15 @@ export default function App(props){
       if(files[i].size > bytes(maxSize)){
       throw "File should not exceed "+maxSize+".";
       }
-     formData.append("myfiles", files[i])
+     //formData.append("myfiles", files[i])
     }
+    formData.set("user", "Iroka Tochi");
     const options = {
       url: "/api/upload",
       method: "post",
       data: formData,
-      cancelToken: new CancelToken(cancel=>{
-        cancelRef.current = cancel
+      cancelToken: new CancelToken(token=>{
+        cancelRef.current = token
       }),
       onUploadProgress: ({loaded,total})=>{
         let val = Math.floor((loaded/total)*100);
@@ -88,11 +90,12 @@ export default function App(props){
       </h4>
     {isUploading && (
     <>
-      <h4>{value+"%"}</h4>
+      <h4>{value}%</h4>
       <LinearProgress variant="determinate" value={value} sx={{maxWidth: "200px", margin:"auto"}} />
     </>
     )}
     <div style={{display:"flex",justifyContent:"space-around", marginTop: 20}} >
+    {(isUploading)? (
     <Button 
       variant="outlined"
       color="error"
@@ -100,7 +103,7 @@ export default function App(props){
       onClick={()=>cancelRef.current("You cancelled by clicking upload button again")}
       >
       Cancel
-    </Button>
+    </Button>) : (
     <label htmlFor="files">
       <input style={{display:"none"}} type="file" id="files" name="myfiles" onChange={handleUpload} multiple />
       <Button 
@@ -114,7 +117,8 @@ export default function App(props){
       >
         Upload
       </Button>
-    </label>
+    </label>)
+    }
    </div>
    <p>{props.loremText}</p>
     </>

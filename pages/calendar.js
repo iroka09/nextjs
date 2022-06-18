@@ -22,16 +22,17 @@ import moment from "moment"
 import random from "random"
 import axios from "axios"
 import Head from "next/head"
+import {useRouter} from "next/router"
 
 let _now =  new Date().getFullYear();
-const yearArray = [...Array(_now-1999)].map((arr, index)=> {
-  return _now - index;
+const yearArray = [...Array(_now-1999)].map((_, i)=> {
+  return _now - i;
 })
 
 
 
 function App(props) {
-  
+  const router = useRouter()
   const muiTheme = useTheme()
   const contrastText = muiTheme.palette.primary.contrastText;
   const [loading,
@@ -47,6 +48,7 @@ function App(props) {
   const [revalidateResult, setRevalidateResult] = useState();
   // const theme = useTheme();
 
+  const timeoutsRef = useRef({});
   const yearRef = useRef(year);
 
   const handleDateChange = (e)=> {
@@ -56,19 +58,21 @@ function App(props) {
     }, 2000);
   }
   
+
   const handleRevalidate = ()=>{
-    setRevalidateResult("Requesting...")
+    clearTimeout(timeoutsRef.current.revalidationResult)
+    setRevalidateResult("Requesting for revalidation...")
     axios.get("/api/revalidate/?secret=7070")
     .then((res)=>{
       let message = res.data?.message
       setRevalidateResult(message)
     })
-    .catch((err)=>{
-      setRevalidateResult("Error in request.")
-      alert(JSON.stringify(err,0,3))
+    .catch(err=>{
+      setRevalidateResult(err.message)
+     // alert(JSON.stringify(err,0,3))
     })
     .finally(()=>{
-      setTimeout(()=>setRevalidateResult(""), 5000)
+      timeoutsRef.current.revalidationResult = setTimeout(()=>setRevalidateResult(""), 5000)
     })
   }
 
@@ -96,7 +100,7 @@ function App(props) {
     setloading(false);
   },
     [year]);
-
+console. log(router)
   return (
     <>
        <Head>
@@ -203,9 +207,13 @@ function App(props) {
     </div>
     </Box>
     
-  <Stack direction="row" spacing={3} sx={{mt:3}}> 
-    {revalidateResult==="Requesting..." || 
-      <Button onClick={handleRevalidate}>
+  <Stack direction="row" spacing={3} sx={{mt:3}} alignItems="center"> 
+    {(revalidateResult==="Requesting for revalidation...") || 
+      <Button
+        variant="outlined"
+        color="warning"
+        onClick={handleRevalidate}
+      >
        Revalidate
       </Button>
     }
