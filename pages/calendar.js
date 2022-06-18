@@ -62,7 +62,7 @@ function App(props) {
   const handleRevalidate = ()=>{
     clearTimeout(timeoutsRef.current?.revalidationResult)
     setRevalidateResult("Requesting for revalidation...")
-    axios.get("/api/revalidate/?secret=7070")
+    axios.get("/api/revalidate/?path=calendar&secret=7070")
     .then((res)=>{
       let message = res.data?.message
       setRevalidateResult(message)

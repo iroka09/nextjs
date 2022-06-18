@@ -6,7 +6,8 @@ export default async function handler(req, res) {
     return res.status(401).json({ message: 'Invalid token'})
   }
   try {
-    await res.unstable_revalidate('/'+req.query.path)
+    let x = await res.unstable_revalidate('/'+req.query.path);
+    console. log("*****", x) 
     return res.json({ message: "successful" })
   } 
   catch (err) {
