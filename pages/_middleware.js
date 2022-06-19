@@ -3,12 +3,11 @@ import {NextResponse} from "next/server"
 export function middleware(req, event){
   const {ip, geo, nextUrl, query,  cookies, headers, ...others} = req
   //console. log(query,"====", cookies,"=====", headers)
-  console. log(req)
-  req.name = "Iroka"
+  // console. log(req)
   
   return NextResponse.next() //equivalent to next() in expressjs
   
-  let url = nextUrl.clone(); //clone nextUrl object or you don't clone
+  let url = nextUrl.clone(); //clone nextUrl object if u want
   //url.pathname contains the link we are going to already 
   url.pathname = "/blog" //changing the link to blog
   //Or 

@@ -7,7 +7,6 @@ export default async function handler(req, res) {
   }
   try {
     let x = await res.unstable_revalidate('/'+req.query.path);
-    console. log("*****", x) 
     return res.json({ message: "successful" })
   } 
   catch (err) {

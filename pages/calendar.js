@@ -64,7 +64,7 @@ function App(props) {
     setRevalidateResult("Requesting for revalidation...")
     axios.get("/api/revalidate/?path=calendar&secret=7070")
     .then((res)=>{
-      let message = res.data?.message
+      let message = res.data.message
       setRevalidateResult(message)
     })
     .catch(err=>{
@@ -100,7 +100,7 @@ function App(props) {
     setloading(false);
   },
     [year]);
-console. log(router)
+// console. log(router)
   return (
     <>
        <Head>
