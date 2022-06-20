@@ -12,12 +12,9 @@ import {useRouter} from "next/router"
 
 function App(props){
   const router = useRouter()
-  const [num, setNum] = useState(router.query?.num || 0)
+  const [num, setNum] = useState(props.id)
   
-  useEffect(()=>{
-    alert(JSON.stringify(router,0,2))
-  }, [router.query?.num])
-  
+
   return (
     <>
       <Head>
@@ -31,23 +28,27 @@ function App(props){
         alignItems="center"
         margin="20px 0"
         >
-        <Fab
-          onClick={()=>setNum(x=>--x)}
-        >  -  </Fab>
+        <Fab onClick={()=>setNum(x=>--x)}>  -  </Fab>
         <Box>{num}</Box>
-        <Fab
-          onClick={()=>setNum(x=>++x)}
-          color="primary"
-        > + </Fab>
+        <Fab onClick={()=>setNum(x=>++x)}
+          color="primary"> + </Fab>
       </Stack>
-      <Box margin="20px 0">
+      <Stack justifyContent="center" margin="30px 0">
         <Link href={{
-          pathname: "/learn/router",
-          query: {num: random.int(0,100)},
-        }}>
-          <Button variant="contained">link button</Button>
+          pathname: "/learn/[id]",
+          query: {id: random.int(0,100)},
+        }}
+        as="Iroka">
+          <Button variant="contained">link  random</Button>
         </Link>
-      </Box>
+        <Button
+          variant="contained" 
+          onClick={()=>{
+            router.push("/learn/55", "Tochi")
+        }}>
+          link 55
+        </Button>
+      </Stack>
       <Typography variant="body2">
         value of router during ssr is 
         <pre>{JSON.stringify(router,0,2)}</pre>
@@ -56,6 +57,29 @@ function App(props){
   )
 }
 
+
+export function getStaticPaths(){
+  return  ({
+    paths: [
+      {
+        params: {id: "1"}
+      },
+      {
+        params: {id: "2"}
+      }
+    ],
+    fallback: true, 
+  })
+}
+
+export function getStaticProps({params}){
+  return({
+    props: {
+      id: params.id
+    },
+    revalidate: false,
+  })
+}
 
 
 export default memo(App)

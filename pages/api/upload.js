@@ -3,8 +3,12 @@ import expressForm from "express-formidable"
 import cors from "cors"
 
 const app = nextConnect({
-  onNoMatch(req, res){
+  onNoMatch(req, res, next){
     res.status(404).send({error: true})
+  },
+  onError(err, req, res, next){
+    console.log(err)
+    res.send("done")
   }
 })
 
@@ -12,9 +16,17 @@ const app = nextConnect({
 
 app.use(cors())
 
-app.use(expressForm())
+app.use((req, res, next)=>{
+  console.log("===== ", req, " =====")
+  next()
+})
 
-app.post((req, res)=>{
+app.use(expressForm({
+  multiples: true, 
+  uploadDir: "./uploads"
+}))
+
+app.post((req, res, next)=>{
   console.log(req)
   res.send({error:false})
 })
