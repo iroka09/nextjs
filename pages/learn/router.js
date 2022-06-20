@@ -33,21 +33,17 @@ function App(props){
         >
         <Fab
           onClick={()=>setNum(x=>--x)}
-        >
-          -
-        </Fab>
+        >  -  </Fab>
         <Box>{num}</Box>
         <Fab
           onClick={()=>setNum(x=>++x)}
           color="primary"
-        >
-          +
-        </Fab>
+        > + </Fab>
       </Stack>
       <Box margin="20px 0">
         <Link href={{
-          pathname: "/router",
-          query: {num: random.int(0,100)}
+          pathname: "/learn/router",
+          query: {num: random.int(0,100)},
         }}>
           <Button variant="contained">link button</Button>
         </Link>

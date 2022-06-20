@@ -41,7 +41,7 @@ export default function App(props){
       if(files[i].size > bytes(maxSize)){
       throw "File should not exceed "+maxSize+".";
       }
-     //formData.append("myfiles", files[i])
+     formData.append("myfiles", files[i])
     }
     formData.set("user", "Iroka Tochi");
     const options = {
