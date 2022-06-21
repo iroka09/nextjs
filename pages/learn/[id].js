@@ -83,10 +83,8 @@ function App(props){
             router.push({
               pathname: "/learn/[id]",
               query: {id: query},
-              asPath,
-              scroll: false,
-              shallow: false,
-            })
+              as: asPath
+            }, "/kkkkkkkk")
         }}>
           GO
         </Button>
