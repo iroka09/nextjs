@@ -5,6 +5,7 @@ import Fab from "@mui/material/Fab"
 import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
 import TextField from "@mui/material/TextField"
+import {makeStyles} from "@mui/material/styles"
 import random from "random"
 import Link from "next/link"
 import Head from "next/head"
@@ -12,9 +13,18 @@ import Highlight from "react-highlight"
 import {useRouter} from "next/router"
 
 
+const useMuiStyles = makeStyles({
+  hjs: { 
+    borderRadius: 5,
+    maxHeight: 400,
+    overflowY: "scroll"
+  }
+})
+
+
 function App(props){
-  
   const router = useRouter()
+  const classes = useMuiStyles()
   const [num, setNum] = useState(props.id)
   const [query, setGuery] = useState(0)
   const [asPath, setAsPath] = useState("/Iroka")
@@ -50,6 +60,7 @@ function App(props){
         alignItems="center"
       >
         <TextField
+          value={query}
           variant="outlined"
           label="Query"
           type="number"
@@ -58,6 +69,7 @@ function App(props){
           }}
         />
         <TextField
+          value={asPath}
           variant="outlined"
           label="asPath"
           onChange={(e)=>{
@@ -69,17 +81,16 @@ function App(props){
           color="secondary"
           onClick={()=>{
             router.push({
-            pathname: "/learn/[id]",
-            query: {id: query},
-            asPath,
-            scroll: false, 
-          })
+              pathname: "/learn/[id]",
+              query: {id: query},
+              asPath,
+            })
         }}>
           GO
         </Button>
       </Stack>
       <Highlight 
-        style={{borderRadius: 5}}
+        className={hjs}
       >
         {JSON.stringify(router, null, 2)}
       </Highlight>
