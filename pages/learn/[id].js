@@ -17,7 +17,7 @@ const useMuiStyles = makeStyles({
   hjs: { 
     borderRadius: 5,
     maxHeight: 400,
-    overflowY: "scroll"
+    overlow: "scroll",
   }
 })
 
@@ -90,7 +90,7 @@ function App(props){
         </Button>
       </Stack>
       <Highlight 
-        className={hjs}
+        className={classes.hjs}
       >
         {JSON.stringify(router, null, 2)}
       </Highlight>
