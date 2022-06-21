@@ -55,6 +55,7 @@ import reduxStore from "../components/redux/store"
 
 import "../styles/global_style.css";
 import "../styles/calendar.css";
+import "highlight.js/styles/monokai.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 
