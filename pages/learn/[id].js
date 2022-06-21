@@ -50,14 +50,15 @@ function App(props){
         alignItems="center"
       >
         <TextField
-          variant="contained"
+          variant="outlined"
           label="Query"
+          type="number"
           onChange={(e)=>{
             setQuery(e.target.value)
           }}
         />
         <TextField
-          variant="contained"
+          variant="outlined"
           label="asPath"
           onChange={(e)=>{
             setAsPath(e.target.value)
