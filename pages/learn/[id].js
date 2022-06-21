@@ -65,7 +65,7 @@ function App(props){
           variant="outlined"
           label="pathname"
           onChange={(e)=>{
-            setpathname(e.target.value)
+            setPathname(e.target.value)
           }}
         />
         <TextField
