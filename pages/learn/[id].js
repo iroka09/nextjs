@@ -84,8 +84,8 @@ function App(props){
               pathname: "/learn/[id]",
               query: {id: query},
             }, asPath, {
-              scroll:false,
-              shallow: false, //if true it won't make another server req
+              scroll: false,
+              shallow: true, //if true it won't make another server req
             })
         }}>
           GO
