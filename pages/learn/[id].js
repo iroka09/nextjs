@@ -17,7 +17,7 @@ const useMuiStyles = makeStyles({
   hjs: { 
     borderRadius: 5,
     maxHeight: 400,
-    overlow: "scroll",
+    overlow: "auto",
   }
 })
 
@@ -26,7 +26,7 @@ function App(props){
   const router = useRouter()
   const classes = useMuiStyles()
   const [num, setNum] = useState(props.id)
-  const [query, setGuery] = useState(0)
+  const [query, setGuery] = useState(1)
   const [asPath, setAsPath] = useState("/Iroka")
 
   return (
@@ -60,7 +60,7 @@ function App(props){
         alignItems="center"
       >
         <TextField
-          value={query}
+          defaultValue={query}
           variant="outlined"
           label="Query"
           type="number"
@@ -69,7 +69,7 @@ function App(props){
           }}
         />
         <TextField
-          value={asPath}
+          defaultValue={asPath}
           variant="outlined"
           label="asPath"
           onChange={(e)=>{
@@ -83,7 +83,8 @@ function App(props){
             router.push({
               pathname: "/learn/[id]",
               query: {id: query},
-              as: asPath,
+              asPath,
+              scroll: false, 
             })
         }}>
           GO
