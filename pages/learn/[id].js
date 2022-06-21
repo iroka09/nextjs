@@ -17,7 +17,7 @@ const useMuiStyles = makeStyles({
   hjs: { 
     borderRadius: 5,
     maxHeight: 400,
-    overlow: "auto",
+    overlow: "scroll",
   }
 })
 
@@ -26,7 +26,7 @@ function App(props){
   const router = useRouter()
   const classes = useMuiStyles()
   const [num, setNum] = useState(props.id)
-  const [query, setGuery] = useState(1)
+  const [query, setGuery] = useState(props.id)
   const [asPath, setAsPath] = useState("/Iroka")
 
   return (
