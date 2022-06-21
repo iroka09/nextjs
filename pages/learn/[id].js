@@ -7,6 +7,7 @@ import Box from "@mui/material/Box"
 import random from "random"
 import Link from "next/link"
 import Head from "next/head"
+import Highlight from "react-highlight"
 import {useRouter} from "next/router"
 
 
@@ -20,7 +21,12 @@ function App(props){
       <Head>
         <title>Router</title>
       </Head>
-    
+    {router.isFallback? (
+      <h3>
+       fallback: Loading...
+      </h3>
+      ) : ( 
+      <>
       <Stack 
         direction="row" 
         spacing={5}
@@ -33,26 +39,32 @@ function App(props){
         <Fab onClick={()=>setNum(x=>++x)}
           color="primary"> + </Fab>
       </Stack>
-      <Stack justifyContent="center" margin="30px 0">
-        <Link href={{
-          pathname: "/learn/[id]",
-          query: {id: random.int(0,100)},
-        }}
-        as="Iroka">
-          <Button variant="contained">link  random</Button>
+      <Stack justifyContent="center" margin="30px 0" spacing={1}>
+        <Link 
+          href={{
+            pathname: "/learn/[id]",
+            query: {id: 11},
+          }}
+          as="/Iroka"
+          shallow={false}
+        >
+          <Button variant="contained">
+            Link 11
+          </Button>
         </Link>
         <Button
           variant="contained" 
+          color="secondary"
           onClick={()=>{
-            router.push("/learn/55", "Tochi")
+            router.push("/learn/55")
         }}>
           link 55
         </Button>
       </Stack>
-      <Typography variant="body2">
-        value of router during ssr is 
-        <pre>{JSON.stringify(router,0,2)}</pre>
-      </Typography>
+      <Highlight>
+        {JSON.stringify(router, null, 2)}
+      </Highlight>
+      </>)
     </>
   )
 }
@@ -73,6 +85,7 @@ export function getStaticPaths(){
 }
 
 export function getStaticProps({params}){
+  console.log(params.id+") ", Math.random())
   return({
     props: {
       id: params.id
