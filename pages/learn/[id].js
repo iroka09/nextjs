@@ -12,15 +12,16 @@ import {useRouter} from "next/router"
 
 
 function App(props){
+  
   const router = useRouter()
   const [num, setNum] = useState(props.id)
-  
 
   return (
     <>
       <Head>
         <title>Router</title>
       </Head>
+      
     {router.isFallback? (
       <h3>
        fallback: Loading...
@@ -64,7 +65,9 @@ function App(props){
       <Highlight>
         {JSON.stringify(router, null, 2)}
       </Highlight>
-      </>)
+      </>
+      )
+    }
     </>
   )
 }
