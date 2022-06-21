@@ -85,7 +85,7 @@ function App(props){
               query: {id: query},
             }, asPath, {
               scroll:false,
-              shallow: true
+              shallow: false, //if true it won't make another server req
             })
         }}>
           GO
