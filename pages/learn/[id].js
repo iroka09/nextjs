@@ -74,7 +74,7 @@ function App(props){
             scroll: false, 
           }})
         }}>
-          link 55
+          GO
         </Button>
       </Stack>
       <Highlight style={{borderRadius: 5}}>
