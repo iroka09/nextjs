@@ -65,7 +65,7 @@ function App(props){
           label="Query"
           type="number"
           onChange={(e)=>{
-            setQuery(+e.target.value)
+            setQuery(e.target.value)
           }}
         />
         <TextField
@@ -83,8 +83,10 @@ function App(props){
             router.push({
               pathname: "/learn/[id]",
               query: {id: query},
-              as: asPath
-            }, "/kkkkkkkk")
+            }, asPath, {
+              scroll:false,
+              shallow: true
+            })
         }}>
           GO
         </Button>
