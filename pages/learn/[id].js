@@ -67,17 +67,19 @@ function App(props){
           variant="contained" 
           color="secondary"
           onClick={()=>{
-            router.push({{
+            router.push({
             pathname: "/learn/[id]",
             query: {id: query},
             asPath,
             scroll: false, 
-          }})
+          })
         }}>
           GO
         </Button>
       </Stack>
-      <Highlight style={{borderRadius: 5}}>
+      <Highlight 
+        style={{borderRadius: 5}}
+      >
         {JSON.stringify(router, null, 2)}
       </Highlight>
       </>
