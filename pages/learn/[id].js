@@ -27,6 +27,7 @@ function App(props){
   const classes = useMuiStyles()
   const [num, setNum] = useState(props.id)
   const [query, setQuery] = useState(props.id)
+  const [pathname, setPathname] = useState("/learn/[id]")
   const [asPath, setAsPath] = useState("/Iroka")
 
   return (
@@ -37,7 +38,7 @@ function App(props){
       
     {router.isFallback? (
       <h3>
-       fallback: Loading...
+       fallback: building...
       </h3>
       ) : ( 
       <>
@@ -60,6 +61,14 @@ function App(props){
         alignItems="center"
       >
         <TextField
+          value={pathname}
+          variant="outlined"
+          label="pathname"
+          onChange={(e)=>{
+            setpathname(e.target.value)
+          }}
+        />
+        <TextField
           value={query}
           variant="outlined"
           label="Query"
@@ -81,10 +90,10 @@ function App(props){
           color="secondary"
           onClick={()=>{
             router.push({
-              pathname: "/learn/[id]",
+              pathname,
               query: {id: query},
             }, asPath, {
-              scroll: false,
+              scroll: false, //don't scroll to top of page when clicked
               shallow: true, //if true it won't make another server req
             })
         }}>
