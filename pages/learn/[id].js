@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack"
 import Fab from "@mui/material/Fab"
 import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
+import TextField from "@mui/material/TextField"
 import random from "random"
 import Link from "next/link"
 import Head from "next/head"
@@ -15,6 +16,8 @@ function App(props){
   
   const router = useRouter()
   const [num, setNum] = useState(props.id)
+  const [query, setGuery] = useState(0)
+  const [asPath, setAsPath] = useState("/Iroka")
 
   return (
     <>
@@ -40,29 +43,41 @@ function App(props){
         <Fab onClick={()=>setNum(x=>++x)}
           color="primary"> + </Fab>
       </Stack>
-      <Stack justifyContent="center" margin="30px 0" spacing={1}>
-        <Link 
-          href={{
-            pathname: "/learn/[id]",
-            query: {id: 11},
+      <Stack 
+        justifyContent="center" 
+        margin="30px 0" 
+        spacing={1}
+        alignItems="center"
+      >
+        <TextField
+          variant="contained"
+          label="Query"
+          onChange={(e)=>{
+            setQuery(e.target.value)
           }}
-          as="/Iroka"
-          shallow={false}
-        >
-          <Button variant="contained">
-            Link 11
-          </Button>
-        </Link>
+        />
+        <TextField
+          variant="contained"
+          label="asPath"
+          onChange={(e)=>{
+            setAsPath(e.target.value)
+          }}
+        />
         <Button
           variant="contained" 
           color="secondary"
           onClick={()=>{
-            router.push("/learn/55")
+            router.push({{
+            pathname: "/learn/[id]",
+            query: {id: query},
+            asPath,
+            scroll: false, 
+          }})
         }}>
           link 55
         </Button>
       </Stack>
-      <Highlight>
+      <Highlight style={{borderRadius: 5}}>
         {JSON.stringify(router, null, 2)}
       </Highlight>
       </>
