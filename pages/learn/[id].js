@@ -82,10 +82,10 @@ function App(props){
           onClick={()=>{
             router.push({
               pathname: "/learn/[id]",
-              query: {id: query}
+              query: {id: query},
               asPath,
               scroll: false,
-              shallow: false
+              shallow: false,
             })
         }}>
           GO
