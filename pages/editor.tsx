@@ -79,7 +79,7 @@ function App(){
       }}
       sx={{mt: 2}}
     >
-      {(submited)? <CircularProgress size={20} sx={{color: "primary.contrastText"}}/> : "Submit"}
+      {(submited)? <CircularProgress size={25} sx={{color: "primary.contrastText"}}/> : "Submit"}
     </Button>
   </>
   )

@@ -11,6 +11,7 @@ import Link from "next/link"
 import Head from "next/head"
 import Highlight from "react-highlight"
 import {useRouter} from "next/router"
+import Link from "next/link"
 
 
 const useMuiStyles = makeStyles({
@@ -36,7 +37,7 @@ function App(props){
         <title>Router</title>
       </Head>
       
-    {router.isFallback? (
+    {(router.isFallback)? (
       <h3>
        fallback: building...
       </h3>
@@ -48,11 +49,11 @@ function App(props){
         justifyContent="center"
         alignItems="center"
         margin="20px 0"
-        >
-        <Fab onClick={()=>setNum(x=>--x)}>  -  </Fab>
+      >
+        <Fab onClick={()=>setNum(x=>--x)}>-</Fab>
         <Box>{num}</Box>
         <Fab onClick={()=>setNum(x=>++x)}
-          color="primary"> + </Fab>
+          color="primary">+</Fab>
       </Stack>
       <Stack 
         justifyContent="center" 
@@ -97,8 +98,17 @@ function App(props){
               shallow: true, //if true it won't make another server req
             })
         }}>
-          GO
+          GO with router.push({})
         </Button>
+        <Link 
+          href={{
+            
+          }}
+        >
+          <Button>
+            Go with <Link />
+          </Button>
+        </Link>
       </Stack>
       <Highlight 
         className={classes.hjs}
