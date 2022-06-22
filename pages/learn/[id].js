@@ -7,7 +7,6 @@ import Box from "@mui/material/Box"
 import TextField from "@mui/material/TextField"
 import {makeStyles} from "@mui/styles"
 import random from "random"
-import Link from "next/link"
 import Head from "next/head"
 import Highlight from "react-highlight"
 import {useRouter} from "next/router"
@@ -106,7 +105,7 @@ function App(props){
           }}
         >
           <Button>
-            Go with <Link />
+            Go with Link
           </Button>
         </Link>
       </Stack>
