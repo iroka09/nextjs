@@ -34,11 +34,11 @@ function App(){
   const onEditorStateChange = (text: any) => {
     setEditorState(text);
   }
-
+/*
   useEffect(()=>{
-   // setLoadedEditor(true)
+   setLoadedEditor(true)
   }, [])
-
+*/
   return (
     <>
     
@@ -74,15 +74,14 @@ function App(){
     <Button
       variant="contained"
       onClick={()=>{
-      setSubmited(true);
-      setTimeout(()=>setSubmited(false), 5000)
+        setSubmited(true);
+        setTimeout(()=>setSubmited(false), 5000)
       }}
       sx={{mt: 2}}
-      startIcon={submited &&<CircularProgress size={20} sx={{color: "primary.contrastText"}}/>}
     >
-    {submited?  "Submiting...": "Submit"}
+      {(submited)? <CircularProgress size={20} sx={{color: "primary.contrastText"}}/> : "Submit"}
     </Button>
-    </>
+  </>
   )
 }
 
