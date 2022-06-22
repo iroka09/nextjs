@@ -99,12 +99,9 @@ function App(props){
         }}>
           GO with router.push({})
         </Button>
-        <Link 
-          href={{
-            
-          }}
-        >
-          <Button>
+        <Link href={pathname} as={asPath}>
+          <Button variant="contained" 
+          color="info">
             Go with Link
           </Button>
         </Link>
