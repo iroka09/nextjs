@@ -1,4 +1,5 @@
 import React,  {useState, useEffect, memo} from "react"
+import PropTypes from "prop-types"
 import Button from "@mui/material/Button"
 import Stack from "@mui/material/Stack"
 import Fab from "@mui/material/Fab"
@@ -9,7 +10,7 @@ import {makeStyles} from "@mui/styles"
 import random from "random"
 import Head from "next/head"
 import Highlight from "react-highlight"
-import {useRouter} from "next/router"
+import {useRouter, withRouter} from "next/router"
 import Link from "next/link"
 
 
@@ -18,17 +19,28 @@ const useMuiStyles = makeStyles({
     borderRadius: 5,
     maxHeight: 400,
     overflow: "scroll",
-  }
+  },
 })
 
 
+App.propTypes = {
+  router: PropTypes.object.isRequired,
+  id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]).isRequired,
+  children: PropTypes.node,
+}
+
+
 function App(props){
-  const router = useRouter()
-  const classes = useMuiStyles()
-  const [num, setNum] = useState(props.id)
-  const [query, setQuery] = useState(props.id)
-  const [pathname, setPathname] = useState("/learn/[id]")
-  const [asPath, setAsPath] = useState("/Iroka")
+  
+  const router = props.router||useRouter();
+  const classes = useMuiStyles();
+  const [num, setNum] = useState(props.id);
+  const [query, setQuery] = useState(props.id);
+  const [pathname, setPathname] = useState("/learn/[id]");
+  const [asPath, setAsPath] = useState("/Iroka");
 
   return (
     <>
@@ -94,28 +106,30 @@ function App(props){
               query: {id: query},
             }, asPath, {
               scroll: false, //don't scroll to top of page when clicked
-              shallow: true, //if true it won't make another server req
+              shallow: true, //if true it won't make another server req when user make the same url req
             })
         }}>
-          GO with router.push({})
+          GO with router.push({"{}"})
         </Button>
-        <Link href={pathname} as={asPath}>
+        <Link 
+          href={{
+            pathname,
+            query: {id: query},
+          }} 
+          as={asPath}
+        >
           <Button variant="contained" 
           color="info">
             Go with Link
           </Button>
         </Link>
       </Stack>
-      <Highlight 
-        className={classes.hjs}
-      >
+      <Highlight className={classes.hjs}>
         {JSON.stringify(router, null, 2)}
       </Highlight>
-      </>
-      )
+    </>)
     }
-    </>
-  )
+  </>)
 }
 
 
@@ -127,7 +141,7 @@ export function getStaticPaths(){
       },
       {
         params: {id: "2"}
-      }
+      },
     ],
     fallback: true, 
   })
@@ -144,4 +158,4 @@ export function getStaticProps({params}){
 }
 
 
-export default memo(App)
+export default memo(withRouter(App))
