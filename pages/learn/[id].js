@@ -22,7 +22,6 @@ const useMuiStyles = makeStyles({
   },
 })
 
-
 App.propTypes = {
   router: PropTypes.object.isRequired,
   id: PropTypes.oneOfType([
@@ -31,7 +30,6 @@ App.propTypes = {
       ]).isRequired,
   children: PropTypes.node,
 }
-
 
 function App(props){
   
