@@ -13,6 +13,7 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"
 import AddTaskIcon from "@mui/icons-material/AddTask"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
+import Fade from "react-reveal/Fade"
 
 const imageLoading = "/image_loading.jpg"
 
@@ -59,6 +60,7 @@ useEffect(()=>{
         >
         {itemList.map((item,index)=>(
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
+        <Fade bottom>
           <Card>
             <div
               style={{
@@ -122,6 +124,7 @@ useEffect(()=>{
           </Stack>
         </div>
       </Card>
+      </Fade>
       </Grid>
     ))}
     </Grid>

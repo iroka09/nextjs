@@ -27,10 +27,10 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 import AddTaskIcon from "@mui/icons-material/AddTask"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import RenderItems from "../components/EcommerceRenderItems"
-
 import Head from "next/head"
 import Draggable from "react-draggable"
 import {LoremIpsum} from "lorem-ipsum"
+
 
 /*
 import shirt1 from "../public/ecommerce/shirt1.jpg"

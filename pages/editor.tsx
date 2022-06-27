@@ -8,6 +8,7 @@ import {useTheme} from "@mui/material/styles"
 import { EditorState } from 'draft-js';
 import { EditorProps } from 'react-draft-wysiwyg';
 
+
 const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
   .then(x=>x.Editor), {
   ssr: false,
