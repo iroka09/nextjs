@@ -32,7 +32,8 @@ export default function App(props){
       >
         <Image
           key={i} 
-          src="http://picsum.photos/?random" 
+          src="http://picsum.photos/?random"
+          loader: {({src})=> src}
           layout='fill'
           objectFit= "cover"
           placeholder="blur"
