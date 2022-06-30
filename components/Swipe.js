@@ -6,7 +6,7 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 import SwipeableViews from "react-swipeable-views"
 import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-views-utils"
 
-const Swiper = bindKeyboard(autoPlay(SwipeableViews));
+const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
 const list = Array.from(Array(5));
 
@@ -23,15 +23,32 @@ export default function App(props){
   }
   
   return ( <>
-    <Swiper
+    <Swipe
       resistance
       onChangeIndex={handleChangeIndex1}
+      containerStyle={{
+        position: "relative",
+      }}
       slideStyle={{
         boxShadow: "0 3px 1px -1px black",
       }}
       >
+      <span
+        style={{
+          display:"inline-block",
+          position: "absolute",
+          top: 10,
+          left: 10,
+          backgroundColor: "rgba(0,0,0,0.5)",
+          borderRadius: 2,
+          padding: 4,
+        }}
+      >
+        {(index+1)+"/"+(list.length)}
+      </span>
       {list.map((x, i)=>(
       <Box
+        key={i}
         sx={{
           flexGrow: 1,
           height: 250,
@@ -40,19 +57,6 @@ export default function App(props){
           overflow: "hidden",
         }}
       >
-      <span
-        style={{
-          display:"inline-block",
-          position: "absolute",
-          top: 10,
-          left: 10,
-          background: "rgba(0,0,0,0.5)",
-          borderRadius: 2,
-          padding: 4,
-        }}
-      >
-      {(index+1)+"/"+(list.length)}
-      </span>
         <Image
           key={i} 
           src={"https://picsum.photos/400/400/?random="+Math.random()}
