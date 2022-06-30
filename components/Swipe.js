@@ -27,9 +27,8 @@ export default function App(props){
   return (
     <div
       style={{
-        position: "relative",
         borderRadius: 3,
-        boxShadow: "0 1px 1px black",
+        boxShadow: "0 2px 1px -1px black",
         overflow: "hidden",
         height: 300,
         maxWidth: 500,
@@ -56,8 +55,8 @@ export default function App(props){
       onChangeIndex={handleChangeIndex1}
       >
       {list.map((obj, i)=>(
+      <div key={i} style={{position:"relative", height:"100%"}}>
         <Image
-          key={i}
           src={obj.src}
           loader={(obj)=> obj.src}
           priority={true}
@@ -66,6 +65,7 @@ export default function App(props){
           placeholder="blur"
           quality={100}
         />
+      </div>
       ))}
     </Swipe>
     
