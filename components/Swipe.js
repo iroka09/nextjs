@@ -58,7 +58,7 @@ export default function App(props){
       onChangeIndex={handleChangeIndex1}
       >
       {list.map((obj, i)=>(
-      <div key={i} style={{position:"relative", height:"100%", border:"8px solid red"}}>
+      <div key={i} style={{position:"absolute", top:0, left:0, right:0, bottom:0, border:"1px solid red"}}>
         <Image
           src={obj.src}
           loader={(_obj)=> _obj.src}
