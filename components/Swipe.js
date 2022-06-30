@@ -60,7 +60,7 @@ export default function App(props){
           overflow: "hidden",
         }}
       >
-        <Image
+        <img
           key={i} 
           src={"https://picsum.photos/400/400/?random="+Math.random()}
           loader={(obj)=> obj.src}
@@ -69,6 +69,7 @@ export default function App(props){
           objectFit= "cover"
           placeholder="blur"
           quality={100}
+          style={{width:"100%", width:"100%"}}
         />
       </Box>
       ))}
