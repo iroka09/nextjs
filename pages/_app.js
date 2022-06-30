@@ -65,7 +65,7 @@ const cookieOptions = {
 
 // import * as ButtonClasses from "@mui/material/Button"
 
-
+const links = "home, calendar, login, ecommerce, quiz, timer, editor".split(", ").sort();
 
 function App( {
   Component, pageProps
@@ -516,20 +516,13 @@ const menuRef = React.useRef()
         disableScroll()
       }}
       >
-    <Link 
-      href={{
-        pathname: "/",
-        query: {name: "iroka"},
-      }}
-      passHref
-      >
-        <Button >Home</Button>
-    </Link>
-        <Button href="/calendar" >Calendar</Button>
-        <Button href="/login" >Login</Button>
-        <Button href="/ecommerce" >E-Commerce</Button>
-        <Button href="/quiz" >Quiz</Button>
-        <Button href="/timer" >Timer</Button>
+      {
+       links.map((link, i)=>(
+        <Button href={"/"+(link.toLowerCase().replace(/^home$/,""))}>
+          {link.toUpperCase()}
+        </Button>
+        ))
+      }
       </SwipeableDrawer>
 
       <Drawer
