@@ -8,6 +8,8 @@ import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-views-utils"
 
 const Swiper = bindKeyboard(autoPlay(SwipeableViews));
 
+const list = Array.from(Array(5));
+
 export default function App(props){
   const [index1, setIndex1] = useState(0);
   const [index2, setIndex2] = useState(0);
@@ -29,7 +31,7 @@ export default function App(props){
         boxShadow: "0 3px 1px -1px black",
       }}
       >
-      {Array.from(Array(5)).map((x, i)=>(
+      {list.map((x, i)=>(
       <Box
         sx={{
           flexGrow: 1,
@@ -39,7 +41,7 @@ export default function App(props){
       >
         <Image
           key={i} 
-          src="https://picsum.photos/400/400/?random"
+          src="https://picsum.photos/400/400/?random="+Math.random()
           loader={(obj)=> obj.src}
           layout='fill'
           objectFit= "cover"
@@ -50,33 +52,5 @@ export default function App(props){
       ))}
     </Swiper>
     
-    <h1> {index2} </h1>
-    <Swiper
-      resistance
-      onChangeIndex={handleChangeIndex2}
-      slideStyle={{
-        boxShadow: "0 3px 1px -1px black",
-      }}
-      >
-      {Array.from(Array(5)).map((x, i)=>(
-      <Box
-        sx={{
-          flexGrow: 1,
-          height: 250,
-          position: "relative",
-        }}
-      >
-        <img
-          key={i} 
-          src="https://picsum.photos/400/400/?random"
-          loader={(obj)=> obj.src}
-          layout='fill'
-          objectFit= "cover"
-          placeholder="blur"
-          quality={100}
-        />
-      </Box>
-      ))}
-    </Swiper>
   </>)
 }
