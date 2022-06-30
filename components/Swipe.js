@@ -33,8 +33,8 @@ export default function App(props){
         boxShadow: "0 3px 1px -1px black",
       }}
       >
-      {/*
-      <span
+      
+      <div
         style={{
           display:"inline-block",
           position: "absolute",
@@ -46,8 +46,8 @@ export default function App(props){
         }}
       >
         {(index+1)+"/"+(list.length)}
-      </span>
-      */}
+      </div>
+      
       {list.map((x, i)=>(
       <Box
         key={i}
@@ -63,6 +63,7 @@ export default function App(props){
           key={i} 
           src={"https://picsum.photos/400/400/?random="+Math.random()}
           loader={(obj)=> obj.src}
+          priority={true}
           layout='fill'
           objectFit= "cover"
           placeholder="blur"
