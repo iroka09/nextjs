@@ -46,6 +46,7 @@
     "react-redux": "^7.2.6",
     "react-reveal": "^1.2.2",
     "react-swipeable-views": "^0.14.0",
+    "react-swipeable-views-utils": "^0.14.0",
     "sass": "^1.49.9",
     "validator": "^13.7.0"
   },

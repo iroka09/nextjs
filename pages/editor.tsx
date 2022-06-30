@@ -7,7 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress"
 import {useTheme} from "@mui/material/styles"
 import { EditorState } from 'draft-js';
 import { EditorProps } from 'react-draft-wysiwyg';
-
+import Swiper from "../components/Swipe"
 
 const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
   .then(x=>x.Editor), {
@@ -41,13 +41,14 @@ function App(){
   }, [])
 */
   return (
-    <>
-    
-      <Head>
-        <meta charSet="UTF-8" />
-        <title>Editor Draft</title>
-      </Head>
-      
+  <>
+    <Head>
+      <meta charSet="UTF-8" />
+      <title>Editor Draft</title>
+    </Head>
+    <Box margin="20px 0">
+      <Swiper />
+    </Box>
    <Editor
     editorState={editorState}
     toolbarClassName={(theme.palette.mode==="dark")? "toolbar-draft-editor" : ""}
