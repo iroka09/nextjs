@@ -12,15 +12,15 @@ const list = Array.from(Array(5));
 
 export default function App(props){
   const [index1, setIndex1] = useState(0);
-  const [index2, setIndex2] = useState(0);
+  //const [index2, setIndex2] = useState(0);
   
   const handleChangeIndex1 = (i)=>{
     setIndex1(i)
   }
   
-  const handleChangeIndex2 = (i)=>{
+ /* const handleChangeIndex2 = (i)=>{
     setIndex2(i)
-  }
+  }*/
   
   return ( <>
     <Swipe
@@ -33,6 +33,7 @@ export default function App(props){
         boxShadow: "0 3px 1px -1px black",
       }}
       >
+      {/*
       <span
         style={{
           display:"inline-block",
@@ -46,6 +47,7 @@ export default function App(props){
       >
         {(index+1)+"/"+(list.length)}
       </span>
+      */}
       {list.map((x, i)=>(
       <Box
         key={i}
