@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useMemo} from "react"
 import Image from "next/image"
 import Box from "@mui/material/Box"
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked"
@@ -8,11 +8,6 @@ import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-views-utils"
 
 const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
-const list = Array.from(Array(5))
-  .map(()=>({
-    src: "https://picsum.photos/400/300/?random="+Math.random(),
-  }));
-
 
 export default function App(props){
   const [index1, setIndex1] = useState(0);
@@ -21,10 +16,14 @@ export default function App(props){
   const handleChangeIndex1 = (i)=>{
     setIndex1(i)
   }
-  
  /* const handleChangeIndex2 = (i)=>{
     setIndex2(i)
   }*/
+  const list = useMemo(()=>{
+    return Array.from(Array(5)).map(()=>({
+      src: "https://picsum.photos/400/300/?random="+Math.random(),
+    }))
+  }, []);
   
   return (
     <div
@@ -53,6 +52,8 @@ export default function App(props){
       </span>
     <Swipe
       resistance
+      enableMouseEvents
+      animateHeight
       onChangeIndex={handleChangeIndex1}
       >
       {list.map((obj, i)=>(
@@ -60,8 +61,7 @@ export default function App(props){
         style={{
           position:"relative",
           height: 300,
-          width: 700,
-          maxWidth: "100%",
+          width: "100%",
         }}
       >
         <Image
