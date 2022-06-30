@@ -18,18 +18,25 @@ export default function App(props){
     <Swiper
       resistance
       onChangeIndex={handleChangeIndex}
-      slideStyle={{position: "relative"}}
+      slideStyle={{
+        boxShadow: "0 2px 1px -1px black",
+      }}
       >
       {Array.from(Array(5)).map((x, i)=>(
-        <img 
+      <Box
+        sx={{
+          flexGrow: 1,
+        }}
+      >
+        <Image
           key={i} 
-          src="http://picsum.photos?random" 
-          layout="responsive"
+          src="http://picsum.photos/?random" 
           layout='fill'
           objectFit= "cover"
           placeholder="blur"
           quality={100}
         />
+      </Box>
       ))}
     </Swiper>
   </>)
