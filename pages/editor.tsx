@@ -4,10 +4,11 @@ import Head from "next/head"
 import dynamic from "next/dynamic"
 import Button from "@mui/material/Button"
 import CircularProgress from "@mui/material/CircularProgress"
+import Box from "@mui/material/Box"
 import {useTheme} from "@mui/material/styles"
 import { EditorState } from 'draft-js';
 import { EditorProps } from 'react-draft-wysiwyg';
-import Swiper from "../components/Swipe"
+import Swipe from "../components/Swipe"
 
 const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
   .then(x=>x.Editor), {
@@ -47,7 +48,7 @@ function App(){
       <title>Editor Draft</title>
     </Head>
     <Box margin="20px 0">
-      <Swiper />
+      <Swipe />
     </Box>
    <Editor
     editorState={editorState}
