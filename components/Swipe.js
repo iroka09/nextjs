@@ -8,9 +8,11 @@ import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-views-utils"
 
 const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
-const list = Array.from(Array(5)).map(x=>({
-  src: "https://picsum.photos/400/400/?random="+Math.random(),
-}));
+const list = Array.from(Array(5))
+  .map(()=>({
+    src: "https://picsum.photos/400/400/?random="+Math.random(),
+  }));
+
 
 export default function App(props){
   const [index1, setIndex1] = useState(0);
@@ -27,11 +29,12 @@ export default function App(props){
   return (
     <div
       style={{
+        position:"relative",
         borderRadius: 3,
-        boxShadow: "0 2px 1px -1px black",
+        boxShadow: "0 1px 2px #222",
         overflow: "hidden",
         height: 300,
-        maxWidth: 500,
+        maxWidth: 700,
         margin: "10px auto",
       }}
     >
@@ -42,7 +45,7 @@ export default function App(props){
           top: 10,
           left: 10,
           backgroundColor: "rgba(0,0,0,0.4)",
-          zIndex: 1,
+          zIndex: 10,
           color: "white",
           borderRadius: 2,
           padding: "2px 8px",
@@ -55,10 +58,10 @@ export default function App(props){
       onChangeIndex={handleChangeIndex1}
       >
       {list.map((obj, i)=>(
-      <div key={i} style={{position:"relative", height:"100%"}}>
+      <div key={i} style={{position:"relative", height:"100%", border:"8px solid red"}}>
         <Image
           src={obj.src}
-          loader={(obj)=> obj.src}
+          loader={(_obj)=> _obj.src}
           priority={true}
           layout='fill'
           objectFit= "cover"
