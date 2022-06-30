@@ -68,7 +68,7 @@ export default function App(props){
         />
       </Box>
       ))}
-    </Swiper>
+    </Swipe>
     
   </>)
 }
