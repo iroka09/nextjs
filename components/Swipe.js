@@ -8,7 +8,9 @@ import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-views-utils"
 
 const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
-const list = Array.from(Array(5));
+const list = Array.from(Array(5)).map(x=>({
+  src: "https://picsum.photos/400/400/?random="+Math.random(),
+}));
 
 export default function App(props){
   const [index1, setIndex1] = useState(0);
@@ -22,19 +24,18 @@ export default function App(props){
     setIndex2(i)
   }*/
   
-  return ( <div>
-    <Swipe
-      resistance
-      onChangeIndex={handleChangeIndex1}
+  return (
+    <div
       style={{
         position: "relative",
-        borderRadius: 2,
+        borderRadius: 3,
+        boxShadow: "0 1px 1px black",
+        overflow: "hidden",
+        height: 300,
+        maxWidth: 500,
+        margin: "10px auto",
       }}
-      slideStyle={{
-        boxShadow: "0 5px 4px -1px black",
-      }}
-      >
-      
+    >
       <span
         style={{
           display:"inline-block",
@@ -42,7 +43,7 @@ export default function App(props){
           top: 10,
           left: 10,
           backgroundColor: "rgba(0,0,0,0.4)",
-          zIndex: "10",
+          zIndex: 1,
           color: "white",
           borderRadius: 2,
           padding: "2px 8px",
@@ -50,28 +51,21 @@ export default function App(props){
       >
         {(index1+1)+"/"+(list.length)}
       </span>
-      
-      {list.map((x, i)=>(
-      <Box
-        key={i}
-        sx={{
-          flexGrow: 1,
-          height: 250,
-          position: "relative",
-          overflow: "hidden",
-        }}
+    <Swipe
+      resistance
+      onChangeIndex={handleChangeIndex1}
       >
-        <img
-          src={"https://picsum.photos/400/400/?random="+Math.random()}
+      {list.map((obj, i)=>(
+        <Image
+          key={i}
+          src={obj.src}
           loader={(obj)=> obj.src}
           priority={true}
           layout='fill'
           objectFit= "cover"
           placeholder="blur"
           quality={100}
-          style={{width:"100%", width:"100%"}}
         />
-      </Box>
       ))}
     </Swipe>
     
