@@ -55,11 +55,21 @@ export default function App(props){
       resistance
       enableMouseEvents
       animateHeight
-      containerStyle={{border:"5px solid red"}}
-      slideStyle={{border:"5px solid green"}}
-      style={{border:"5px solid blue"}}
+      style={{
+      //  border:"5px solid blue",
+      }}
+      slideStyle={{
+       // border:"5px solid green",
+      }}
+      containerStyle={{
+       // border:"5px solid red",
+       padding: "0 30px"
+      }}
       onChangeIndex={handleChangeIndex}
       interval={5000}
+      springConfig={{
+        duration: "5s"
+      }}
       >
       {list.map((obj, i)=>(
       <div
