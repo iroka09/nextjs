@@ -23,7 +23,6 @@ export default function App(props){
   }
   
   return ( <>
-    <h1> {index1} </h1>
     <Swiper
       resistance
       onChangeIndex={handleChangeIndex1}
@@ -37,8 +36,23 @@ export default function App(props){
           flexGrow: 1,
           height: 250,
           position: "relative",
+          borderRadius: 3,
+          overflow: "hidden",
         }}
       >
+      <span
+        style={{
+          display:"inline-block",
+          position: "absolute",
+          top: 10,
+          left: 10,
+          background: "rgba(0,0,0,0.5)",
+          borderRadius: 2,
+          padding: 4,
+        }}
+      >
+      {(index+1)+"/"+(list.length)}
+      </span>
         <Image
           key={i} 
           src="https://picsum.photos/400/400/?random="+Math.random()
