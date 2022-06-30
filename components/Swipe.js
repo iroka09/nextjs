@@ -28,9 +28,10 @@ export default function App(props){
       onChangeIndex={handleChangeIndex1}
       containerStyle={{
         position: "relative",
+        borderRadius: 2,
       }}
       slideStyle={{
-        boxShadow: "0 3px 1px -1px black",
+        boxShadow: "0 5px 4px -1px black",
       }}
       >
       
@@ -40,9 +41,10 @@ export default function App(props){
           position: "absolute",
           top: 10,
           left: 10,
-          backgroundColor: "rgba(0,0,0,0.5)",
+          backgroundColor: "rgba(0,0,0,0.8)",
+          zIndex: 1,
           borderRadius: 2,
-          padding: 4,
+          padding: "2px 5px",
         }}
       >
         {(index1+1)+"/"+(list.length)}
@@ -55,7 +57,6 @@ export default function App(props){
           flexGrow: 1,
           height: 250,
           position: "relative",
-          borderRadius: 3,
           overflow: "hidden",
         }}
       >
