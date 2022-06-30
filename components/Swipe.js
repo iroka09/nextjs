@@ -10,7 +10,7 @@ const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
 const list = Array.from(Array(5))
   .map(()=>({
-    src: "https://picsum.photos/400/400/?random="+Math.random(),
+    src: "https://picsum.photos/400/300/?random="+Math.random(),
   }));
 
 
@@ -58,7 +58,6 @@ export default function App(props){
       onChangeIndex={handleChangeIndex1}
       >
       {list.map((obj, i)=>(
-      <div key={i} style={{position:"absolute", top:0, left:0, right:0, bottom:0, border:"1px solid red"}}>
         <Image
           src={obj.src}
           loader={(_obj)=> _obj.src}
@@ -68,7 +67,6 @@ export default function App(props){
           placeholder="blur"
           quality={100}
         />
-      </div>
       ))}
     </Swipe>
     
