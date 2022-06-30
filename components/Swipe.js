@@ -15,9 +15,11 @@ export default function App(props){
   const handleChangeIndex1 = (i)=>{
     setIndex1(i)
   }
+  
   const handleChangeIndex2 = (i)=>{
     setIndex2(i)
   }
+  
   return ( <>
     <h1> {index1} </h1>
     <Swiper
@@ -38,7 +40,7 @@ export default function App(props){
         <Image
           key={i} 
           src="https://picsum.photos/400/400/?random"
-          loader: {(obj)=> obj.src}
+          loader={(obj)=> obj.src}
           layout='fill'
           objectFit= "cover"
           placeholder="blur"
@@ -67,7 +69,7 @@ export default function App(props){
         <img
           key={i} 
           src="https://picsum.photos/400/400/?random"
-          loader: {(obj)=> obj.src}
+          loader={(obj)=> obj.src}
           layout='fill'
           objectFit= "cover"
           placeholder="blur"
