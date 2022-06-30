@@ -10,17 +10,16 @@ const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
 
 export default function App(props){
-  const [index1, setIndex1] = useState(0);
-  //const [index2, setIndex2] = useState(0);
   
-  const handleChangeIndex1 = (i)=>{
-    setIndex1(i)
+  const [index, setIndex] = useState(0);
+  
+  const handleChangeIndex = (i)=>{
+    setIndex(i)
   }
- /* const handleChangeIndex2 = (i)=>{
-    setIndex2(i)
-  }*/
+ 
   const list = useMemo(()=>{
-    return Array.from(Array(3)).map((x, i)=>({
+    let num = (props.isProd)? 6 : 3;
+    return Array.from(Array(num)).map((x, i)=>({
       src: "https://picsum.photos/400/300/?random="+Math.random(),
       src2: "/pic"+(i+1)+".jpg"
     }))
@@ -34,6 +33,7 @@ export default function App(props){
         boxShadow: "0 1px 2px #222",
         overflow: "hidden",
         margin: "10px auto",
+        maxWidth: 500,
       }}
     >
       <span
@@ -49,14 +49,17 @@ export default function App(props){
           padding: "2px 8px",
         }}
       >
-        {(index1+1)+"/"+(list.length)}
+        {(index+1)+"/"+(list.length)}
       </span>
     <Swipe
       resistance
       enableMouseEvents
       animateHeight
-      containrStyle={{maxWidth: 500}}
-      onChangeIndex={handleChangeIndex1}
+      containerStyle={{border:"5px solid red"}}
+      slideStyle={{border:"5px solid green"}}
+      style={{border:"5px solid blue"}}
+      onChangeIndex={handleChangeIndex}
+      interval={5000}
       >
       {list.map((obj, i)=>(
       <div
@@ -67,9 +70,10 @@ export default function App(props){
         }}
       >
         <MyImage
-          src={obj.src}
+          obj={obj}
           loader={(_obj)=> _obj.src}
           priority={true}
+          isProd={props.isProd}
           layout='fill'
           objectFit= "cover"
           placeholder="blur"
@@ -84,8 +88,8 @@ export default function App(props){
 
 function MyImage(props){
   return(
-    (process.env.NODE_ENV==="production")? 
-    <Image {...props} /> :
-    <img src={props.src2} style={{height:"100%", width:"100%"}} />
+    (props.isProd)? 
+    <Image src={props.obj.src} {...props} /> :
+    <img src={props.obj.src2} style={{height:"100%", width:"100%"}} />
   )
 }

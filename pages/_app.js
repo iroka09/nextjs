@@ -65,7 +65,7 @@ const cookieOptions = {
 
 // import * as ButtonClasses from "@mui/material/Button"
 
-const links = "home, calendar, login, ecommerce, quiz, timer, editor".split(", ").sort();
+const links = "home, calendar, login, ecommerce, quiz, timer, editor".split(", ");
 
 function App( {
   Component, pageProps

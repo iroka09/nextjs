@@ -2,6 +2,7 @@
 import React, {useState, useEffect, memo} from "react"
 import Head from "next/head"
 import dynamic from "next/dynamic"
+import {useRouter} from "next/router"
 import Button from "@mui/material/Button"
 import CircularProgress from "@mui/material/CircularProgress"
 import Box from "@mui/material/Box"
@@ -28,10 +29,11 @@ const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
 
 function App(){
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  
   const [submited, setSubmited] = useState(false);
-
-  const theme = useTheme()
+  const theme = useTheme();
+  const router = useRouter();
+  
+  const isProd = router.query.isProd;
 
   const onEditorStateChange = (text: any) => {
     setEditorState(text);
@@ -48,10 +50,10 @@ function App(){
       <title>Editor Draft</title>
     </Head>
     <Box margin="20px 0">
-      <Swipe />
+      <Swipe isProd={isProd}/>
     </Box>
   { 
-    (process.env.NODE_ENV==="production") &&
+    (isProd) &&
    <Editor
     editorState={editorState}
     toolbarClassName={(theme.palette.mode==="dark")? "toolbar-draft-editor" : ""}
