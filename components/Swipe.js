@@ -55,7 +55,7 @@ export default function App(props){
       </span>
         <Image
           key={i} 
-          src="https://picsum.photos/400/400/?random="+Math.random()
+          src={"https://picsum.photos/400/400/?random="+Math.random()}
           loader={(obj)=> obj.src}
           layout='fill'
           objectFit= "cover"
