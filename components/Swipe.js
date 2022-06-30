@@ -26,7 +26,7 @@ export default function App(props){
     <Swipe
       resistance
       onChangeIndex={handleChangeIndex1}
-      containerStyle={{
+      style={{
         position: "relative",
         borderRadius: 2,
       }}
@@ -41,10 +41,11 @@ export default function App(props){
           position: "absolute",
           top: 10,
           left: 10,
-          backgroundColor: "rgba(0,0,0,0.8)",
-          zIndex: 1,
+          backgroundColor: "rgba(0,0,0,0.4)",
+          zIndex: "10",
+          color: "white",
           borderRadius: 2,
-          padding: "2px 5px",
+          padding: "2px 8px",
         }}
       >
         {(index1+1)+"/"+(list.length)}
@@ -61,7 +62,6 @@ export default function App(props){
         }}
       >
         <img
-          key={i} 
           src={"https://picsum.photos/400/400/?random="+Math.random()}
           loader={(obj)=> obj.src}
           priority={true}
