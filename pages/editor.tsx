@@ -50,6 +50,8 @@ function App(){
     <Box margin="20px 0">
       <Swipe />
     </Box>
+  { 
+    (process.env.NODE_ENV==="production") &&
    <Editor
     editorState={editorState}
     toolbarClassName={(theme.palette.mode==="dark")? "toolbar-draft-editor" : ""}
@@ -73,7 +75,7 @@ function App(){
         alt: { present: false, mandatory: false }
       },
     }}
-  />
+  />}
     <Button
       variant="contained"
       onClick={()=>{

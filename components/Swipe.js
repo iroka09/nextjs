@@ -20,8 +20,9 @@ export default function App(props){
     setIndex2(i)
   }*/
   const list = useMemo(()=>{
-    return Array.from(Array(5)).map(()=>({
+    return Array.from(Array(3)).map((x, i)=>({
       src: "https://picsum.photos/400/300/?random="+Math.random(),
+      src2: "/pic"+(i+1)+".jpg"
     }))
   }, []);
   
@@ -54,6 +55,7 @@ export default function App(props){
       resistance
       enableMouseEvents
       animateHeight
+      containrStyle={{maxWidth: 500}}
       onChangeIndex={handleChangeIndex1}
       >
       {list.map((obj, i)=>(
@@ -64,7 +66,7 @@ export default function App(props){
           width: "100%",
         }}
       >
-        <Image
+        <MyImage
           src={obj.src}
           loader={(_obj)=> _obj.src}
           priority={true}
@@ -78,4 +80,12 @@ export default function App(props){
     </Swipe>
     
   </div>)
+}
+
+function MyImage(props){
+  return(
+    (process.env.NODE_ENV==="production")? 
+    <Image {...props} /> :
+    <img src={props.src2} style={{height:"100%", width:"100%"}} />
+  )
 }
