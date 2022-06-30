@@ -26,7 +26,8 @@ export default function App(props){
       <Box
         sx={{
           flexGrow: 1,
-          height: 200
+          height: 200,
+          position: "relative",
         }}
       >
         <Image
