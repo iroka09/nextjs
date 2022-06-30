@@ -22,7 +22,7 @@ export default function App(props){
     setIndex2(i)
   }*/
   
-  return ( <>
+  return ( <div>
     <Swipe
       resistance
       onChangeIndex={handleChangeIndex1}
@@ -34,7 +34,7 @@ export default function App(props){
       }}
       >
       
-      <div
+      <span
         style={{
           display:"inline-block",
           position: "absolute",
@@ -45,8 +45,8 @@ export default function App(props){
           padding: 4,
         }}
       >
-        {(index+1)+"/"+(list.length)}
-      </div>
+        {(index1+1)+"/"+(list.length)}
+      </span>
       
       {list.map((x, i)=>(
       <Box
@@ -73,5 +73,5 @@ export default function App(props){
       ))}
     </Swipe>
     
-  </>)
+  </div>)
 }
