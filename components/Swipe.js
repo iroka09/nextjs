@@ -4,11 +4,29 @@ import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
+import IconButton from '@mui/icons-material/IconButton';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SwipeableViews from "react-swipeable-views"
 import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-views-utils"
 
 const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
+const dotsStyle = ({
+  normal: {
+    width: 3,
+    height:3,
+    border: "1px solid blue",
+    borderRadius: "50%",
+    boxShadow: "0 0 0 0 blue",
+    margin: "0 3px",
+    backgroundColor: "transparent",
+  },
+  active: {
+    boxShadow: "0 0 15px 3px blue",
+    backgroundColor: "blue",
+  },
+})
 
 export default function App(props){
   
@@ -18,6 +36,28 @@ export default function App(props){
   const handleChangeIndex = (i)=>{
     setIndex(i)
   }
+ 
+ const handleNext = ()=>{
+   setIndex(prev=>{
+     if(prev >= list.length-1){
+       return 0
+     }
+     return ++prev
+   })
+ }
+ 
+ const handlePrev = ()=>{
+   setIndex(prev=>{
+     if(prev <= 0){
+       return list.length - 1
+     }
+     return --prev
+   })
+ }
+ 
+ const handleDotsClick = (i)=>{
+   setIndex(i)
+ }
  
   const list = useMemo(()=>{
     let num = (props.isProd)? 6 : 3;
@@ -32,6 +72,9 @@ export default function App(props){
     <div
       style={{
         position:"relative",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
         borderRadius: 3,
         boxShadow: "0 2px 3px #222",
         overflow: "hidden",
@@ -54,7 +97,42 @@ export default function App(props){
       >
         {(index+1)+"/"+(list.length)}
       </span>
+      <IconButton
+        onClick={handlePrev}
+      >
+        <ChevronLeftIcon />
+      </IconButton>
+      <IconButton
+        onClick={handleNext}
+      >
+        <ChevronRighttIcon />
+      </IconButton>
+    <div 
+      style={{
+        position: "absolute",
+        left:0,
+        right:0,
+        bottom: 30,
+        display: "flex"
+        justifyContent:"center"
+      }}
+    >
+      {
+        list.map((_,i)=>(
+          <div
+            key={i}
+            style={{
+              ...dotsStyle.normal,
+              ...(index===i? dotsStyle.active : {})
+            }}
+            onClick={()=>handleDotsClick(i)}
+          >
+          </div>
+        ))
+      }
+    </div>
     <Swipe
+      index={index}
       resistance
       enableMouseEvents
       animateHeight
@@ -74,6 +152,7 @@ export default function App(props){
       >
       {list.map((obj, i)=>(
       <div
+        key={i}
         style={{
           position:"relative",
           height: 300,
