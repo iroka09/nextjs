@@ -12,6 +12,7 @@ const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 export default function App(props){
   
   const [index, setIndex] = useState(0);
+  const [randomImage, setRandomImage] = useState();
   
   const handleChangeIndex = (i)=>{
     setIndex(i)
@@ -23,9 +24,10 @@ export default function App(props){
       src: "https://picsum.photos/400/300/?random="+Math.random(),
       src2: "/pic"+(i+1)+".jpg"
     }))
-  }, []);
+  }, [randomImage]);
   
   return (
+    <>
     <div
       style={{
         position:"relative",
@@ -89,8 +91,20 @@ export default function App(props){
       </div>
       ))}
     </Swipe>
-    
-  </div>)
+  </div>
+  <Button
+    variant="outlined"
+    color: "error"
+    onClick={()=>{
+      setRandomImage(Math.random())
+    }}
+    sx={{
+      my: 2
+    }}
+  >
+    Change Pictures
+  </Button>
+  </>)
 }
 
 function MyImage(props){
