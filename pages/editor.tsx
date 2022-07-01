@@ -27,7 +27,7 @@ const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
   ),
 })
 
-type PropType1 {
+interface PropType1 {
   router: {
     query: string | number
   }
