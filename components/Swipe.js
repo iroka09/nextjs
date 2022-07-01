@@ -34,6 +34,7 @@ export default function App(props){
         overflow: "hidden",
         margin: "10px auto",
         maxWidth: 700,
+        height: 400,
       }}
     >
       <span
