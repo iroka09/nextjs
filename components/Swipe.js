@@ -105,7 +105,7 @@ export default function App(props){
       <IconButton
         onClick={handleNext}
       >
-        <ChevronRighttIcon />
+        <ChevronRightIcon />
       </IconButton>
     <div 
       style={{
