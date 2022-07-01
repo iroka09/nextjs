@@ -95,7 +95,7 @@ export default function App(props){
   </div>
   <Button
     variant="outlined"
-    color: "error"
+    color="error"
     onClick={()=>{
       setRandomImage(Math.random())
     }}
