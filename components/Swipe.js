@@ -4,7 +4,7 @@ import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
-import IconButton from '@mui/icons-material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SwipeableViews from "react-swipeable-views"
