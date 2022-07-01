@@ -14,12 +14,12 @@ const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
 const dotsStyle = ({
   normal: {
-    width: 3,
-    height:3,
-    border: "1px solid blue",
+    width: 6,
+    height:6,
+    border: "2px solid blue",
     borderRadius: "50%",
     boxShadow: "0 0 0 0 blue",
-    margin: "0 3px",
+    margin: "0 4px",
     backgroundColor: "transparent",
   },
   active: {
@@ -72,9 +72,6 @@ export default function App(props){
     <div
       style={{
         position:"relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
         borderRadius: 3,
         boxShadow: "0 2px 3px #222",
         overflow: "hidden",
@@ -97,6 +94,19 @@ export default function App(props){
       >
         {(index+1)+"/"+(list.length)}
       </span>
+      <div
+        style={{
+          position: "absolute",
+          zIndex: 1,
+          top: "50%",
+          transform: "translateY(-50%)",
+          left: 0,
+          right: 0,
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "0 2px",
+        }}
+      >
       <IconButton
         onClick={handlePrev}
       >
@@ -107,9 +117,11 @@ export default function App(props){
       >
         <ChevronRightIcon />
       </IconButton>
+    </div> 
     <div 
       style={{
         position: "absolute",
+        zIndex: 1,
         left:0,
         right:0,
         bottom: 30,
