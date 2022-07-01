@@ -33,7 +33,7 @@ interface PropType1 {
   }
 }
 
-function App<PropType1>(props){
+function App(props: PropType1){
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [submited, setSubmited] = useState(false);
   const theme = useTheme();
