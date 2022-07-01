@@ -34,7 +34,6 @@ export default function App(props){
         overflow: "hidden",
         margin: "10px auto",
         maxWidth: 700,
-        height: 400,
       }}
     >
       <span
@@ -73,8 +72,8 @@ export default function App(props){
       {list.map((obj, i)=>(
       <div
         style={{
-          position:"absolute",
-          inset: 0,
+          position:"relative",
+          height: 300,
         }}
       >
         <MyImage
