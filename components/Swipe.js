@@ -2,8 +2,8 @@ import React, {useState, useMemo} from "react"
 import Image from "next/image"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked"
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
+/*import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked"
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"*/
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -25,7 +25,7 @@ const dotsStyle = ({
   },
   active: {
     boxShadow: "0 0 15px 5px blue",
-    backgroundColor: "blue",
+    backgroundColor: "#33f",
   },
 })
 
@@ -121,8 +121,8 @@ export default function App(props){
         zIndex: 1,
         left: "50%",
         transform: "translateX(-50%)",
-        padding: "3px 15px",
-        bottom: 30,
+        padding: "7px 10px",
+        bottom: 15,
         backgroundColor: "rgba(211,211,211,0.6)",
         borderRadius: 3,
         display: "flex",
