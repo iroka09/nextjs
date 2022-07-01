@@ -16,7 +16,7 @@ const dotsStyle = ({
   normal: {
     width: 10,
     height: 10,
-    border: "1px solid #55f",
+    border: "1px solid blue",
     borderRadius: "50%",
     boxShadow: "0 0 0 0 blue",
     margin: "0 5px",
@@ -25,7 +25,7 @@ const dotsStyle = ({
   },
   active: {
     boxShadow: "0 0 15px 5px blue",
-    backgroundColor: "#55f",
+    backgroundColor: "blue",
   },
 })
 
@@ -123,6 +123,8 @@ export default function App(props){
         transform: "translateX(-50%)",
         padding: "3px 15px",
         bottom: 30,
+        backgroundColor: "rgba(211,211,211,0.6)",
+        borderRadius: 3,
         display: "flex",
         justifyContent:"center",
       }}
