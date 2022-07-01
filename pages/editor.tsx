@@ -27,7 +27,7 @@ const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
   ),
 })
 
-function App<object>(props){
+function App<any>(props){
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [submited, setSubmited] = useState(false);
   const theme = useTheme();
