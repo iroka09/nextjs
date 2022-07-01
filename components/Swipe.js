@@ -119,9 +119,10 @@ export default function App(props){
       style={{
         position: "absolute",
         zIndex: 1,
-        left:0,
-        right:0,
-        bottom: -20,
+        left: "50%",
+        transform: "translateX(-50%)",
+        padding: "3px 15px",
+        bottom: 30,
         display: "flex",
         justifyContent:"center",
       }}
