@@ -93,7 +93,7 @@ export default function App(props){
       ))}
     </Swipe>
   </div>
-  <Button
+  {/*<Button
     variant="outlined"
     color="error"
     onClick={()=>{
@@ -104,7 +104,7 @@ export default function App(props){
     }}
   >
     Change Pictures
-  </Button>
+  </Button>*/}
   </>)
 }
 
