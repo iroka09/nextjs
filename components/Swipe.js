@@ -14,17 +14,18 @@ const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
 const dotsStyle = ({
   normal: {
-    width: 6,
-    height:6,
-    border: "2px solid blue",
+    width: 10,
+    height: 10,
+    border: "1px solid #55f",
     borderRadius: "50%",
     boxShadow: "0 0 0 0 blue",
-    margin: "0 4px",
+    margin: "0 5px",
     backgroundColor: "transparent",
+    transition: "0.6s",
   },
   active: {
-    boxShadow: "0 0 15px 3px blue",
-    backgroundColor: "blue",
+    boxShadow: "0 0 15px 5px blue",
+    backgroundColor: "#55f",
   },
 })
 
@@ -49,14 +50,10 @@ export default function App(props){
  const handlePrev = ()=>{
    setIndex(prev=>{
      if(prev <= 0){
-       return list.length - 1
+       return list.length-1
      }
      return --prev
    })
- }
- 
- const handleDotsClick = (i)=>{
-   setIndex(i)
  }
  
   const list = useMemo(()=>{
@@ -76,7 +73,7 @@ export default function App(props){
         boxShadow: "0 2px 3px #222",
         overflow: "hidden",
         margin: "10px auto",
-        maxWidth: 700,
+        maxWidth: 500,
       }}
     >
       <span
@@ -124,7 +121,7 @@ export default function App(props){
         zIndex: 1,
         left:0,
         right:0,
-        bottom: 30,
+        bottom: -20,
         display: "flex",
         justifyContent:"center",
       }}
@@ -137,9 +134,8 @@ export default function App(props){
               ...dotsStyle.normal,
               ...(index===i? dotsStyle.active : {})
             }}
-            onClick={()=>handleDotsClick(i)}
-          >
-          </div>
+            onClick={()=>setIndex(i)}
+          ></div>
         ))
       }
     </div>
