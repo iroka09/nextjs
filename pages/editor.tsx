@@ -2,7 +2,7 @@
 import React, {useState, useEffect, memo} from "react"
 import Head from "next/head"
 import dynamic from "next/dynamic"
-import {useRouter} from "next/router"
+import {withRouter} from "next/router"
 import Button from "@mui/material/Button"
 import CircularProgress from "@mui/material/CircularProgress"
 import Box from "@mui/material/Box"
@@ -27,13 +27,11 @@ const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
   ),
 })
 
-function App(){
+function App(props){
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [submited, setSubmited] = useState(false);
   const theme = useTheme();
-  const router = useRouter();
-  
-  const isProd = router.query.isProd;
+  const isProd = process.env.NODE_ENV==="production" || !!props.router?.query.isProd;
 
   const onEditorStateChange = (text: any) => {
     setEditorState(text);
@@ -92,5 +90,5 @@ function App(){
   )
 }
 
-export default memo(App)
+export default memo(withRouter(App))
 

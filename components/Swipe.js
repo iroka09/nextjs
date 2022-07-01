@@ -30,10 +30,10 @@ export default function App(props){
       style={{
         position:"relative",
         borderRadius: 3,
-        boxShadow: "0 1px 2px #222",
+        boxShadow: "0 2px 3px #222",
         overflow: "hidden",
         margin: "10px auto",
-        maxWidth: 500,
+        maxWidth: 700,
       }}
     >
       <span
@@ -56,27 +56,24 @@ export default function App(props){
       enableMouseEvents
       animateHeight
       style={{
-      //  border:"5px solid blue",
+        //  border:"5px solid blue",
+        padding: "0 30px"
       }}
       slideStyle={{
-       // border:"5px solid green",
+        // border:"5px solid green",
+        padding: "0 10px"
       }}
       containerStyle={{
-       // border:"5px solid red",
-       padding: "0 30px"
+        // border:"5px solid red",
       }}
       onChangeIndex={handleChangeIndex}
-      interval={5000}
-      springConfig={{
-        duration: "5s"
-      }}
+      interval={4000}
       >
       {list.map((obj, i)=>(
       <div
         style={{
-          position:"relative",
-          height: 300,
-          width: "100%",
+          position:"absolute",
+          inset: 0,
         }}
       >
         <MyImage
