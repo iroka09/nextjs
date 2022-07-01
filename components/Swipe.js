@@ -113,8 +113,8 @@ export default function App(props){
         left:0,
         right:0,
         bottom: 30,
-        display: "flex"
-        justifyContent:"center"
+        display: "flex",
+        justifyContent:"center",
       }}
     >
       {
