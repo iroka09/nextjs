@@ -29,7 +29,9 @@ const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
 
 interface PropType1 {
   router: {
-    query: string | number
+    query: {
+      isProd: string | number | undefined
+    }
   }
 }
 
