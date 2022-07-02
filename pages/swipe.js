@@ -35,7 +35,7 @@ function App(props){
     
     <Typography
       component="strong"
-      variant="h4"
+      variant="h3"
       margin="10px 0"
     >
       Github Users ({index})
@@ -63,15 +63,17 @@ function App(props){
                   quality={100}
                 />
               </Box>
-              <Typography variant="h6">{capitalize(user.login)}</Typography>
-              <Button 
-                href={user.url}
-                variant="contained"
-                fullWidth
-                sx={{m: 1, mt: 3}}
-              >
-                {"USERS'S PROFILE"}
-              </Button>
+              <Box sx={{p:2}}>
+                <Typography variant="h4">{capitalize(user.login)}</Typography>
+                <Button 
+                  href={user.html_url}
+                  variant="contained"
+                  fullWidth
+                  sx={{mt: 3}}
+                >
+                  {"USERS'S PROFILE"}
+                </Button>
+              </Box>
             </Paper>
           ))
         }
