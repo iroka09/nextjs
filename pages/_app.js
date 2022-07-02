@@ -228,11 +228,18 @@ const menuRef = React.useRef()
 
   //accept cookie policy prompt
   React.useEffect(()=> {
+    let dd = (e)=>{
+      alert(e.name)
+    }
+    document.body.addEventListener("load", dd)
     if (!acceptedCookiePolicy) {
       let fn = setTimeout(function() {
       //  setIsCookieDrawerOpen(true);
       }, 6000);
-      return ()=>clearTimeout(fn)
+      return ()=>{
+        clearTimeout(fn)
+        document.body.removeEventListener("load", dd)
+      }
     }
   });
 
