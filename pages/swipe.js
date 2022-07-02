@@ -59,7 +59,7 @@ function App(props){
                   quality={100}
                 />
               </Box>
-              <Box sx={{p:2}}>
+              <Box sx={{p:1.3}}>
                 <Typography variant="h4">{capitalize(user.name)}</Typography>
                 <Button 
                   href={user.html_url}
