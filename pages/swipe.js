@@ -40,7 +40,9 @@ function App(props){
     </Typography>
     <Box>
       <SwipeableViews
-        onChangeIndex={(i)=>setIndex(i)}
+        onChangeIndex={(i)=>{
+          // setIndex(i)
+        }}
         enableMouseEvents
         resistance
         slideStyle={{padding: "0 3px"}}
