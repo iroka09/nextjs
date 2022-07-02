@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from "react"
+import React, {useState, useMemo, memo} from "react"
 import Image from "next/image"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
@@ -16,7 +16,7 @@ const dotsStyle = ({
   normal: {
     width: 10,
     height: 10,
-    border: "1px solid blue",
+    border: "1px solid #66f",
     borderRadius: "50%",
     boxShadow: "0 0 0 0 blue",
     margin: "0 5px",
@@ -24,12 +24,13 @@ const dotsStyle = ({
     transition: "0.6s",
   },
   active: {
+    borderColor: "blue",
     boxShadow: "0 0 15px 5px blue",
     backgroundColor: "#33f",
   },
 })
 
-export default function App(props){
+function App(props){
   
   const [index, setIndex] = useState(0);
   const [randomImage, setRandomImage] = useState();
@@ -39,12 +40,12 @@ export default function App(props){
   }
  
  const handleNext = ()=>{
-   setIndex(prev=>{
+    setIndex(prev=>{
      if(prev >= list.length-1){
        return 0
      }
      return ++prev
-   })
+    })
  }
  
  const handlePrev = ()=>{
@@ -82,9 +83,10 @@ export default function App(props){
           position: "absolute",
           top: 10,
           left: 10,
-          backgroundColor: "rgba(0,0,0,0.4)",
-          zIndex: 10,
-          color: "white",
+          backgroundColor: "rgba(200,200,200,0.2)",
+          backdropFilter: "blur(3px)",
+          zIndex: 1,
+          color: "black",
           borderRadius: 2,
           padding: "2px 8px",
         }}
@@ -124,6 +126,7 @@ export default function App(props){
         padding: "7px 10px",
         bottom: 15,
         backgroundColor: "rgba(211,211,211,0.6)",
+        backdropFilter: "blur(3px)",
         borderRadius: 3,
         display: "flex",
         justifyContent:"center",
@@ -205,3 +208,5 @@ function MyImage(props){
     <img src={props.obj.src2} style={{height:"100%", width:"100%"}} />
   )
 }
+
+export default memo(App)
