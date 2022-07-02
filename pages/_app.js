@@ -242,12 +242,13 @@ const menuRef = React.useRef()
   
   
   useEffect(()=>{
-    let fn = ()=>{
-      setIsWindowLoading(false);
-    }
-    window.addEventListener("load", fn);
+    let tm = setInterval(()=>{
+      if(document.readyState==="complete"){
+        setIsWindowLoading(false);
+      }
+    }, 100);
     return ()=>{
-      window.removeEventListener("load", fn)
+      clearInterval(tm)
     }
   }, []);
   
