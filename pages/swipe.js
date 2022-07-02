@@ -31,6 +31,8 @@ function App(props){
       <Swipe isProd={isProd}/>
     </Box>
     
+    <Divider sx={{my:3}} />
+    
     <Typography
       component="strong"
       variant="h4"
