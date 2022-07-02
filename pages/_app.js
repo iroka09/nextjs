@@ -243,6 +243,7 @@ const menuRef = React.useRef()
   
   useEffect(()=>{
     let fn = ()=>{
+      alert("loaded")
       setIsWindowLoading(false);
     }
     window.addEventListener("load", fn);
@@ -308,7 +309,7 @@ const menuRef = React.useRef()
   <Box
     sx={{
       w: "100%",
-      h: "100vh",
+      h: 700,
       maxHeight: 800,
       display: "flex",
       justifyContent: "center",
