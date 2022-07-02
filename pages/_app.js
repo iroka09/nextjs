@@ -317,7 +317,7 @@ const menuRef = React.useRef()
   >
     <HashLoader />
   </Box>
-  ) : (
+  ) : ( <>
     <AppBar position="fixed">
     <Toolbar>
   
@@ -587,7 +587,7 @@ const menuRef = React.useRef()
       </div>
       </div>
       </Drawer>
-      )}
+     </> )}
     </CookiesProvider>
     </Provider>
     </ThemeProvider>
