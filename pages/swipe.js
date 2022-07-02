@@ -88,6 +88,16 @@ export async function getStaticProps(){
   catch(e){
     resp = e
   }
+  resp.map(async(obj)=>{
+    let _resp = [{}];
+    try{
+      _resp = await axios.get(obj.url);
+    }
+    catch(e){
+      _resp = e
+    }
+    return _resp;
+  })
   return ({
     props: {
       githubUsers: resp.data
