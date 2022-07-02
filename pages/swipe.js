@@ -47,9 +47,9 @@ function App(props){
         resistance
         slideStyle={{padding: "0 3px"}}
         style={{
-         // padding: "0",
-          paddingRight: `${(index < githubUsers.length-1)? 20 : 0 }px`,
-          paddingLeft: `${(index > 0)? 20 : 0 }px`,
+          padding: "0 20px",
+          //paddingRight: `${(index < githubUsers.length-1)? 20 : 0 }px`,
+          //paddingLeft: `${(index > 0)? 20 : 0 }px`,
         }}
       >
         {
