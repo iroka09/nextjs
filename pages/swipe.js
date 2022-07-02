@@ -81,7 +81,7 @@ function App(props){
 
 
 export async function getStaticProps(){
-  let result = await newPromise((resolve, reject)=>{
+  let result = await new Promise((resolve, reject)=>{
     axios.get("https://api.github.com/users")
     .then((resp)=>{
       resolve(resp)
