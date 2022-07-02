@@ -52,7 +52,30 @@ import {
   useCookies
 } from "react-cookie"
 import reduxStore from "../components/redux/store"
-import {HashLoader} from "react-spinners";
+import {
+  BarLoader,
+  BeatLoader,
+  BounceLoader,
+  CircleLoader,
+  ClimbingBoxLoader,
+  ClipLoader,
+  ClockLoader,
+  DotLoader,
+  FadeLoader,
+  GridLoader,
+  HashLoader,
+  MoonLoader,
+  PacmanLoader,
+  PropagateLoader,
+  PuffLoader,
+  PulseLoader,
+  RingLoader,
+  RiseLoader,
+  RotateLoader,
+  ScaleLoader,
+  SkewLoader,
+  SquareLoader,
+  SyncLoader} from "react-spinners";
 
 import "../styles/global_style.css";
 import "../styles/calendar.css";
@@ -317,7 +340,7 @@ const menuRef = React.useRef()
       alignItems: "center",
     }}
   >
-    <HashLoader />
+    <GetLoader />
   </div>
   ) : ( <>
     <AppBar position="fixed">
@@ -596,3 +619,33 @@ const menuRef = React.useRef()
   )}
 
 export default App
+
+function GetLoader(props){
+  let arr = [
+  <BarLoader {...props}/>,
+  <BeatLoader {...props}/>,
+  <BounceLoader {...props}/>,
+  <CircleLoader {...props}/>,
+  <ClimbingBoxLoader {...props}/>,
+  <ClipLoader {...props}/>,
+  <ClockLoader {...props}/>,
+  <DotLoader {...props}/>,
+  <FadeLoader {...props}/>,
+  <GridLoader {...props}/>,
+  <HashLoader {...props}/>,
+  <MoonLoader {...props}/>,
+  <PacmanLoader {...props}/>,
+  <PropagateLoader {...props}/>,
+  <PuffLoader {...props}/>,
+  <PulseLoader {...props}/>,
+  <RingLoader {...props}/>,
+  <RiseLoader {...props}/>,
+  <RotateLoader {...props}/>,
+  <ScaleLoader {...props}/>,
+  <SkewLoader {...props}/>,
+  <SquareLoader {...props}/>,
+  <SyncLoader {...props}/>,
+  ];
+  let length = arr.length-0;
+  return arr[random.int(0, length)]
+}
