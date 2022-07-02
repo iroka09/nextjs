@@ -16,9 +16,6 @@ function App(props){
   const [index, setIndex] = useState(0)
   const isProd = process.env.NODE_ENV==="production" || !!props.router?.query.isProd;
   const githubUsers = props.githubUsers;
-  const handleSwitch = (i, type)=>{
-    setIndex(i)
-  }
   //console.log(githubUsers,"yesoooooo")
   return(
   <>
@@ -38,13 +35,12 @@ function App(props){
       variant="h3"
       margin="10px 0"
     >
-      Github Users ({index})
+      Github Users
     </Typography>
     <Box>
       <SwipeableViews
         enableMouseEvents
         resistance
-        onSwitching={handleSwitch}
         slideStyle={{padding: "0 5px"}}
         style={{padding: "0 17px 0 0"}}
       >
@@ -64,7 +60,7 @@ function App(props){
                 />
               </Box>
               <Box sx={{p:2}}>
-                <Typography variant="h4">{capitalize(user.login)}</Typography>
+                <Typography variant="h4">{capitalize(user.name)}</Typography>
                 <Button 
                   href={user.html_url}
                   variant="contained"
