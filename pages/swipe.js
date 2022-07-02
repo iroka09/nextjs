@@ -32,7 +32,7 @@ function App(props){
     
     <Typography
       component="strong"
-      variant="h3"
+      variant="h5"
     >
       Github Users
     </Typography>
@@ -40,13 +40,16 @@ function App(props){
       <SwipeableViews
         enableMouseEvents
         resistance
-        slideStyle={{padding: "0 5px"}}
-        style={{padding: "0 20px 0 0"}}
+        slideStyle={{padding: "0 2px"}}
+        style={{
+          paddingRight: `${(index < githubUsers.length-1)? 20 : 0 }px`,
+          paddingLeft: `${(index > 0)? 20 : 0 }px`,
+        }}
       >
         {
           githubUsers?.map((user, i)=>(
             <Paper key={i} sx={{overflow:"hidden"}}>
-              <Box sx={{h:150, w:300, position:"relative", mb:2}}
+              <Box sx={{h:200, w:300, position:"relative"}}
               >
                 <MyImage
                   user={user}
@@ -59,14 +62,14 @@ function App(props){
                 />
               </Box>
               <Box sx={{p:1.3}}>
-                <Typography variant="h4">{capitalize(user.login)}</Typography>
+                <Typography variant="h5">{capitalize(user.login)}</Typography>
                 <Button 
                   href={user.html_url}
                   variant="contained"
                   fullWidth
                   sx={{mt: 3}}
                 >
-                  {"VISIT PROFILE"}
+                  VISIT PROFILE
                 </Button>
               </Box>
             </Paper>
