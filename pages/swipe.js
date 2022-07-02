@@ -38,7 +38,7 @@ function App(props){
     >
       Github Users
     </Typography>
-    <Box>
+    <Box sx={{py: 2}}>
       <SwipeableViews
         onChangeIndex={(i)=>{
           setIndex(i)
@@ -90,22 +90,20 @@ function App(props){
 
 
 export async function getStaticProps(){
-  let result = await new Promise((resolve, reject)=>{
+  let users = await new Promise((resolve, reject)=>{
     axios.get("https://api.github.com/users")
     .then((resp)=>{
-      resolve(resp)
+      resolve(resp.data)
     })
     .catch((e)=>{
-      reject({
-        data: []
-      });
+      reject([]);
     })
   }) 
   return ({
     props: {
-      githubUsers: result.data
+      githubUsers: users,
     },
-    revalidate: 60*60*24 // 1 day
+    revalidate: 60*60 // 1 hr
   })
 }
 
