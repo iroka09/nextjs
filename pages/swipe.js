@@ -40,20 +40,18 @@ function App(props){
     </Typography>
     <Box>
       <SwipeableViews
-        index={index}
         onChangeIndex={(i)=>setIndex(i)}
         enableMouseEvents
         resistance
         slideStyle={{padding: "0 3px"}}
         style={{
           padding: 0,
-          transition: "0.3s",
           paddingRight: `${(index < githubUsers.length-1)? 20 : 0 }px`,
           paddingLeft: `${(index > 0)? 20 : 0 }px`,
         }}
       >
         {
-          githubUsers?.map((user, i)=>(
+          githubUsers.map((user, i)=>(
             <Paper key={i} sx={{overflow:"hidden"}}>
               <Box sx={{h:200, w:300, position:"relative"}}
               >
@@ -64,7 +62,7 @@ function App(props){
                   layout="fill"
                   objectFit="cover"
                   placeholder="blur"
-                  quality={100}
+                  quality={70}
                 />
               </Box>
               <Box sx={{p:1.3}}>
