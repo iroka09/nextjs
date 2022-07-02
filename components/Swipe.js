@@ -209,4 +209,4 @@ function MyImage(props){
   )
 }
 
-export default memo(App
+export default memo(App)
