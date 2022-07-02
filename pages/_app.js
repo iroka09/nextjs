@@ -227,7 +227,7 @@ const menuRef = React.useRef()
   }
 
   //accept cookie policy prompt
-  React.useEffect(()=> {
+  useEffect(()=> {
     let dd = (e)=>{
       alert(e.name)
     }
@@ -242,7 +242,21 @@ const menuRef = React.useRef()
       }
     }
   });
-
+  
+  
+  useEffect(()=>{
+    let dd = (e)=>{
+      alert(1)
+    }
+    document.body.addEventListener("load", dd);
+    document.body.onload = function(e){
+      alert(2)
+    }
+    return ()=>{
+      document.body.removeEventListener("load", dd)
+    }
+  }, []);
+  
 
   useEffect(function (){
     const FabEvent = ()=>{
