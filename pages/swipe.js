@@ -59,7 +59,7 @@ function App(props){
                 />
               </Box>
               <Box sx={{p:1.3}}>
-                <Typography variant="h4">{capitalize(user.name)}</Typography>
+                <Typography variant="h4">{capitalize(user.login)}</Typography>
                 <Button 
                   href={user.html_url}
                   variant="contained"
@@ -81,26 +81,20 @@ function App(props){
 
 
 export async function getStaticProps(){
-  let resp = [{}];
-  try{
-    resp = await axios.get("https://api.github.com/users");
-  }
-  catch(e){
-    resp = e
-  }
-  resp.map(async(obj)=>{
-    let _resp = [{}];
-    try{
-      _resp = await axios.get(obj.url);
-    }
-    catch(e){
-      _resp = e
-    }
-    return _resp;
-  })
+  let result = await newPromise((resolve, reject)=>{
+    axios.get("https://api.github.com/users")
+    .then((resp)=>{
+      resolve(resp)
+    })
+    .catch((e)=>{
+      reject({
+        data: []
+      });
+    })
+  }) 
   return ({
     props: {
-      githubUsers: resp.data
+      githubUsers: result.data
     },
     revalidate: 60*60*24 // 1 day
   })
