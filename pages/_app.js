@@ -51,6 +51,7 @@ import {
   useCookies
 } from "react-cookie"
 import reduxStore from "../components/redux/store"
+import {HashLoader} from "react-spinners";
 
 import "../styles/global_style.css";
 import "../styles/calendar.css";
@@ -71,6 +72,7 @@ function App( {
 }) {
   const scrollTopButtonRef = React.useRef();
   const [showFab, setShowFab] = useState(false);
+  const [isWindowLoading, setIsWindowLoading] = useState(true);
   const [isDrawerOpen,
     setIsDrawerOpen] = React.useState(false);
   
@@ -228,32 +230,24 @@ const menuRef = React.useRef()
 
   //accept cookie policy prompt
   useEffect(()=> {
-    let dd = (e)=>{
-      alert(e.name)
-    }
-    document.body.addEventListener("load", dd)
     if (!acceptedCookiePolicy) {
       let fn = setTimeout(function() {
       //  setIsCookieDrawerOpen(true);
       }, 6000);
       return ()=>{
         clearTimeout(fn)
-        document.body.removeEventListener("load", dd)
       }
     }
   });
   
   
   useEffect(()=>{
-    let dd = (e)=>{
-      alert(1)
+    let fn = ()=>{
+      setIsWindowLoading(false);
     }
-    document.body.addEventListener("load", dd);
-    document.body.onload = function(e){
-      alert(2)
-    }
+    window.addEventListener("load", fn);
     return ()=>{
-      document.body.removeEventListener("load", dd)
+      window.removeEventListener("load", fn)
     }
   }, []);
   
@@ -310,9 +304,22 @@ const menuRef = React.useRef()
     </style>
     */}
     </Head>
-    <CssBaseline />
-
-  <AppBar position="fixed">
+{(isWindowLoading)? (
+  <Box
+    sx={{
+      w: "100%",
+      h: "100vh",
+      maxHeight: 800,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <HashLoader />
+  </Box>
+  ) 
+  : 
+  (<AppBar position="fixed">
     <Toolbar>
   
       <IconButton sx={{...appBarColor, mr:"auto"}} onClick={()=>setIsDrawerOpen(true)} edge="start">
@@ -580,7 +587,7 @@ const menuRef = React.useRef()
       </div>
       </div>
       </Drawer>
-
+      )}
     </CookiesProvider>
     </Provider>
     </ThemeProvider>
