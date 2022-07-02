@@ -317,9 +317,8 @@ const menuRef = React.useRef()
   >
     <HashLoader />
   </Box>
-  ) 
-  : 
-  (<AppBar position="fixed">
+  ) : (
+    <AppBar position="fixed">
     <Toolbar>
   
       <IconButton sx={{...appBarColor, mr:"auto"}} onClick={()=>setIsDrawerOpen(true)} edge="start">
@@ -410,7 +409,8 @@ const menuRef = React.useRef()
             <LightModeIcon /> 
           </ListItemIcon>
             Light Mode
-        </>) : 
+        </>
+        ) : 
         (<>
           <ListItemIcon>
             <DarkModeIcon /> 
