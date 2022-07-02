@@ -9,7 +9,6 @@ import Box from "@mui/material/Box"
 import {useTheme} from "@mui/material/styles"
 import { EditorState } from 'draft-js';
 import { EditorProps } from 'react-draft-wysiwyg';
-import Swipe from "../components/Swipe"
 
 const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
   .then(x=>x.Editor), {
@@ -26,14 +25,6 @@ const Editor =  dynamic<EditorProps> (()=> import('react-draft-wysiwyg')
     </div>
   ),
 })
-
-interface PropType1 {
-  router: {
-    query: {
-      isProd: string | number | undefined
-    }
-  }
-}
 
 function App(props: any){
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -55,9 +46,6 @@ function App(props: any){
       <meta charSet="UTF-8" />
       <title>Editor Draft</title>
     </Head>
-    <Box margin="20px 0">
-      <Swipe isProd={isProd}/>
-    </Box>
   { 
     (isProd) &&
    <Editor

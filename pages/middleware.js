@@ -1,9 +1,11 @@
 import {NextResponse} from "next/server"
+import app from "next-connect"
+
 
 export function middleware(req, event){
   const {ip, geo, nextUrl, query,  cookies, headers, ...others} = req
   //console. log(query,"====", cookies,"=====", headers)
-  // console. log(req)
+   console. log(req)
   
   return NextResponse.next() //equivalent to next() in expressjs
   
