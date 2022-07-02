@@ -243,7 +243,6 @@ const menuRef = React.useRef()
   
   useEffect(()=>{
     let fn = ()=>{
-      alert("loaded")
       setIsWindowLoading(false);
     }
     window.addEventListener("load", fn);
@@ -306,18 +305,19 @@ const menuRef = React.useRef()
     */}
     </Head>
 {(isWindowLoading)? (
-  <Box
-    sx={{
-      w: "100%",
-      h: 700,
-      maxHeight: 800,
+  <div
+    style={{
+      width: "100vw",
+      height: "100vh",
+      maxHeight: 900,
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      border: "3px solid red",
     }}
   >
     <HashLoader />
-  </Box>
+  </div>
   ) : ( <>
     <AppBar position="fixed">
     <Toolbar>
