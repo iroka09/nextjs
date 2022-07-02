@@ -10,14 +10,16 @@ import Paper from "@mui/material/Paper"
 import Divider from "@mui/material/Divider"
 import SwipeableViews from "react-swipeable-views"
 import Swipe from "../components/Swipe"
-
+import {capitalize} from "./ecommerce"
 
 function App(props){
-  
+  const [index, setIndex] = useState(0)
   const isProd = process.env.NODE_ENV==="production" || !!props.router?.query.isProd;
-  
   const githubUsers = props.githubUsers;
-  console.log(githubUsers,"yesoooooo")
+  const handleSwitch = (i, type)=>{
+    setIndex(i)
+  }
+  //console.log(githubUsers,"yesoooooo")
   return(
   <>
     <Head>
@@ -31,15 +33,18 @@ function App(props){
     
     <Typography
       component="strong"
-      variant="h2"
+      variant="h4"
       margin="10px 0"
     >
-      Github Users
+      Github Users ({index})
     </Typography>
     <Box>
       <SwipeableViews
+        enableMouseEvents
+        resistance
+        onSwitching={handleSwitch}
         slideStyle={{padding: "0 5px"}}
-        style={{padding: "0 15px 0 0"}}
+        style={{padding: "0 17px 0 0"}}
       >
         {
           githubUsers?.map((user, i)=>(
@@ -56,13 +61,14 @@ function App(props){
                   quality={100}
                 />
               </Box>
-              <Typography variant="h6">{user.name}</Typography>
+              <Typography variant="h6">{capitalize(user.login)}</Typography>
               <Button 
                 href={user.url}
+                variant="contained"
                 fullWidth
-                sx={{m: 2, mt: 3}}
+                sx={{m: 1, mt: 3}}
               >
-                {"User's Github"}
+                {"USERS'S PROFILE"}
               </Button>
             </Paper>
           ))
