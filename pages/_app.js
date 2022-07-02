@@ -268,7 +268,8 @@ const menuRef = React.useRef()
   useEffect(()=>{
     let tm = setInterval(()=>{
       if(document.readyState==="complete"){
-        setTimeout(()=>setIsWindowLoading(false), random.int(100, 5000))
+        setTimeout(()=>setIsWindowLoading(false), random.int(3000, 8000));
+        clearInterval(tm)
       }
     }, 100);
     return ()=>{
@@ -340,7 +341,7 @@ const menuRef = React.useRef()
       alignItems: "center",
     }}
   >
-    <GetLoader />
+    <GetLoader color={theme.palette.primary.main} />
   </div>
   ) : ( <>
     <AppBar position="fixed">
