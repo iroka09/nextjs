@@ -41,7 +41,7 @@ function App(props){
         enableMouseEvents
         resistance
         slideStyle={{padding: "0 5px"}}
-        style={{padding: "0 17px 0 0"}}
+        style={{padding: "0 20px 0 0"}}
       >
         {
           githubUsers?.map((user, i)=>(
@@ -66,7 +66,7 @@ function App(props){
                   fullWidth
                   sx={{mt: 3}}
                 >
-                  {"USERS'S PROFILE"}
+                  {"VISIT PROFILE"}
                 </Button>
               </Box>
             </Paper>
