@@ -28,12 +28,11 @@ function App(props){
       <Swipe isProd={isProd}/>
     </Box>
     
-    <Divider sx={{my:3}} />
+    <Divider sx={{my:7}} />
     
     <Typography
       component="strong"
       variant="h3"
-      margin="10px 0"
     >
       Github Users
     </Typography>
