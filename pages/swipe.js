@@ -14,9 +14,10 @@ import {capitalize} from "./ecommerce"
 
 function App(props){
   const [index, setIndex] = useState(0)
+  const [pictureQuality, setPictureQuality] = useState(50)
   const isProd = process.env.NODE_ENV==="production" || !!props.router?.query.isProd;
   const githubUsers = props.githubUsers;
-  githubUsers.length = 6;
+  //githubUsers.length = 6;
   //console.log(githubUsers,"yesoooooo")
   return(
   <>
@@ -39,9 +40,11 @@ function App(props){
     </Typography>
     <Box>
       <SwipeableViews
+        index={index}
+        onChangeIndex={(i)=>setIndex(i)}
         enableMouseEvents
         resistance
-        slideStyle={{padding: "0 2px"}}
+        slideStyle={{padding: "0 3px"}}
         style={{
           paddingRight: `${(index < githubUsers.length-1)? 20 : 0 }px`,
           paddingLeft: `${(index > 0)? 20 : 0 }px`,
