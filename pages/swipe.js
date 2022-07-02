@@ -16,6 +16,7 @@ function App(props){
   const [index, setIndex] = useState(0)
   const isProd = process.env.NODE_ENV==="production" || !!props.router?.query.isProd;
   const githubUsers = props.githubUsers;
+  githubUsers.length = 6;
   //console.log(githubUsers,"yesoooooo")
   return(
   <>
