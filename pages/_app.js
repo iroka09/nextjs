@@ -4,6 +4,7 @@ import React, {
 } from "react";
 import Head from "next/head"
 import Link from "next/link"
+import random from "random"
 import Container from "@mui/material/Container"
 import CssBaseline from "@mui/material/CssBaseline"
 import Fab from "@mui/material/Fab"
@@ -244,7 +245,7 @@ const menuRef = React.useRef()
   useEffect(()=>{
     let tm = setInterval(()=>{
       if(document.readyState==="complete"){
-        setIsWindowLoading(false);
+        setTimeout(()=>setIsWindowLoading(false), random.int(100, 5000))
       }
     }, 100);
     return ()=>{
