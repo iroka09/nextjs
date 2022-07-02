@@ -313,7 +313,6 @@ const menuRef = React.useRef()
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      border: "3px solid red",
     }}
   >
     <HashLoader />

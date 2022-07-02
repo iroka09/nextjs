@@ -55,7 +55,7 @@ function App(props){
         {
           githubUsers.map((user, i)=>(
             <Paper key={i} sx={{overflow:"hidden"}}>
-              <Box sx={{h:200, w:300, position:"relative"}}
+              <div style={{height:200, width:300, position:"relative"}}
               >
                 <MyImage
                   user={user}
@@ -66,7 +66,7 @@ function App(props){
                   placeholder="blur"
                   quality={70}
                 />
-              </Box>
+              </div>
               <Box sx={{p:1.3}}>
                 <Typography variant="h5">{capitalize(user.login)}</Typography>
                 <Button 
