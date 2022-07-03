@@ -42,7 +42,7 @@ function App(props){
     >
       Github Users
     </Typography>
-    <Box sx={{py: 2}}>
+    <div style={{padding:"20px 0"}}>
       <SwipeableViews
         onChangeIndex={(i)=>{
           setIndex(i)
@@ -78,7 +78,7 @@ function App(props){
                   quality={70}
                 />
               </div>
-              <div style={{padding:1.3}}>
+              <div style={{padding: 6}}>
                 <h5>
                   {capitalize(user.login)}
                 </h5>
@@ -95,7 +95,7 @@ function App(props){
           ))
         }
       </SwipeableViews>
-    </Box>
+    </div>
   
   </>)
 }
@@ -125,8 +125,8 @@ export async function getStaticProps(){
 function MyImage(props){
   return(
     (props.isProd)? 
-    <Image src={props.user.avatar_url} {...props} /> :
-    <img src={props.user.avatar_url} style={{height:"100%", width:"100%",objectFit:"cover"}} />
+    (<Image src={props.user.avatar_url} {...props} />) :
+    (<img src={props.user.avatar_url} style={{height:"100%", width:"100%",objectFit:"cover"}} />)
   )
 }
 

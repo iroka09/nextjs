@@ -315,6 +315,7 @@ const menuRef = React.useRef()
       height: "100vh",
       maxHeight: 900,
       zIndex: 99999999,
+      backgroundColor: "white",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
