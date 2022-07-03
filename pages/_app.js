@@ -52,30 +52,7 @@ import {
   useCookies
 } from "react-cookie"
 import reduxStore from "../components/redux/store"
-import {
-  BarLoader,
-  BeatLoader,
-  BounceLoader,
-  CircleLoader,
-  ClimbingBoxLoader,
-  ClipLoader,
-  ClockLoader,
-  DotLoader,
-  FadeLoader,
-  GridLoader,
-  HashLoader,
-  MoonLoader,
-  PacmanLoader,
-  PropagateLoader,
-  PuffLoader,
-  PulseLoader,
-  RingLoader,
-  RiseLoader,
-  RotateLoader,
-  ScaleLoader,
-  SkewLoader,
-  SquareLoader,
-  SyncLoader} from "react-spinners";
+import * as spinners from "react-spinners";
 
 import "../styles/global_style.css";
 import "../styles/calendar.css";
@@ -330,12 +307,14 @@ const menuRef = React.useRef()
     </style>
     */}
     </Head>
-{(isWindowLoading)? (
+{(isWindowLoading) && (
   <div
     style={{
+      position: "fixed",
       width: "100vw",
       height: "100vh",
       maxHeight: 900,
+      zIndex: 99999999,
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -343,7 +322,7 @@ const menuRef = React.useRef()
   >
     <GetLoader color={theme.palette.primary.main} />
   </div>
-  ) : ( <>
+  )}
     <AppBar position="fixed">
     <Toolbar>
   
@@ -613,40 +592,21 @@ const menuRef = React.useRef()
       </div>
       </div>
       </Drawer>
-     </> )}
     </CookiesProvider>
     </Provider>
     </ThemeProvider>
   )}
 
-export default App
+export default React.memo(App)
 
 function GetLoader(props){
-  let arr = [
-  <BarLoader {...props}/>,
-  <BeatLoader {...props}/>,
-  <BounceLoader {...props}/>,
-  <CircleLoader {...props}/>,
-  <ClimbingBoxLoader {...props}/>,
-  <ClipLoader {...props}/>,
-  <ClockLoader {...props}/>,
-  <DotLoader {...props}/>,
-  <FadeLoader {...props}/>,
-  <GridLoader {...props}/>,
-  <HashLoader {...props}/>,
-  <MoonLoader {...props}/>,
-  <PacmanLoader {...props}/>,
-  <PropagateLoader {...props}/>,
-  <PuffLoader {...props}/>,
-  <PulseLoader {...props}/>,
-  <RingLoader {...props}/>,
-  <RiseLoader {...props}/>,
-  <RotateLoader {...props}/>,
-  <ScaleLoader {...props}/>,
-  <SkewLoader {...props}/>,
-  <SquareLoader {...props}/>,
-  <SyncLoader {...props}/>,
-  ];
+  const arr = [];
+  for(let x in spinners) {
+    arr.push(spinners[x])
+  }
   let length = arr.length-0;
-  return arr[random.int(0, length)]
+  let Loader = arr[random.int(0, length)];
+  return (
+    <Loader {...props} />
+  )
 }
