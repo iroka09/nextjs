@@ -16,8 +16,12 @@ function App(props){
   const [index, setIndex] = useState(0)
   const [pictureQuality, setPictureQuality] = useState(50)
   const isProd = process.env.NODE_ENV==="production" || !!props.router?.query.isProd;
-  const githubUsers = props.githubUsers;
-  //githubUsers.length = 6;
+  const githubUsers = props.githubUsers.sort(()=>{
+    return Math.random()-0.5
+  });
+  if(githubUsers.length>10){
+    githubUsers.length = 10;
+  }
   //console.log(githubUsers,"yesoooooo")
   return(
   <>
@@ -41,7 +45,7 @@ function App(props){
     <Box sx={{py: 2}}>
       <SwipeableViews
         onChangeIndex={(i)=>{
-          setIndex(i)
+          //setIndex(i)
         }}
         enableMouseEvents
         resistance
@@ -53,8 +57,11 @@ function App(props){
         }}
       >
         {
-          githubUsers.map((user, i)=>(
-            <Paper key={i} sx={{overflow:"hidden"}}>
+          githubUsers.map((user,i)=>(
+            <Paper 
+              key={i} 
+              sx={{overflow:"hidden"}}
+            >
               <div style={{height:200, width:300, position:"relative"}}
               >
                 <MyImage
@@ -68,7 +75,9 @@ function App(props){
                 />
               </div>
               <Box sx={{p:1.3}}>
-                <Typography variant="h5">{capitalize(user.login)}</Typography>
+                <Typography variant="h5">
+                  {capitalize(user.login)}
+                </Typography>
                 <Button 
                   href={user.html_url}
                   variant="contained"
