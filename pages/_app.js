@@ -71,7 +71,6 @@ const links = "home, calendar, login, ecommerce, quiz, timer, editor, swipe".spl
 function App( {
   Component, pageProps
 }) {
-  const scrollTopButtonRef = React.useRef();
   const [showFab, setShowFab] = useState(false);
   const [isWindowLoading, setIsWindowLoading] = useState(true);
   const [isDrawerOpen,
@@ -242,6 +241,7 @@ const menuRef = React.useRef()
   });
   
   
+  //spinner 
   useEffect(()=>{
     let tm = setInterval(()=>{
       if(document.readyState==="complete"){
@@ -249,29 +249,17 @@ const menuRef = React.useRef()
         clearInterval(tm);
       }
     }, 500);
-    return ()=>{
-      clearInterval(tm)
-    }
+    return ()=> clearInterval(tm)
   }, []);
   
 
+//scroll to event (scroll to top button)
   useEffect(function (){
-    const FabEvent = ()=>{
-      window.scroll({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-      });
-    }
     const scrollEvent = ()=>{
       setShowFab(window.pageYOffset > 200 ? true : false)
     }
    window.addEventListener("scroll", scrollEvent);
-    //scrollTopButtonRef.current.addEventListener("click", FabEvent);
-    return ()=> {
-      window.removeEventListener("scroll", scrollEvent);
-      scrollTopButtonRef.current.removeEventListener("click", FabEvent);
-    }
+    return ()=> window.removeEventListener("scroll", scrollEvent);
   }, [])
   
 
@@ -510,7 +498,6 @@ const menuRef = React.useRef()
   <Zoom in={showFab}> 
     <Fab
       color="error"
-      ref={scrollTopButtonRef}
       sx={{position:"fixed", zIndex: theme.zIndex.speedDial, bottom: 40, right: 30}}
       onClick={()=>{
         window.scroll({
