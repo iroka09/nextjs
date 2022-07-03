@@ -20,7 +20,7 @@ function App(props){
     return Math.random()-0.5
   });
   if(githubUsers.length>5){
-    githubUsers.length = 5;
+    githubUsers.length = 4;
   }
   //console.log(githubUsers,"yesoooooo")
   return(
