@@ -16,12 +16,15 @@ function App(props){
   const [index, setIndex] = useState(0)
   const [pictureQuality, setPictureQuality] = useState(50)
   const isProd = process.env.NODE_ENV==="production" || !!props.router?.query.isProd;
-  const githubUsers = props.githubUsers.sort(()=>{
-    return Math.random()-0.5
-  });
-  if(githubUsers.length>8){
-    githubUsers.length = 8;
-  }
+  
+  const githubUsers = Reace.useMemo(()=>{
+    let data = props.githubUsers.sort(()=>{
+      return (Math.random()-0.5 < 0)? -1 : 1;
+    });
+    if(data.length > 8) data.length = 8;
+    return data; 
+  }, []);
+  
   //console.log(githubUsers,"yesoooooo")
   return(
   <>
@@ -42,14 +45,14 @@ function App(props){
     >
       Github Users
     </Typography>
-    <div style={{padding:"20px 0"}}>
+    <div style={{overflow: "visible"}}>
       <SwipeableViews
         onChangeIndex={(i)=>{
           setIndex(i)
         }}
         enableMouseEvents
         resistance
-        slideStyle={{padding: "0 3px"}}
+        slideStyle={{padding: "0 5px"}}
         style={{
           //padding: "0 20px",
           paddingRight: (index < githubUsers.length-1)? 20 : 0,
@@ -63,7 +66,7 @@ function App(props){
               style={{
                 overflow:"hidden",
                 borderRadius: 3,
-                boxShadow: "0 2px 5px #888",
+                boxShadow: "0 3px 2px -3px #555",
               }}
             >
               <div style={{height:200, width:300, position:"relative"}}

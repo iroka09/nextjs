@@ -68,9 +68,10 @@ const cookieOptions = {
 
 const links = "home, calendar, login, ecommerce, quiz, timer, editor, swipe".split(", ");
 
-function App( {
-  Component, pageProps
-}) {
+function App(props) {
+  
+  const {Component, pageProps} = props; 
+  
   const [showFab, setShowFab] = useState(false);
   const [isWindowLoading, setIsWindowLoading] = useState(true);
   const [isDrawerOpen,
