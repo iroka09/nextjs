@@ -19,8 +19,8 @@ function App(props){
   const githubUsers = props.githubUsers.sort(()=>{
     return Math.random()-0.5
   });
-  if(githubUsers.length>5){
-    githubUsers.length = 4;
+  if(githubUsers.length>8){
+    githubUsers.length = 8;
   }
   //console.log(githubUsers,"yesoooooo")
   return(
@@ -45,22 +45,26 @@ function App(props){
     <Box sx={{py: 2}}>
       <SwipeableViews
         onChangeIndex={(i)=>{
-          //setIndex(i)
+          setIndex(i)
         }}
         enableMouseEvents
         resistance
         slideStyle={{padding: "0 3px"}}
         style={{
-          padding: "0 20px",
-          //paddingRight: `${(index < githubUsers.length-1)? 20 : 0 }px`,
-          //paddingLeft: `${(index > 0)? 20 : 0 }px`,
+          //padding: "0 20px",
+          paddingRight: (index < githubUsers.length-1)? 20 : 0,
+          paddingLeft: (index > 0)? 20 : 0,
         }}
       >
         {
           githubUsers.map((user,i)=>(
-            <Paper 
+            <div
               key={i} 
-              sx={{overflow:"hidden"}}
+              style={{
+                overflow:"hidden",
+                borderRadius: 3,
+                boxShadow: "0 2px 5px #888",
+              }}
             >
               <div style={{height:200, width:300, position:"relative"}}
               >
@@ -74,10 +78,10 @@ function App(props){
                   quality={70}
                 />
               </div>
-              <Box sx={{p:1.3}}>
-                <Typography variant="h5">
+              <div style={{padding:1.3}}>
+                <h5>
                   {capitalize(user.login)}
-                </Typography>
+                </h5>
                 <Button 
                   href={user.html_url}
                   variant="contained"
@@ -86,8 +90,8 @@ function App(props){
                 >
                   VISIT PROFILE
                 </Button>
-              </Box>
-            </Paper>
+              </div>
+            </div>
           ))
         }
       </SwipeableViews>
