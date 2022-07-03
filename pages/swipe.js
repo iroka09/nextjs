@@ -1,4 +1,4 @@
-import React, {useState, useEffect, memo} from "react"
+import React, {useState, useEffect, useMemo, memo} from "react"
 import Head from "next/head"
 import axios from "axios"
 import Image from "next/image"
@@ -17,7 +17,7 @@ function App(props){
   const [pictureQuality, setPictureQuality] = useState(50)
   const isProd = process.env.NODE_ENV==="production" || !!props.router?.query.isProd;
   
-  const githubUsers = Reace.useMemo(()=>{
+  const githubUsers = useMemo(()=>{
     let data = props.githubUsers.sort(()=>{
       return (Math.random()-0.5 < 0)? -1 : 1;
     });
