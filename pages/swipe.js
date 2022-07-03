@@ -19,8 +19,8 @@ function App(props){
   const githubUsers = props.githubUsers.sort(()=>{
     return Math.random()-0.5
   });
-  if(githubUsers.length>10){
-    githubUsers.length = 10;
+  if(githubUsers.length>5){
+    githubUsers.length = 5;
   }
   //console.log(githubUsers,"yesoooooo")
   return(
