@@ -245,10 +245,10 @@ const menuRef = React.useRef()
   useEffect(()=>{
     let tm = setInterval(()=>{
       if(document.readyState==="complete"){
-        setTimeout(()=>setIsWindowLoading(false), random.int(3000, 8000));
-        clearInterval(tm)
+        setIsWindowLoading(false);
+        clearInterval(tm);
       }
-    }, 100);
+    }, 500);
     return ()=>{
       clearInterval(tm)
     }
