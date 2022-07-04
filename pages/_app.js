@@ -229,7 +229,7 @@ const menuRef = React.useRef()
   }
 
   //accept cookie policy prompt
-  useEffect(()=> {
+  useEffect(()=>{
     if (!acceptedCookiePolicy) {
       let fn = setTimeout(function() {
       //  setIsCookieDrawerOpen(true);
@@ -254,8 +254,7 @@ const menuRef = React.useRef()
   
 
 //scroll to event (scroll to top button)
-  useEffect(function (){
-    alert(Spinner.prototype?.developer)
+  useEffect(()=>{
     const scrollEvent = ()=>{
       setShowFab(window.pageYOffset > 200 ? true : false)
     }
@@ -264,7 +263,7 @@ const menuRef = React.useRef()
   }, [])
   
 
-  const appBarColor = sx((x)=> {
+  const appBarColor = sx((x)=>{
     //console.log(x);
     return ({
       color: (theme.palette.mode === "dark")? "#888": "primary.contrastText"
