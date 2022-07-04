@@ -52,7 +52,7 @@ import {
   useCookies
 } from "react-cookie"
 import reduxStore from "../components/redux/store"
-import * as spinners from "react-spinners";
+import Spinner from "../components/Spinners"
 
 import "../styles/global_style.css";
 import "../styles/calendar.css";
@@ -309,7 +309,7 @@ const menuRef = React.useRef()
       alignItems: "center",
     }}
   >
-    <GetLoader color={theme.palette.primary.main} />
+    <Spinner color={theme.palette.primary.main} />
   </div>
   )}
     <AppBar position="fixed">
@@ -586,15 +586,3 @@ const menuRef = React.useRef()
   )}
 
 export default React.memo(App)
-
-function GetLoader(props){
-  const arr = [];
-  for(let x in spinners) {
-    arr.push(spinners[x])
-  }
-  let length = arr.length-0;
-  let Loader = arr[random.int(0, length)];
-  return (
-    <Loader {...props} />
-  )
-}
