@@ -275,24 +275,10 @@ const menuRef = React.useRef()
   <Provider store={reduxStore}>
   <CookiesProvider>
     <Head>
-      {
-        (Component.title==="ecommerce") && 
-          <>
-            <meta property="og:image" content="http://irokanextapp.herokuapp.com/ecommerce/shirt1.jpg" /> 
-            <meta property="og:type" content="article" />
-            <meta property="og:locale" content="en_GB" />
-            <meta property="og:description" content="Reactjs Project on E-Commerce using NextJS and Material-UI by Iroka Tochukwu C" />
-          </>
-        }
-        {/*
-    <style jsx>{`
-     *, body{
-        background: red !important;
-        color: yellow;
-      }
-    `}
-    </style>
-    */}
+      <meta property="og:image" content="http://irokanextapp.herokuapp.com/ecommerce/shirt1.jpg" /> 
+      <meta property="og:type" content="article" />
+      <meta property="og:locale" content="en_GB" />
+      <meta property="og:description" content="Reactjs Project on E-Commerce using NextJS and Material-UI by Iroka Tochukwu C" />
     </Head>
 {(isWindowLoading) && (
   <div
