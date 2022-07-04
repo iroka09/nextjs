@@ -280,6 +280,7 @@ function App(){
   </>
 )}
 
+App.title = "ecommerce"
 
 
 export default memo(App)

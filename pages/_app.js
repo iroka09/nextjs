@@ -276,9 +276,8 @@ const menuRef = React.useRef()
   <Provider store={reduxStore}>
   <CookiesProvider>
     <Head>
-      <title>{pageProps?.title || "No Title"}</title>
       {
-        (pageProps.title?.toLowerCase()==="e-commerce") && 
+        (Component.title==="ecommerce") && 
           <>
             <meta property="og:image" content="http://irokanextapp.herokuapp.com/ecommerce/shirt1.jpg" /> 
             <meta property="og:type" content="article" />

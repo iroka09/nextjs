@@ -21,7 +21,7 @@ function App(props){
     let data = props.githubUsers.sort(()=>{
       return (Math.random()-0.5 < 0)? -1 : 1;
     });
-   // if(data.length > 8) data.length = 8;
+   if(data.length > 8) data.length = 8;
     return data; 
   }, []);
   
@@ -41,18 +41,24 @@ function App(props){
     
     <Typography
       component="strong"
-      variant="h5"
+      variant="h4"
     >
-      Github Users
+      GITHUB USERS
     </Typography>
-    <Box sx={{border: "2px solid #ccc", py: 4}}>
+    <Box 
+      sx={{
+        borderTop: "5px solid #eee",
+        borderBottom: "5px solid #eee",
+        py: 4,
+      }}
+    >
       <SwipeableViews
         onChangeIndex={(i)=>{
           setIndex(i)
         }}
         enableMouseEvents
         resistance
-        slideStyle={{padding: "0 5px"}}
+        slideStyle={{padding: "0 4px"}}
         style={{
           //padding: "0 20px",
           paddingRight: (index < githubUsers.length-1)? 20 : 0,
@@ -61,12 +67,10 @@ function App(props){
       >
         {
           githubUsers.map((user,i)=>(
-            <div
+            <Paper
               key={i} 
               style={{
                 overflow:"hidden",
-                borderRadius: 3,
-                border: "1px solid #aaa",
               }}
             >
               <div style={{height:200, width:300, position:"relative"}}
@@ -93,7 +97,7 @@ function App(props){
                   VISIT PROFILE
                 </Button>
               </div>
-            </div>
+            </Paper>
           ))
         }
       </SwipeableViews>
@@ -113,7 +117,7 @@ export async function getStaticProps(){
     .catch((e)=>{
       reject([]);
     })
-  }) 
+  })
   return ({
     props: {
       githubUsers: users,
