@@ -47,8 +47,8 @@ function App(props){
     </Typography>
     <Box 
       sx={{
-        borderTop: "5px solid #eee",
-        borderBottom: "5px solid #eee",
+        borderTop: "5px solid #aaa",
+        borderBottom: "5px solid #aaa",
         py: 4,
       }}
     >
@@ -60,7 +60,6 @@ function App(props){
         resistance
         slideStyle={{padding: "0 4px"}}
         style={{
-          //padding: "0 20px",
           paddingRight: (index < githubUsers.length-1)? 20 : 0,
           paddingLeft: (index > 0)? 20 : 0,
         }}
@@ -69,11 +68,12 @@ function App(props){
           githubUsers.map((user,i)=>(
             <Paper
               key={i} 
-              style={{
+              sx={{
+                my: 3,
                 overflow:"hidden",
               }}
             >
-              <div style={{height:200, width:300, position:"relative"}}
+              <div style={{height:300, width:300, position:"relative"}}
               >
                 <MyImage
                   user={user}
@@ -92,7 +92,7 @@ function App(props){
                 <Button 
                   href={user.html_url}
                   variant="contained"
-                  sx={{mt: 3}}
+                  sx={{mt: 4}}
                 >
                   VISIT PROFILE
                 </Button>
