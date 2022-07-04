@@ -76,7 +76,7 @@ function App(props){
               <div style={{height:300, width:300, position:"relative"}}
               >
                 <MyImage
-                  user={user}
+                  src={user.avatar_url}
                   isProd={props.isProd}
                   loader={(_obj)=> _obj.src}
                   layout="fill"
@@ -128,12 +128,12 @@ export async function getStaticProps(){
 
 
 
-function MyImage(props){
+const MyImage = memo((props)=>{
   return(
     (props.isProd)? 
-    (<Image src={props.user.avatar_url} {...props} />) :
-    (<img src={props.user.avatar_url} style={{height:"100%", width:"100%",objectFit:"cover"}} />)
+    (<Image {...props} />) :
+    (<img style={{height:"100%", width:"100%",objectFit:"cover"}} />)
   )
-}
+})
 
 export default memo(withRouter(App))
