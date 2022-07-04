@@ -13,11 +13,6 @@ function App(props){
     return arr[random.int(0, length)];
   }, [])
   
-  useEffect(()=>{
-    alert("spin loaded")
-    return ()=> alert("spin unmount")
-  }, [])
-  
   return (
     <MyLoader {...props} />
   )
