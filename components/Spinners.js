@@ -22,6 +22,6 @@ function App(props){
   )
 }
 
-App.developer = "tochi ooo"
+App.prototype.developer = "tochi ooo"
 
 export default memo(App)

@@ -255,7 +255,7 @@ const menuRef = React.useRef()
 
 //scroll to event (scroll to top button)
   useEffect(function (){
-    alert(Spinner.developer)
+    alert(Spinner.prototype?.developer)
     const scrollEvent = ()=>{
       setShowFab(window.pageYOffset > 200 ? true : false)
     }
