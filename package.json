@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "start-dev": "next start",
+    "export": "next export",
     "heroku-postbuild": "next build",
     "tailwind-calendar": "tailwindcss -i ./styles/tailwind/input.css -o ./styles/calendar.css --watch"
   },

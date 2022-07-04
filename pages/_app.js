@@ -255,6 +255,7 @@ const menuRef = React.useRef()
 
 //scroll to event (scroll to top button)
   useEffect(function (){
+    alert(Spinner.developer)
     const scrollEvent = ()=>{
       setShowFab(window.pageYOffset > 200 ? true : false)
     }
@@ -308,7 +309,7 @@ const menuRef = React.useRef()
       alignItems: "center",
     }}
   >
-    <Spinner color={theme.palette.primary.main} />
+    <Spinner />
   </div>
   )}
     <AppBar position="fixed">
