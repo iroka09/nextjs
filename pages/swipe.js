@@ -21,7 +21,7 @@ function App(props){
     let data = props.githubUsers.sort(()=>{
       return (Math.random()-0.5 < 0)? -1 : 1;
     });
-    if(data.length > 8) data.length = 8;
+   // if(data.length > 8) data.length = 8;
     return data; 
   }, []);
   
@@ -45,7 +45,7 @@ function App(props){
     >
       Github Users
     </Typography>
-    <div style={{overflow: "visible"}}>
+    <Box sx={{border: "2px solid #ccc", py: 4}}>
       <SwipeableViews
         onChangeIndex={(i)=>{
           setIndex(i)
@@ -66,7 +66,7 @@ function App(props){
               style={{
                 overflow:"hidden",
                 borderRadius: 3,
-                boxShadow: "0 3px 2px -3px #555",
+                border: "1px solid #aaa",
               }}
             >
               <div style={{height:200, width:300, position:"relative"}}
@@ -81,14 +81,13 @@ function App(props){
                   quality={70}
                 />
               </div>
-              <div style={{padding: 6}}>
-                <h5>
+              <div style={{padding: 8}}>
+                <h4>
                   {capitalize(user.login)}
-                </h5>
+                </h4>
                 <Button 
                   href={user.html_url}
                   variant="contained"
-                  fullWidth
                   sx={{mt: 3}}
                 >
                   VISIT PROFILE
@@ -98,7 +97,7 @@ function App(props){
           ))
         }
       </SwipeableViews>
-    </div>
+    </Box>
   
   </>)
 }
