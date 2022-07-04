@@ -132,7 +132,7 @@ const MyImage = memo((props)=>{
   return(
     (props.isProd)? 
     (<Image {...props} />) :
-    (<img style={{height:"100%", width:"100%",objectFit:"cover"}} />)
+    (<img src={props.src} style={{height:"100%", width:"100%",objectFit:"cover"}} />)
   )
 })
 
