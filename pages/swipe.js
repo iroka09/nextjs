@@ -54,8 +54,9 @@ function App(props){
     >
       <SwipeableViews
         onChangeIndex={(i)=>{
-          setIndex(i)
+         // setIndex(i)
         }}
+        onTransitionEnd={(x)=>alert(x)}
         enableMouseEvents
         resistance
         slideStyle={{padding: "0 4px"}}
