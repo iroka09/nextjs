@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo, memo} from "react"
+import React, {useState, useEffect, useMemo, useRef, memo} from "react"
 import Head from "next/head"
 import axios from "axios"
 import Image from "next/image"
@@ -14,6 +14,7 @@ import {capitalize} from "./ecommerce"
 
 function App(props){
   const [index, setIndex] = useState(0)
+  const indexRef = useRef(0)
   const [pictureQuality, setPictureQuality] = useState(50)
   const isProd = process.env.NODE_ENV==="production" || !!props.router?.query.isProd;
   
@@ -54,9 +55,11 @@ function App(props){
     >
       <SwipeableViews
         onChangeIndex={(i)=>{
-         // setIndex(i)
+          indexRef.current = i
         }}
-        onTransitionEnd={(x,i)=>alert(i)}
+        onTransitionEnd={()=>{
+          setIndex(indexRef.current)
+        }}
         enableMouseEvents
         resistance
         slideStyle={{padding: "0 4px"}}
