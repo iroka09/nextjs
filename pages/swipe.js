@@ -56,7 +56,7 @@ function App(props){
         onChangeIndex={(i)=>{
          // setIndex(i)
         }}
-        onTransitionEnd={(x)=>alert(x)}
+        onTransitionEnd={(x,i)=>alert(i)}
         enableMouseEvents
         resistance
         slideStyle={{padding: "0 4px"}}
