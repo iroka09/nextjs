@@ -1,13 +1,15 @@
 import React from "react";
 import style from "../styles/test.module.css"
+import MyDiv from "../components/Test"
 // import "../styles/test.css"
 
 export default ()=>{
   return(
     <>
-      <div className={`${style.flex} ${style.textLarge}`}>
+      <MyDiv>
         <h3>This is a testing page.</h3>
-      </div>
+        <button>This is a testing page.</button>
+      </MyDiv>
     </>
   )
 }

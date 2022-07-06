@@ -8,11 +8,12 @@ import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SwipeableViews from "react-swipeable-views"
+import {makeStyles} from "@mui/styles"
 import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-views-utils"
 
 const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
-const dotsStyle = ({
+const useStyle = makeStyles({
   normal: {
     width: 10,
     height: 10,
@@ -34,6 +35,7 @@ function App(props){
   
   const [index, setIndex] = useState(0);
   const [randomImage, setRandomImage] = useState();
+  const dotsStyle = useStyle()
   
   const handleChangeIndex = (i)=>{
     setIndex(i)
@@ -132,24 +134,21 @@ function App(props){
         justifyContent:"center",
       }}
     >
-      {
-        list.map((_,i)=>(
+      {list.map((_,i)=>(
           <div
             key={i}
-            style={{
-              ...dotsStyle.normal,
-              ...(index===i? dotsStyle.active : {})
-            }}
+            className={`${dotsStyle.normal} ${(index===i)? dotsStyle.active :""}`}
             onClick={()=>setIndex(i)}
-          ></div>
-        ))
-      }
+          >
+          </div>
+        ))}
     </div>
     <Swipe
       index={index}
       resistance
       enableMouseEvents
       animateHeight
+      hysteresis={0.2}
       style={{
         //  border:"5px solid blue",
         padding: "0 30px"
