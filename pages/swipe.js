@@ -62,6 +62,7 @@ function App(props){
         }}
         enableMouseEvents
         resistance
+        hysteresis={0.2} 
         slideStyle={{padding: "0 4px"}}
         style={{
           paddingRight: (index < githubUsers.length-1)? 20 : 0,
