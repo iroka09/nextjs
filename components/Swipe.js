@@ -148,7 +148,7 @@ function App(props){
       resistance
       enableMouseEvents
       animateHeight
-      hysteresis={0.2}
+      hysteresis={0.9/*swipe very small and slide will change*/} 
       style={{
         //  border:"5px solid blue",
         padding: "0 30px"
