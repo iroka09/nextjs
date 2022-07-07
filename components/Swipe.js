@@ -149,7 +149,7 @@ function App(props){
       resistance
       enableMouseEvents
       animateHeight
-      hysteresis={0.2} 
+      hysteresis={0.1} 
       style={{
         //  border:"5px solid blue",
         padding: "0 30px"
