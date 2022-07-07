@@ -9,7 +9,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SwipeableViews from "react-swipeable-views"
 import {makeStyles} from "@mui/styles"
-import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-utils"
+import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-util"
 
 
 const Swipe = bindKeyboard(autoPlay(SwipeableViews));
