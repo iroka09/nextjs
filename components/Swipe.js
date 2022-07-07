@@ -9,7 +9,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SwipeableViews from "react-swipeable-views"
 import {makeStyles} from "@mui/styles"
-import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-views-utils"
+import {autoPlay, virtualize, bindKeyboard} from "react-swipeable-utils"
+
 
 const Swipe = bindKeyboard(autoPlay(SwipeableViews));
 
@@ -65,7 +66,7 @@ function App(props){
       src: "https://picsum.photos/400/300/?random="+Math.random(),
       src2: "/pic"+(i+1)+".jpg"
     }))
-  }, [randomImage]);
+  }, []);
   
   return (
     <>
@@ -148,7 +149,7 @@ function App(props){
       resistance
       enableMouseEvents
       animateHeight
-      hysteresis={0.9/*swipe very small and slide will change*/} 
+      hysteresis={50} 
       style={{
         //  border:"5px solid blue",
         padding: "0 30px"
