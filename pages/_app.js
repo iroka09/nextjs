@@ -72,7 +72,7 @@ function App(props) {
   const {Component, pageProps} = props; 
   
   const [showFab, setShowFab] = useState(false);
-  const [isWindowLoading, setIsWindowLoading] = useState(true);
+  const [isWindowLoading, setIsWindowLoading] = useState(false);
   const [isDrawerOpen,
     setIsDrawerOpen] = React.useState(false);
   
@@ -241,8 +241,9 @@ const menuRef = React.useRef()
   });
   
   
-  //spinner 
+  //window loading spinner 
   useEffect(()=>{
+    setIsWindowLoading(true)
     let tm = setInterval(()=>{
       if(document.readyState==="complete"){
         setIsWindowLoading(false);
