@@ -23,18 +23,37 @@ import Send from "@mui/icons-material/Send"
 import Visibility from "@mui/icons-material/Visibility"
 import VisibilityOff from "@mui/icons-material/VisibilityOff"
 import { LoremIpsum } from "lorem-ipsum";
+import dynamic from "next/dynamic";
+import Highlight from "react-highlight"
 
 const lorem = new LoremIpsum();
 
+const useGoogleOneTapLogin = dynamics(()=> import('react-google-one-tap-login').then(x=>x.useGoogleOneTapLogin), {
+  ssr: false,
+  loading: "Loading..."
+})
+
+
 
 export default function App(props) {
-  
+  const theme = useTheme();
+  const [googleUser, setGoogleUser] = useState({});
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoging, setIsLoging] = useState(false);
   const [isPassword, setIsPassword] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
-  const theme = useTheme()
+  const [googleLoginError, setGoogleLoginError] = useState();
+  
+  
+  
+  useGoogleOneTapLogin({
+    onError: error=> setGoogleLoginError(error),
+    onSuccess: user=> setGoogleUser(user),
+    googleAccountConfigs: {
+      client_id: "910193991072-542kbb03f4b1o8th2k2bui06u8eh9jng.apps.googleusercontent.com",
+    },
+  });
   
   const handleUsername = (e)=>{
     let x = e.target.value;
@@ -162,9 +181,12 @@ export default function App(props) {
       </Button>
     </form>
   </Paper>
-  <p>
-  {myLorem}
-  </p>
+  <p>{/*myLorem*/}</p>
+  {(Object.key(googleUser).length > 0)?
+  <Highlight>{googleUser}</Highlight> :
+  <h3>Login first</h3>
+  }
+  <italic>{googleLoginError}</italic>
   </>
     )
 }
