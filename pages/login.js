@@ -23,12 +23,12 @@ import Send from "@mui/icons-material/Send"
 import Visibility from "@mui/icons-material/Visibility"
 import VisibilityOff from "@mui/icons-material/VisibilityOff"
 import { LoremIpsum } from "lorem-ipsum";
-import dynamic from "next/dynamic";
 import Highlight from "react-highlight"
 
 const lorem = new LoremIpsum();
+import dynamic from "next/dynamic";
 
-const useGoogleOneTapLogin = dynamics(()=> import('react-google-one-tap-login').then(x=>x.useGoogleOneTapLogin), {
+const useGoogleOneTapLogin = dynamic(()=> import('react-google-one-tap-login').then(x=>x.useGoogleOneTapLogin), {
   ssr: false,
   loading: "Loading..."
 })
