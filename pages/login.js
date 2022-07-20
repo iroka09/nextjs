@@ -182,7 +182,7 @@ export default function App(props) {
     </form>
   </Paper>
   <p>{/*myLorem*/}</p>
-  {(Object.key(googleUser).length > 0)?
+  {(Object.keys(googleUser).length > 0)?
   <Highlight>{googleUser}</Highlight> :
   <h3>Login first</h3>
   }
