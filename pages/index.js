@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useMemo, createContext, useContext, memo} from "react" 
 import Head from 'next/head';
+import Image from 'next/image';
 import Carousel from '../components/Carousel';
 import random from 'random';
+import ReactReveal from 'react-reveal/Zoom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
@@ -16,14 +18,31 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 import AddTaskIcon from "@mui/icons-material/AddTask"
 import Draggable from "react-draggable"
 import {imageNames} from "../raw_files/food_pictures"
+import { LoremIpsum } from "lorem-ipsum";
 
+const lorem = new LoremIpsum({
+  sentencesPerParagraph: {
+    max: 8,
+    min: 3
+  },
+  wordsPerSentence: {
+    max: 20,
+    min: 10
+  }
+});
+/*
+lorem.generateWords(1);
+lorem.generateSentences(5);
+lorem.generateParagraphs(7);
+*/
 export const MyContext = createContext()
 
 
 const mappedImageNames = imageNames.map((name,i)=>({
-    name: capitalize(name.replace(/\_+/g, " ").replace(/\.jpg$/gi, "")),
+    name: capitalize(name.replace(/\_+/g, " ").replace(/\.jpg$/gi, "")).trim(),
     src: `/food_pictures/${name.toLowerCase()}`,
     price: random.int(10, 50),
+    description: lorem.generateWords(),
     currency: "$",
     quantity: 0,
   }))
@@ -83,13 +102,18 @@ function App(props) {
 {/*Grid Main*/}
 <section className="md:grid grid-cols-12 gap-x-2">
 
- <side className="col-span-3 hidden md:flex bg-slate-100">
-    <div>
-    </div>
+ <side className="col-span-3 hidden md:block bg-slate-100 h-[98vh] overflow-scroll">
+    <ul className="px-2 mt-4 divide-y-1">
+      {items.map((item,i)=>(
+        <li className="text-slate-900 hover:bg-slate-200 px-3 py-2">
+          <a href={`#${item.name.replace(/\s+/g, "_")}`}>{item.name}</a>
+        </li>
+      ))}
+    </ul>
  </side>
  
  
-<side className="col-span-9">
+<side className="col-span-9 sm:h-[98vh] overflow-scroll">
 
   <div>
     <Carousel />
@@ -99,16 +123,18 @@ function App(props) {
 <section className="mx-1 mt-7">
 
   <h1 className="text-green-600 mb-2 text-2xl">SELECT YOUR FAVOURITE DISHES</h1>
-  <p className="mb-4 text-slate-700">We provide all kinds of African dishes, just make your order we will provide it as quick as possible.</p>
+  <p className="mb-4 text-slate-700">{props.description}</p>
   
-  <div className="flex flex-wrap justify-center my-3 gap-2">
+  <div className="flex flex-wrap justify-center my-3 gap-3">
+    <ReactReveal>
     {items.map((item,i)=>(
-    <div className="w-full box-border xs:px-2 sm:w-[250px]">
+    <div className="w-full box-border sm:w-[250px] my-card-shadow">
       <div className="relative shadow w-full rounded dark-mode-card bg-slate-100">
         <img className="w-full h-[200px] md:h-[150px] object-cover" src={item.src} alt="image item"/>
         <MoreQuantityBtn item={item} index={i}/>
         <div className="p-2">
-          <h1 className="text-slate-700 text-3xl my-2 w-full truncate">{item.name}</h1>
+          <h1 className="text-slate-700 text-3xl mt-1 w-full truncate">{item.name}</h1>
+          <p className="text-slate-400 my-2 h-[60px] overflow-scroll">{item.description}</p>
           <div className="flex items-center">
             <span className="block text-3xl font-bold text-green-600">{item.currency} {item.price
             }</span>
@@ -121,6 +147,7 @@ function App(props) {
       </div>
     </div>
     ))}
+ </ReactReveal>
   </div>
 </section>
 
@@ -150,7 +177,7 @@ const MoreQuantityBtn = (props) => {
     {(item.quantity>0) && 
     <div className="absolute top-3 right-3 ml-auto rounded py-1 px-2 bg-green-200 bg-opacity-80 text-sm text-green-900 quantity-options-cont">
         <div className="flex gap-x-1 select-none">
-            <strong className="font-bold">({item.quantity})</strong> 
+            <strong className="font-bold text-lg">({item.quantity}) </strong> 
             <span>selected</span> 
             <div>
               <ExpandMoreIcon className="expandmorearrow"/>
@@ -167,7 +194,8 @@ const MoreQuantityBtn = (props) => {
                 }}
             >
               {index+1}
-            </span>))}
+            </span>)
+          )}
         </div>
     </div>}
   </>)
@@ -175,6 +203,13 @@ const MoreQuantityBtn = (props) => {
 
 export default memo(App)
 
+export const getStaticProps = (ctx)=>{
+  return({
+    props: {
+      description: lorem.generateSentences()
+    }
+  })
+}
 
 
 function capitalize(str){
