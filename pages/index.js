@@ -101,9 +101,9 @@ function App(props) {
   <h1 className="text-green-600 mb-2 text-2xl">SELECT YOUR FAVOURITE DISHES</h1>
   <p className="mb-4 text-slate-700">We provide all kinds of African dishes, just make your order we will provide it as quick as possible.</p>
   
-  <div className="flex flex-wrap justify-center my-3 gap-3">
+  <div className="flex flex-wrap justify-evenly my-3 gap-3">
     {items.map((item,i)=>(
-    <div className="w-full sm:w-[200px]">
+    <div className="w-full sm:w-[250px]">
       <div className="relative shadow w-full rounded dark-mode-card bg-slate-100">
         <img className="w-full h-[200px] object-cover" src={item.src} alt="image item"/>
         <MoreQuantityBtn item={item} index={i}/>
