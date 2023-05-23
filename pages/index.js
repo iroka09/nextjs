@@ -81,7 +81,7 @@ function App(props) {
   </div>
 
 {/*Grid Main*/}
-<section className="md:grid grid-cols-12 gap-2">
+<section className="md:grid grid-cols-12 gap-x-2">
 
  <side className="col-span-3 hidden md:flex bg-slate-100">
     <div>
@@ -101,14 +101,14 @@ function App(props) {
   <h1 className="text-green-600 mb-2 text-2xl">SELECT YOUR FAVOURITE DISHES</h1>
   <p className="mb-4 text-slate-700">We provide all kinds of African dishes, just make your order we will provide it as quick as possible.</p>
   
-  <div className="flex flex-wrap justify-evenly my-3 gap-3">
+  <div className="flex flex-wrap justify-center my-3 gap-2">
     {items.map((item,i)=>(
-    <div className="w-full sm:w-[250px]">
+    <div className="w-full box-border xs:px-2 sm:w-[250px]">
       <div className="relative shadow w-full rounded dark-mode-card bg-slate-100">
-        <img className="w-full h-[200px] object-cover" src={item.src} alt="image item"/>
+        <img className="w-full h-[200px] md:h-[150px] object-cover" src={item.src} alt="image item"/>
         <MoreQuantityBtn item={item} index={i}/>
-        <div className="p-3">
-          <h1 className="text-slate-700 text-3xl my-3 w-full truncate">{item.name}</h1>
+        <div className="p-2">
+          <h1 className="text-slate-700 text-3xl my-2 w-full truncate">{item.name}</h1>
           <div className="flex items-center">
             <span className="block text-3xl font-bold text-green-600">{item.currency} {item.price
             }</span>
