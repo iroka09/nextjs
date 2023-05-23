@@ -47,3 +47,15 @@ body {
 .my-menu-active{
   width: 60vw !important;
 }
+
+.quantity-options-cont:hover .quantity-options {
+  display: block !important; 
+}
+
+.quantity-options-cont:hover .expandlessarrow {
+  display: block !important; 
+}
+
+.quantity-options-cont:hover .expandmorearrow {
+  display: none; 
+}

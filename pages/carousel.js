@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef,  useMemo, createContext, useContext, memo} from "react"
+import React, {useState, useEffect, useMemo, createContext, useContext, memo} from "react" 
 import AliceCarousel from 'react-alice-carousel';
 import Head from 'next/head';
 import random from 'random';
@@ -32,24 +32,28 @@ const mappedImageNames = imageNames.map((name,i)=>({
 function App(props) {
   
   const [totalInCart, setTotalInCart]= useState(0);
-  const [expandIndex, setExpandIndex]= useState(NaN);
   const [isSideBarOpen, setIsSideBarOpen]=useState(false)
   const [items, setItems] =
   useState(mappedImageNames)
   
-  const itemsCarousel = useMemo(()=>items.map((obj,i)=>(
-    <img 
-      src={obj.src} 
-      alt={obj.src.replace(/\.jpg$/i, "")} 
-      onDragStart={e=> e.preventDefault()}
-      style={{
-        width: "100%",
-        border: "1px solid white",
-        height: 250,
-        objectFit: "cover",
-      }}
-    />
-  )), [])
+  const itemsCarousel = useMemo(()=>{
+    let arr = items.map((obj,i)=>(
+      <img 
+        src={obj.src} 
+        alt={obj.src.replace(/\.jpg$/i, "")} 
+        onDragStart={e=> e.preventDefault()}
+        style={{
+          width: "100%",
+          border: "1px solid white",
+          height: 250,
+          objectFit: "cover",
+        }}
+      />));
+    arr.sort();
+    return arr
+  }, [])
+  
+  
   
   const handleAddToCart = (i,quantity,isAddCloseBtn)=>{
     setItems(prevItems=> prevItems.map((x,index)=>{
@@ -71,13 +75,9 @@ function App(props) {
     setTotalInCart(total)
   }
   
-  const handleExpandMoreQuantity = (i)=>{
-    setExpandIndex(expandIndex===i? NaN:i)
-  }
-  
   return (
 <ExpandContext.Provider
-  value={{handleAddToCart,handleExpandMoreQuantity, setExpandIndex,expandIndex}}
+  value={{handleAddToCart}}
   >
   <Head>
     <title>Food Shopping</title>
@@ -85,7 +85,7 @@ function App(props) {
   </Head>
   
 <main id="main" className="h-screen overflow-scroll">
-  <div className="p-3">
+  <div className="px-3 py-2 flex">
     <img src="/favicon.ico" alt="icon logo" className="w-[50px] h-[50px] rounded-full object-cover"/>
     <h1 className="ml-3 text-2xl text-green-600 uppercase">Sweet Pie</h1>
   </div>
@@ -119,11 +119,11 @@ function App(props) {
     />
   </div>
   
-<div className="mx-1">
-  <h1 className="text-blue-400 mt-5 mb-2 text-2xl">SELECT YOUR FAVOURITE DISHES</h1>
-  <p className="mb-4">We provide all kinds of African dishes, just make your order we will provide it as quick as possible.</p>
+<div className="mx-1 mt-7U">
+  <h1 className="text-green-600 mb-2 text-2xl">SELECT YOUR FAVOURITE DISHES</h1>
+  <p className="mb-4 text-slate-700">We provide all kinds of African dishes, just make your order we will provide it as quick as possible.</p>
   
-  <div className="grid grid-cols-12 justify-center my-3 gap-2">
+  <div className="grid grid-cols-12 justify-center my-3 gap-3">
     {items.map((item,i)=>(
       <div className="col-span-full sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2">
       <div className="relative shadow w-full rounded dark-mode-card bg-slate-100">
@@ -147,7 +147,7 @@ function App(props) {
 </div>
 
 <Draggable bounds={"main#main"}>
-  <button className="w-[50px] h-[50px] fixed bottom-20 right-7 bg-slate-800 shadow-md block rounded-full z-10 text-white">
+  <button className="w-[50px] h-[50px] fixed bottom-10 right-7 bg-slate-800 shadow-md block rounded-full z-10 text-white">
     <ShoppingCartCheckoutIcon sx={{fontSize: 25}}/>
 	 	{totalInCart>0 && <span className="block absolute bottom-0 right-0 rounded-full w-[25px] h-[25px] flex justify-center items-center bg-red-500 text-white translate-x-[20%] translate-y-[20%]">
       {(totalInCart>9)? "9+" : totalInCart}
@@ -162,31 +162,30 @@ function App(props) {
 
 
 const MoreQuantityBtn = (props) => {
-  const {handleAddToCart,handleExpandMoreQuantity, setExpandIndex,expandIndex} = useContext(ExpandContext)
+  const {handleAddToCart} = useContext(ExpandContext)
   const item = props.item;
   const i = props.index
   
   return(<>
     {(item.quantity>0) && 
-    <div className="absolute top-3 right-3 ml-auto rounded py-1 pl-2 bg-white bg-opacity-80 text-sm">
-        <div onClick={()=>handleExpandMoreQuantity(i)}>
-            <strong className="text-green-600">{item.quantity} selected</strong>
-            {(expandIndex!==i)? <ExpandMoreIcon/>:<ExpandLessIcon/>}
+    <div className="absolute top-3 right-3 ml-auto rounded py-1 px-2 bg-green-200 bg-opacity-80 text-sm text-green-900 quantity-options-cont">
+        <div className="flex ">
+            <strong className="block mr-3 font-bold">{item.quantity} selected</strong> 
+            <ExpandMoreIcon className="expandmorearrow"/>
+            <ExpandLessIcon className="expandlessarrow hidden"/>
         </div>
-        {(expandIndex===i) && 
-        <div className="absolute top-[100%] left-0 shadow-lg w-[50px] max-h-[200px] overflow-scroll rounded-sm z-5 bg-gray-100 divide-y divide-y-slate-100">
+        <div className="absolute top-[100%] left-0 shadow-lg w-[50px] max-h-[200px] overflow-scroll rounded-sm z-5 bg-gray-100 divide-y divide-y-slate-100 quantity-options hidden">
           {Array(20).fill().map((x,index)=>(
             <span 
-              className="block text-md p-3 text-center font-bold text-slate-600 active:bg-slate-300" 
+              className="block text-md p-3 text-center font-bold text-green-800 active:bg-green-100" 
                 onClick={()=>{
                   if(item.quantity===index+1)return;
                   handleAddToCart(i, 1+index);
-                  setExpandIndex(NaN)
                 }}
             >
               {index+1}
             </span>))}
-        </div>}
+        </div>
     </div>}
   </>)
 }
