@@ -141,7 +141,7 @@ export function getStaticPaths(){
         params: {id: "2"}
       },
     ],
-    fallback: true, 
+    fallback: true, //display a blank page to client while waiting for server to finish building new page.
   })
 }
 
@@ -149,9 +149,8 @@ export function getStaticProps({params}){
   console.log(params.id+") ", Math.random())
   return({
     props: {
-      id: params.id
-    },
-    revalidate: false,
+      id: params.id,
+      revalidate: false, // 60*60 means to build new page every 1hr in server, unit is in minutes
   })
 }
 

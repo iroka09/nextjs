@@ -39,3 +39,11 @@ body {
   max-height: 80vh;
   padding: 5px !important;
 }
+
+.my-menu{
+  width: 0vw;
+  transition: width 0.2s;
+}
+.my-menu-active{
+  width: 60vw !important;
+}

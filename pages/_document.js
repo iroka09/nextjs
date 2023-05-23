@@ -4,10 +4,8 @@ import { Html, Head, Main, NextScript } from 'next/document';
 export default ()=>(
     <Html>
       <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@524&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dosis&display=swap"/>
+        <link rel="icon" href="/favicon.ico" sizes="50x50"/>
       </Head>
       <body>
         <Main />
