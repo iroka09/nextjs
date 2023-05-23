@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper"
 import Divider from "@mui/material/Divider"
 import SwipeableViews from "react-swipeable-views"
 
-function App(props) {
+function App(props:any) {
   const [index, setIndex] = useState(0)
   
   

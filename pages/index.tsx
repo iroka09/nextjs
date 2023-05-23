@@ -7,7 +7,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CloseIcon from '@mui/icons-material/Close';
 
 
-const App = function(props){
+const App = function(props:any){
  const [isMenuOpen, setIsMenuOpen] = useState(false)
  const [menuSlideDone, setMenuSlideDone] = useState(false)
  const [logo, setLogo] = useState("Iroka")

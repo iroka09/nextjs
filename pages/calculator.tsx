@@ -1,7 +1,7 @@
 import React, {memo, useState, useEffect} from "react"
 import Head from "next/head"
 
-function App(props){
+function App(props:any){
   return(
     <>
       <Head>
