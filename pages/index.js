@@ -134,7 +134,7 @@ function App(props) {
         <MoreQuantityBtn item={item} index={i}/>
         <div className="p-2">
           <h1 className="text-slate-700 text-3xl mt-1 w-full truncate">{item.name}</h1>
-          <p className="text-slate-400 my-2 h-[60px] overflow-scroll">{item.description}</p>
+          <p className="text-slate-400 my-2 h-[60px] overflow-auto">{item.description}</p>
           <div className="flex items-center">
             <span className="block text-3xl font-bold text-green-600">{item.currency} {item.price
             }</span>
