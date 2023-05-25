@@ -19,22 +19,24 @@ const App = (props)=>{
   }
   
   const handleUpload = async ()=>{
-    if(files.length===0||uploading) return; 
+    if(files.length===0||uploading) return;
     setUploading(true)
     const form = new FormData();
     for(let i=0; i<files.length; i++){
-      form.append("mykey", files[i])
+      form.append("image", files[i])
     }
     try{
       let resp = await axios.post("/api/upload", form);
       setServerImages(resp.data.imageDirArray)
-      setMsg(resp.data.error? "Error occured in the server":"Uploaded successfully.")
+      if(resp.data.error) throw {message:"Error occured in the server"};
+      setMsg("Uploaded successfully.")
     }
     catch(e){
-      setMsg(e.message)
+      setMsg(e.message||e)
     }
     finally{
       setUploading(false)
+      setTimeout(()=>setMsg(), 4000)
     }
   }
   
@@ -49,9 +51,14 @@ const App = (props)=>{
   }
   
   useEffect(async()=>{
-    let resp = await axios.get("/api/get_all_images")
-    if(resp.data){
+    try{
+      let resp = await axios.get("/api/get_all_images")
+      if(resp.data){
       setServerImages(resp.data.imageDirArray)
+      }
+    }
+    catch(e){
+      setMsg(e)
     }
   }, [])
 
