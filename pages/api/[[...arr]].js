@@ -29,10 +29,15 @@ const app = nextConnect({
 app.use(cors())
 
 app.get("/api/get_all_images", (req, res)=>{
-  ensureUploadDirExists()
-  res.json({
-    imageDirArray: fs.readdirSync(dir),
-  })
+  try{
+    ensureUploadDirExists()
+    res.json({
+      imageDirArray: fs.readdirSync(dir),
+    })
+  }
+  catch(e){
+    console.log(e)
+  }
 })
 
 app.post((req,res,next)=>{
