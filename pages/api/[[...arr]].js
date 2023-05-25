@@ -62,7 +62,7 @@ app.delete("/api/delete/:name", (req, res)=>{
       fs.unlinkSync(dir+"/"+x)
     })
   }
-  else {
+  else if(fs.existsSync(dir+"/"+req.params.name)) {
     fs.unlinkSync(dir+"/"+req.params.name)
   }
   res.json({
