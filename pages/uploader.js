@@ -27,8 +27,8 @@ const App = (props)=>{
     }
     try{
       let resp = await axios.post("/api/upload", form);
+      if(!resp.data || resp.data?.error) throw {message:"Error occured in the server"};
       setServerImages(resp.data.imageDirArray)
-      if(resp.data.error) throw {message:"Error occured in the server"};
       setMsg("Uploaded successfully.")
     }
     catch(e){
@@ -53,25 +53,27 @@ const App = (props)=>{
   useEffect(async()=>{
     try{
       let resp = await axios.get("/api/get_all_images")
-      if(resp.data){
+      JSON.stringify(resp,0,2)
+      if(resp.statusText==="OK"){
         setServerImages(resp.data.imageDirArray)
       }
     }
     catch(e){
-      setMsg(e)
+      //setMsg(e)
+      alert(JSON.stringify(e,0,2))
     }
   }, [])
 
 
   return(
   <div>
-    <div className="w-[300px] h-[250px] border-2 mx-auto mt-5 rounded shadow-lg flex border-dashed items-center justify-center overflow-auto">
+    <div className="w-[300px] h-[250px] border-2 mx-auto mt-5 rounded shadow-lg flex items-center justify-center overflow-auto">
       {(imgSrc)? <img src={imgSrc} /> : <h2>No Selected File</h2>}
     </div>
     <div className="flex justify-center mt-4 gap-2">
         <label htmlFor="files">
         <input style={{display:"none"}} type="file" id="files" name="myfiles" onChange={handleSelectFile} multiple/>
-          <span className="block mx-auto p-2 text-slate-300 border-slate-300 border bg-white text-center active:bg-slate-100">Click here</span>
+          <span className="block mx-auto p-2 text-slate-300 border-slate-400 border-dashed border bg-white text-center active:bg-slate-100">Click here</span>
         </label>
     <button className="bg-green-600 block px-2 text-white rounded shadow-sm" onClick={handleUpload}>
       {(!uploading)?<span>Upload</span>
@@ -82,16 +84,16 @@ const App = (props)=>{
     <p className="text-slate-500 mt-5 w-max mx-auto">{msg}</p>
   
   
-  {(serverImages.length>1) && <button className="bg-red-500 text-white px-3 py-1 rounded mt-5 mr-1 block ml-auto"  onClick={()=>{
+  {(serverImages?.length>1) && <button className="bg-red-500 text-white px-3 py-1 rounded mt-5 mr-1 block ml-auto"  onClick={()=>{
               handleDeleteImage()
           }}>Delete All</button>}
   
   <div className="flex flex-wrap justify-center gap-2 mt-1">
     {
-      serverImages.map((imageName, i)=>(
+      serverImages?.map((imageName, i)=>(
         <div className="rounded block shadow-sm rounded overflow-hidden">
           <img className="w-[100px] h-[100px] object-cover" src={"/uploads/"+imageName} />
-          <button className="bg-red-200 text-red-600 px-3 rounded m-2"  onClick={()=>{
+          <button className="bg-red-200 text-red-600 px-3 rounded my-2 mx-auto"  onClick={()=>{
               handleDeleteImage(imageName)
           }}>Delete</button>
         </div>

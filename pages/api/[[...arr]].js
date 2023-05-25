@@ -21,21 +21,16 @@ const app = nextConnect({
   },
   onError(err, req, res, next){
     console.log(err)
-    res.send(err)
+    res.status(506).send(err)
   },
   attachParams: true,
 })
 
 app.use(cors())
 
-app.use((req, res, next)=>{
-  ensureUploadDirExists(dir);
-  next()
-})
-
 app.get("/api/get_all_images", (req, res)=>{
   res.json({
-      imageDirArray: fs.readdirSync(dir)||[]
+      imageDirArray: readDir(dir)
     })
 })
 
@@ -48,7 +43,7 @@ app.post("/api/upload", (req, res)=>{
   let obj = {}
   if(Object.keys(req.files||{}).length>0){
     obj.error = false;
-    obj.imageDirArray = fs.readdirSync(dir)||[];
+    obj.imageDirArray = readDir(dir);
   }
   else{
     obj.error = true
@@ -58,7 +53,7 @@ app.post("/api/upload", (req, res)=>{
 
 app.delete("/api/delete/:name", (req, res)=>{
   if(req.params.name==="all"){
-    fs.readdirSync(dir).forEach(x=>{
+    readDir(dir).forEach(x=>{
       deleteFile(dir+"/"+x)
     })
   }
@@ -66,7 +61,7 @@ app.delete("/api/delete/:name", (req, res)=>{
     deleteFile(dir+"/"+req.params.name)
   }
   res.json({
-    imageDirArray: fs.readdirSync(dir)||[],
+    imageDirArray: readDir(dir),
   })
 })
 
@@ -74,6 +69,15 @@ app.delete("/api/delete/:name", (req, res)=>{
 export default app
 
 function deleteFile(dir){
- if(dir.includes("dont_delete")) return;
+ if(dir.match(/\/dont_delete$/i)) return;
   fs.unlinkSync(dir)
+}
+
+function readDir(dir){
+  let x = fs.readdirSync(dir);
+  let arr = []
+  x.forEach(val=>{
+    if(val !== "dont_delete") arr.push(val);
+  })
+  return arr; 
 }
