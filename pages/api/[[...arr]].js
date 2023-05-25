@@ -4,7 +4,7 @@ import path from "path"
 import fs from "fs"
 import cors from "cors"
 
-const dir = path.join(process.cwd(), "/public/uploads")
+const dir = path.join(process.cwd(), "/public")
 
 
 
