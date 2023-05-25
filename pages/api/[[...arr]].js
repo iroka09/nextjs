@@ -26,20 +26,23 @@ const app = nextConnect({
   attachParams: true,
 })
 
-app.use(cors())
-
-app.use((req, res, next)=>{
-  ensureUploadDirExists(dir);
+app.use((req, res)=>{
   if(fs.existsSync(dir)){
     res.send("folder exists")
   }
   else res.send("not exist")
-//  next()
+})
+
+app.use(cors())
+
+app.use((req, res, next)=>{
+  ensureUploadDirExists(dir);
+  next()
 })
 
 app.get("/api/get_all_images", (req, res)=>{
   res.json({
-      imageDirArray: fs.readdirSync(dir)||[],
+      imageDirArray: fs.readdirSync(dir)||[]
     })
 })
 
