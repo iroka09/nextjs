@@ -46,7 +46,7 @@ app.post(expressForm({
 
 app.post("/api/upload", (req, res)=>{
   let obj = {}
-  if(Object.keys(req.files).length>0){
+  if(Object.keys(req.files||{}).length>0){
     obj.error = false;
     obj.imageDirArray = fs.readdirSync(dir)||[];
   }
