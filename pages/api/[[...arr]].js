@@ -4,7 +4,7 @@ import path from "path"
 import fs from "fs"
 import cors from "cors"
 
-const dir = path.join(process.cwd(), "/public")
+const dir = path.join(process.cwd(), "/public/uploads")
 
 
 
@@ -30,7 +30,11 @@ app.use(cors())
 
 app.use((req, res, next)=>{
   ensureUploadDirExists(dir);
-  next()
+  if(fs.existsSync(dir)){
+    res.send("folder exists")
+  }
+  else res.send("not exist")
+//  next()
 })
 
 app.get("/api/get_all_images", (req, res)=>{

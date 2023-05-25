@@ -51,10 +51,11 @@ const App = (props)=>{
   }
   
   useEffect(async()=>{
-    return
     try{
       let resp = await axios.get("/api/get_all_images")
       if(resp.data){
+        alert(resp.data)
+        return
       setServerImages(resp.data.imageDirArray)
       }
     }
