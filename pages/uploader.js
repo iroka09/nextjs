@@ -53,8 +53,10 @@ const App = (props)=>{
   useEffect(async()=>{
     try{
       let resp = await axios.get("/api/get_all_images")
-      JSON.stringify(resp,0,2)
+      alert(JSON.stringify(resp,0,2))
+      return
       if(resp.statusText==="OK"){
+        return 
         setServerImages(resp.data.imageDirArray)
       }
     }
@@ -93,7 +95,7 @@ const App = (props)=>{
       serverImages?.map((imageName, i)=>(
         <div className="rounded block shadow-sm rounded overflow-hidden">
           <img className="w-[100px] h-[100px] object-cover" src={"/uploads/"+imageName} />
-          <button className="bg-red-200 text-red-600 px-3 rounded my-2 mx-auto"  onClick={()=>{
+          <button className="block bg-red-200 text-red-600 px-3 rounded my-2 mx-auto" onClick={()=>{
               handleDeleteImage(imageName)
           }}>Delete</button>
         </div>

@@ -28,7 +28,16 @@ const app = nextConnect({
 
 app.use(cors())
 
+app.use((a,b,next)=>{
+  if(!fs.existsSync(dir)){
+    fs.mkdirSync(dir)
+  }
+  next()
+})
+
 app.get("/api/get_all_images", (req, res)=>{
+  res.send(process.cwd())
+  return
   res.json({
       imageDirArray: readDir(dir)
     })
@@ -75,7 +84,6 @@ function deleteFile(dir){
 
 function readDir(dir){
   let x = fs.readdirSync(dir);
-  return []
   let arr = []
   x.forEach(val=>{
     if(val !== "dont_delete") arr.push(val);

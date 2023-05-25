@@ -130,7 +130,7 @@ function App(props) {
     {items.map((item,i)=>(
     <div key={i} className="w-full box-border sm:w-[250px] my-card-shadow">
       <div className="relative shadow w-full rounded dark-mode-card bg-slate-100">
-        <img className="w-full h-[200px] md:h-[150px] object-cover" src={item.src} alt="image item"/>
+        <img className="w-full h-[200px] md:h-[150px] object-cover" src={item.src} />
         <MoreQuantityBtn item={item} index={i}/>
         <div className="p-2">
           <h1 className="text-slate-700 text-3xl mt-1 w-full truncate">{item.name}</h1>
