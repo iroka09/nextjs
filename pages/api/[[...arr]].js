@@ -29,15 +29,14 @@ const app = nextConnect({
 app.use(cors())
 
 app.get("/api/get_all_images", (req, res)=>{
+  ensureUploadDirExists()
   res.json({
     imageDirArray: fs.readdirSync(dir),
   })
 })
 
 app.post((req,res,next)=>{
-  if(!fs.existsSync(dir)){
-    fs.mkdirSync(dir)
-  }
+  ensureUploadDirExists()
   next()
 }, expressForm({
   multiples: true, 
@@ -72,3 +71,9 @@ app.delete("/api/delete/:name", (req, res)=>{
 
 
 export default app
+
+function ensureUploadDirExists(){
+  if(!fs.existsSync(dir)){
+    fs.mkdirSync(dir)
+  }
+}
