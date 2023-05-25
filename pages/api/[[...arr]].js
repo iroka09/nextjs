@@ -74,8 +74,8 @@ function deleteFile(dir){
 }
 
 function readDir(dir){
-  return []
   let x = fs.readdirSync(dir);
+  return []
   let arr = []
   x.forEach(val=>{
     if(val !== "dont_delete") arr.push(val);
