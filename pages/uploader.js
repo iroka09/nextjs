@@ -51,7 +51,6 @@ const App = (props)=>{
   }
   
   useEffect(async()=>{
-    return
     try{
       let resp = await axios.get("/api/get_all_images")
       if(resp.data){

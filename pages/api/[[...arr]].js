@@ -28,22 +28,18 @@ const app = nextConnect({
 
 app.use(cors())
 
-app.get("/api/get_all_images", (req, res)=>{
-  try{
-    ensureUploadDirExists()
-    res.json({
-      imageDirArray: fs.readdirSync(dir),
-    })
-  }
-  catch(e){
-    console.log(e)
-  }
+app.use((req, res, next)=>{
+  ensureUploadDirExists(dir);
+  next()
 })
 
-app.post((req,res,next)=>{
-  ensureUploadDirExists()
-  next()
-}, expressForm({
+app.get("/api/get_all_images", (req, res)=>{
+  res.json({
+      imageDirArray: fs.readdirSync(dir)||[],
+    })
+})
+
+app.post(expressForm({
   multiples: true, 
   uploadDir: dir
 }))
@@ -52,7 +48,7 @@ app.post("/api/upload", (req, res)=>{
   let obj = {}
   if(Object.keys(req.files).length>0){
     obj.error = false;
-    obj.imageDirArray = fs.readdirSync(dir);
+    obj.imageDirArray = fs.readdirSync(dir)||[];
   }
   else{
     obj.error = true
@@ -70,15 +66,15 @@ app.delete("/api/delete/:name", (req, res)=>{
     fs.unlinkSync(dir+"/"+req.params.name)
   }
   res.json({
-    imageDirArray: fs.readdirSync(dir),
+    imageDirArray: fs.readdirSync(dir)||[],
   })
 })
 
 
 export default app
 
-function ensureUploadDirExists(){
-  if(!fs.existsSync(dir)){
-    fs.mkdirSync(dir)
+function ensureUploadDirExists(x){
+  if(!fs.existsSync(x)){
+    fs.mkdirSync(x)
   }
 }
