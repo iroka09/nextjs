@@ -74,6 +74,7 @@ function deleteFile(dir){
 }
 
 function readDir(dir){
+  return []
   let x = fs.readdirSync(dir);
   let arr = []
   x.forEach(val=>{
