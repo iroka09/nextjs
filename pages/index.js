@@ -105,7 +105,7 @@ function App(props) {
  <side className="col-span-3 hidden md:block bg-slate-100 h-[98vh] overflow-scroll">
     <ul className="px-2 mt-4 divide-y-1">
       {items.map((item,i)=>(
-        <li className="text-slate-900 hover:bg-slate-200 px-3 py-2">
+        <li key={i} className="text-slate-900 hover:bg-slate-200 px-3 py-2">
           <a href={`#${item.name.replace(/\s+/g, "_")}`}>{item.name}</a>
         </li>
       ))}
@@ -128,7 +128,7 @@ function App(props) {
   <div className="flex flex-wrap justify-center my-3 gap-3">
     <ReactReveal>
     {items.map((item,i)=>(
-    <div className="w-full box-border sm:w-[250px] my-card-shadow">
+    <div key={i} className="w-full box-border sm:w-[250px] my-card-shadow">
       <div className="relative shadow w-full rounded dark-mode-card bg-slate-100">
         <img className="w-full h-[200px] md:h-[150px] object-cover" src={item.src} alt="image item"/>
         <MoreQuantityBtn item={item} index={i}/>
@@ -187,6 +187,7 @@ const MoreQuantityBtn = (props) => {
         <div className="absolute top-[100%] left-0 shadow-lg w-[50px] max-h-[200px] overflow-scroll rounded-sm z-5 bg-gray-100 divide-y divide-y-slate-100 quantity-options hidden">
           {Array(20).fill().map((x,index)=>(
             <span 
+              key={index}
               className="block text-md p-3 text-center font-bold text-green-800 active:bg-green-100" 
                 onClick={()=>{
                   if(item.quantity===index+1)return;
@@ -214,7 +215,7 @@ export const getStaticProps = (ctx)=>{
 
 function capitalize(str){
   if(str.constructor !== String) {
-    return Error("parameter must be string")
+    throw TypeError("parameter must be string")
   }
   let strArr = str.trim().split(/\s+/g);
   strArr = strArr.map(x=>{
