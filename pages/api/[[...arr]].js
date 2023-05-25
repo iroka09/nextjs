@@ -26,13 +26,6 @@ const app = nextConnect({
   attachParams: true,
 })
 
-app.use((req, res)=>{
-  if(fs.existsSync(dir)){
-    res.send("folder exists")
-  }
-  else res.send("not exist")
-})
-
 app.use(cors())
 
 app.use((req, res, next)=>{
@@ -66,11 +59,11 @@ app.post("/api/upload", (req, res)=>{
 app.delete("/api/delete/:name", (req, res)=>{
   if(req.params.name==="all"){
     fs.readdirSync(dir).forEach(x=>{
-      fs.unlinkSync(dir+"/"+x)
+      deleteFile(dir+"/"+x)
     })
   }
   else if(fs.existsSync(dir+"/"+req.params.name)) {
-    fs.unlinkSync(dir+"/"+req.params.name)
+    deleteFile(dir+"/"+req.params.name)
   }
   res.json({
     imageDirArray: fs.readdirSync(dir)||[],
@@ -80,8 +73,7 @@ app.delete("/api/delete/:name", (req, res)=>{
 
 export default app
 
-function ensureUploadDirExists(x){
-  if(!fs.existsSync(x)){
-    fs.mkdirSync(x)
-  }
+function deleteFile(dir){
+ if(dir.includes("dont_delete")) return;
+  fs.unlinkSync(dir)
 }

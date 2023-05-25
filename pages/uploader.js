@@ -54,9 +54,7 @@ const App = (props)=>{
     try{
       let resp = await axios.get("/api/get_all_images")
       if(resp.data){
-        alert(JSON.stringify(resp))
-        return
-      setServerImages(resp.data.imageDirArray)
+        setServerImages(resp.data.imageDirArray)
       }
     }
     catch(e){
