@@ -87,7 +87,7 @@ function App(props) {
 <main id="main" className="h-screen overflow-scroll">
   <div className="px-3 py-2 flex items-center">
     <img src="/favicon.ico" alt="icon logo" className="w-[40px] h-[40px] rounded-full object-cover"/>
-    <h1 className="ml-3 text-xl text-green-600 uppercase">Sweet Pie</h1>
+    <h1 className="ml-3 text-xl text-green-600 uppercase">My Sweet Pie</h1>
   </div>
   <div className="p-3 flex shadow-sm bg-slate-900 shadow-sm sticky top-0 w-full z-10 md:hidden">
     <button className="active:bg-slate-500 bg-opacity-10 text-white" onClick={()=>{
