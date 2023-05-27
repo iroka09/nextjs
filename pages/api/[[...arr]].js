@@ -10,16 +10,18 @@ const dir = path.join(process.cwd(), "/public/uploads")
 
 export const config = {
   api: {
-    bodyParser: false
+bodyParser: false
   }
 }
 
 
 const app = nextConnect({
-  onNoMatch(req, res, next){
-    res.status(404).send({error: "path not found."})
+  onNoMatch(req, res, next) {
+    res.status(404).send({
+      error: "path not found."
+    })
   },
-  onError(err, req, res, next){
+  onError(err, req, res, next) {
     console.log(err)
     res.status(506).send(err)
   },
@@ -28,45 +30,41 @@ const app = nextConnect({
 
 app.use(cors())
 
-app.use((a,b,next)=>{
-  if(!fs.existsSync(dir)){
+app.use((a, b, next)=> {
+  if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir)
   }
   next()
 })
 
-app.get("/api/get_all_images", (req, res)=>{
-  res.send(process.cwd())
-  return
+app.get("/api/get_all_images", (req, res)=> {
   res.json({
-      imageDirArray: readDir(dir)
-    })
+    imageDirArray: readDir(dir)
+  })
 })
 
 app.post(expressForm({
-  multiples: true, 
+  multiples: true,
   uploadDir: dir
 }))
 
-app.post("/api/upload", (req, res)=>{
+app.post("/api/upload", (req, res)=> {
   let obj = {}
-  if(Object.keys(req.files||{}).length>0){
+  if (Object.keys(req.files).length > 0) {
     obj.error = false;
     obj.imageDirArray = readDir(dir);
-  }
-  else{
+  } else {
     obj.error = true
   }
   res.json(obj)
 })
 
-app.delete("/api/delete/:name", (req, res)=>{
-  if(req.params.name==="all"){
-    readDir(dir).forEach(x=>{
+app.delete("/api/delete/:name", (req, res)=> {
+  if (req.params.name === "all") {
+    readDir(dir).forEach(x => {
       deleteFile(dir+"/"+x)
     })
-  }
-  else if(fs.existsSync(dir+"/"+req.params.name)) {
+  } else if (fs.existsSync(dir+"/"+req.params.name)) {
     deleteFile(dir+"/"+req.params.name)
   }
   res.json({
@@ -77,16 +75,16 @@ app.delete("/api/delete/:name", (req, res)=>{
 
 export default app
 
-function deleteFile(dir){
- if(dir.match(/\/dont_delete$/i)) return;
-  fs.unlinkSync(dir)
-}
+  function deleteFile(dir) {
+    if (dir.match(/\/dont_delete$/i)) return;
+    fs.unlinkSync(dir)
+  }
 
-function readDir(dir){
-  let x = fs.readdirSync(dir);
-  let arr = []
-  x.forEach(val=>{
-    if(val !== "dont_delete") arr.push(val);
-  })
-  return arr; 
-}
+  function readDir(dir) {
+    let arr = []
+    let x = fs.readdirSync(dir);
+    x.forEach(val => {
+      if (val !== "dont_delete") arr.push(val);
+    })
+    return arr;
+  }

@@ -2,6 +2,7 @@ import React, {useState, useEffect, useMemo, createContext, useContext, memo} fr
 import Head from 'next/head';
 import Image from 'next/image';
 import Carousel from '../components/Carousel';
+import LeftNavBar from '../components/LeftNavBar';
 import random from 'random';
 import ReactReveal from 'react-reveal/Zoom';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -76,7 +77,7 @@ function App(props) {
   
   return (
 <MyContext.Provider
-  value={{items, handleAddToCart}}
+  value={{items, isSideBarOpen, handleAddToCart}}
   >
   <Head>
     <title>Food Shopping</title>
@@ -102,6 +103,7 @@ function App(props) {
 {/*Grid Main*/}
 <section className="md:grid grid-cols-12 gap-x-2">
 
+{/*left*/}
  <side className="col-span-3 hidden md:block bg-slate-100 h-[98vh] overflow-scroll">
     <ul className="px-2 mt-4 divide-y-1">
       {items.map((item,i)=>(
@@ -113,13 +115,12 @@ function App(props) {
  </side>
  
  
+{/*right*/}
 <side className="col-span-9 sm:h-[98vh] overflow-scroll">
-
+  <LeftNavBar />
   <div>
     <Carousel />
   </div>
-  
-  
 <section className="mx-1 mt-7">
 
   <h1 className="text-green-600 mb-2 text-2xl">SELECT YOUR FAVOURITE DISHES</h1>
