@@ -117,7 +117,7 @@ function App(props) {
  
 {/*right*/}
 <side className="col-span-9 sm:h-[98vh] overflow-scroll">
-  <LeftNavBar />
+  <LeftNavBar/>
   <div>
     <Carousel />
   </div>
@@ -131,7 +131,9 @@ function App(props) {
     {items.map((item,i)=>(
     <div key={i} className="w-full box-border sm:w-[250px] my-card-shadow">
       <div className="relative shadow w-full rounded dark-mode-card bg-slate-100">
-        <img className="w-full h-[200px] md:h-[150px] object-cover" src={item.src} />
+        <div className="w-full h-[200px] md:h-[150px] object-cover">
+          <Image layout="fill" objectFit="cover" src={item.src} />
+        </div>
         <MoreQuantityBtn item={item} index={i}/>
         <div className="p-2">
           <h1 className="text-slate-700 text-3xl mt-1 w-full truncate">{item.name}</h1>
