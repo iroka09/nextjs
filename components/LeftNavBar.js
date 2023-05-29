@@ -13,7 +13,7 @@ return(
   <div>
 
    {isSideBarOpen && <div
-      className="fixed z-20 top-0 left-0 md:hidden bg-slate-800 h-[98vh] overflow-scroll w-[80vw]"
+      className="fixed z-20 top-0 left-0 md:hidden bg-slate-800 h-[98vh] overflow-scroll w-[90vw]"
     >
         <ul className="px-2 mt-4 divide-y-1">
         {items.map((item,i)=>(
