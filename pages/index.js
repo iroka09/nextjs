@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Carousel from '../components/Carousel';
 import LeftNavBar from '../components/LeftNavBar';
+import Footer from '../components/Footer';
 import random from 'random';
 import ReactReveal from 'react-reveal/Zoom';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -75,9 +76,10 @@ function App(props) {
     setTotalInCart(total)
   }
   
+  
   return (
 <MyContext.Provider
-  value={{items, isSideBarOpen, handleAddToCart}}
+  value={{items, isSideBarOpen, handleAddToCart, setIsSideBarOpen}}
   >
   <Head>
     <title>Food Shopping</title>
@@ -86,7 +88,7 @@ function App(props) {
   
 <main id="main" className="h-screen overflow-scroll">
   <div className="px-3 py-2 flex items-center">
-    <img src="/favicon.ico" alt="icon logo" className="w-[40px] h-[40px] rounded-full object-cover"/>
+    <img src="/favicon.ico" alt="icon logo" width="40" height="40" className="rounded-full object-cover"/>
     <h1 className="ml-3 text-xl text-green-600 uppercase">My Sweet Pie</h1>
   </div>
   <div className="p-3 flex shadow-sm bg-slate-900 shadow-sm sticky top-0 w-full z-10 md:hidden">
@@ -162,6 +164,8 @@ function App(props) {
     </span>}
 	 </button>
 	</Draggable>
+
+<Footer />
 
 </side>
 </section>
