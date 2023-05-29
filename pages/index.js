@@ -104,7 +104,7 @@ function App(props) {
 <section className="md:grid grid-cols-12 gap-x-2">
 
 {/*left*/}
- <side className="col-span-3 hidden md:block bg-slate-100 h-[98vh] overflow-scroll">
+ <side className="col-span-2 hidden md:block bg-slate-100 h-[98vh] overflow-scroll">
     <ul className="px-2 mt-4 divide-y-1">
       {items.map((item,i)=>(
         <li key={i} className="text-slate-900 hover:bg-slate-200 px-3 py-2">
@@ -116,7 +116,7 @@ function App(props) {
  
  
 {/*right*/}
-<side className="col-span-9 sm:h-[98vh] overflow-scroll">
+<side className="col-span-10 sm:h-[98vh] overflow-scroll">
   <LeftNavBar/>
   <div>
     <Carousel />
@@ -131,7 +131,7 @@ function App(props) {
     {items.map((item,i)=>(
     <div key={i} className="w-full box-border sm:w-[250px] my-card-shadow">
       <div className="relative shadow w-full rounded dark-mode-card bg-slate-100">
-        <div className="w-full h-[200px] md:h-[150px] object-cover">
+        <div className="relative w-full h-[200px] md:h-[150px] object-cover">
           <Image layout="fill" objectFit="cover" src={item.src} />
         </div>
         <MoreQuantityBtn item={item} index={i}/>
