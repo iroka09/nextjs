@@ -1,7 +1,7 @@
 import React, {memo, useMemo, useState, useCallback, useEffect, useRef} from "react"
 import Head from "next/head"
 import random from "random"
-import {countries as _countries} from "../raw_files/countries"
+import {countries as _countries} from "../countries"
 
 _countries.sort(x=> (Math.random()<0.5)?-1:1)
 
