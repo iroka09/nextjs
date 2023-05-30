@@ -78,7 +78,7 @@ function App(props) {
   
   return (
 <MyContext.Provider
-  value={{items, isSideBarOpen, handleAddToCart, setIsSideBarOpen}}
+  value={{items, isSideBarOpen, handleAddToCart, setIsSideBarOpen, isProd:props.isProd}}
   >
   <Head>
     <title>Food Shopping</title>
@@ -209,6 +209,7 @@ export default memo(App)
 export const getStaticProps = (ctx)=>{
   return({
     props: {
+      isProd: process.env.NODE_ENV ==="protection",
       description: lorem.generateSentences()
     }
   })

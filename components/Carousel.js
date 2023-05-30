@@ -3,17 +3,18 @@ import AliceCarousel from 'react-alice-carousel';
 import Image from "next/image"
 import {MyContext} from "../pages/index"
 
-let isProd = true//process.env?.NODE_ENV==="production"
+
 console.log(process)
 function App() {
   
-  const {items} = useContext(MyContext);
+  const {items,isProd} = useContext(MyContext);
   
   const itemsCarousel = useMemo(()=>{
     let arr = items.map((obj,i)=>{
       let url = (isProd)? "https://picsum.photos/400/300/?random="+Math.random() : obj.src;
       return (
-      <div className="relative w-full h-[250px] border border-slate-200">
+      <div 
+        className="relative w-full h-[250px] border border-slate-200">
         <Image
           src={url} 
           placeholder="blur"
