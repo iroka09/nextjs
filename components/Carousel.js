@@ -4,7 +4,6 @@ import Image from "next/image"
 import {MyContext} from "../pages/index"
 
 
-console.log(process)
 function App() {
   
   const {items,isProd} = useContext(MyContext);

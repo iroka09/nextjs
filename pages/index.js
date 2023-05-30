@@ -122,6 +122,9 @@ function App(props) {
   <div>
     <Carousel />
   </div>
+  
+  .env.local > Public: {process.env.full_name}
+  
 <section className="mx-1 mt-7">
 
   <h1 className="text-green-600 mb-2 text-2xl">SELECT YOUR FAVOURITE DISHES</h1>
@@ -207,6 +210,7 @@ const MoreQuantityBtn = (props) => {
 export default memo(App)
 
 export const getStaticProps = (ctx)=>{
+  console.log(process.env.first_name)
   return({
     props: {
       isProd: process.env.NODE_ENV ==="protection",

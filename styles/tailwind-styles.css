@@ -826,8 +826,8 @@ video {
   display: none;
 }
 
-.h-\[250\] {
-  height: 250;
+.h-\[250px\] {
+  height: 250px;
 }
 
 .h-\[3px\] {
