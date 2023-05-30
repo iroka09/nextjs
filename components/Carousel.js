@@ -13,7 +13,7 @@ function App() {
     let arr = items.map((obj,i)=>{
       let url = (isProd)? "https://picsum.photos/400/300/?random="+Math.random() : obj.src;
       return (
-      <div className="relative w-full h-[250] border border-slate-200">
+      <div className="relative w-full h-[250px] border border-slate-200">
         <Image
           src={url} 
           placeholder="blur"
