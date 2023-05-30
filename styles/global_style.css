@@ -25,22 +25,6 @@ body {
   }
 }
 
-.toolbar-draft-editor, .toolbar-draft-editor *{
-  background: #666 !important;
-  border-color: #555 !important;
-  color: black !important;
-}
-
-.wrapper-draft-editor{
-  margin-top: 40px;
-}
-
-.editor-draft-editor {
-  border: 1px solid #bbb;
-  max-height: 80vh;
-  padding: 5px !important;
-}
-
 .my-menu{
   width: 0vw;
   transition: width 0.2s;
@@ -53,10 +37,24 @@ body {
   display: block !important; 
 }
 
-.quantity-options-cont:hover .expandlessarrow {
-  display: block !important; 
+.side-bar{
+  left: -100vw;
+  opacity: 0;
+  box-shadow: 1px 0 4px rgba(0,0,0,0.4);
+  transition: 0.5s;
 }
 
-.quantity-options-cont:hover .expandmorearrow {
-  display: none !important; 
+.side-bar-open{
+  opacity: 1 !important;
+  left: 0vw !important;
+}
+
+.overlay-gray {
+  animation: overlay 0.5s end linear;
+}
+
+@keyframes overlay {
+  100%{
+    opacity: 0.6;
+  }
 }
