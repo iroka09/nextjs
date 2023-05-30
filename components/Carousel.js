@@ -1,26 +1,32 @@
 import React, {memo, useContext, useMemo} from "react"
 import AliceCarousel from 'react-alice-carousel';
+import Image from "next/image"
 import {MyContext} from "../pages/index"
 
-
-
-const App = ()=>{
+let isProd = true//process.env?.NODE_ENV==="production"
+console.log(process)
+function App() {
   
   const {items} = useContext(MyContext);
   
   const itemsCarousel = useMemo(()=>{
-    let arr = items.map((obj,i)=>(
-      <img 
-        src={obj.src} 
-        alt={obj.src.replace(/\.jpg$/i, "")}
-        onDragStart={e=> e.preventDefault()}
-        style={{
-          width: "100%",
-          border: "1px solid white",
-          height: 250,
-          objectFit: "cover",
-        }}
-      />));
+    let arr = items.map((obj,i)=>{
+      let url = (isProd)? "https://picsum.photos/400/300/?random="+Math.random() : obj.src;
+      return (
+      <div className="relative w-full h-[250] border border-slate-200">
+        <Image
+          src={url} 
+          placeholder="blur"
+          blurDataURL={url} 
+          layout="fill"
+          objectFit="cover"
+          quality={80}
+          priority
+          onDragStart={e=> e.preventDefault()}
+          alt="IMAGE"
+        />
+      </div>)
+    });
     arr.sort((x)=>Math.random()>0.45? 1:-1);
     return arr
   }, []);
@@ -32,7 +38,7 @@ const App = ()=>{
       infinite
       disableButtonsControls
       disableDotsControls
-      autoPlayInterval={2000}
+      autoPlayInterval={3000}
       items={itemsCarousel}
       responsive={{
         0: {
