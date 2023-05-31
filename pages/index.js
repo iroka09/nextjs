@@ -19,7 +19,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import AddTaskIcon from "@mui/icons-material/AddTask"
 import Draggable from "react-draggable"
 import {imageNames} from "../raw_files/food_pictures"
-import { LoremIpsum } from "lorem-ipsum";
+import {LoremIpsum} from "lorem-ipsum";
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -38,7 +38,6 @@ lorem.generateParagraphs(7);
 */
 export const MyContext = createContext()
 
-
 const mappedImageNames = imageNames.map((name,i)=>({
     name: capitalize(name.replace(/\_+/g, " ").replace(/\.jpg$/gi, "")).trim(),
     src: `/food_pictures/${name.toLowerCase()}`,
@@ -48,6 +47,9 @@ const mappedImageNames = imageNames.map((name,i)=>({
     quantity: 0,
   }))
 
+console.log("normal: "+process.env.first_name)
+console.log("normal2: "+process.env.full_name)
+console.log("normal3: "+process.env.skill)
 
 function App(props) {
   
@@ -74,6 +76,11 @@ function App(props) {
     })
     setTotalInCart(total)
   }
+  
+  useEffect(()=>{
+    alert(process.env.skill)
+    alert(process.env.first_name)
+  })
   
   
   return (
@@ -108,7 +115,8 @@ function App(props) {
  <aside className="col-span-2 hidden md:block bg-slate-100 h-[98vh] overflow-scroll">
     <ul className="px-2 mt-4 divide-y-1">
       {items.map((item,i)=>(
-        <li key={i} className="text-slate-900 hover:bg-slate-200 px-3 py-2">
+        <li key={i}
+         className="text-slate-900 hover:bg-slate-200 px-3 py-2">
           <a href={`#${item.name.replace(/\s+/g, "_")}`}>{item.name}</a>
         </li>
       ))}
@@ -123,7 +131,7 @@ function App(props) {
     <Carousel />
   </div>
   
-  .env.local > Public: {process.env.full_name}
+  .env.local: {process.env.first_name}
   
 <section className="mx-1 mt-7">
 
@@ -210,7 +218,7 @@ const MoreQuantityBtn = (props) => {
 export default memo(App)
 
 export const getStaticProps = (ctx)=>{
-  console.log(process.env.first_name)
+  console.log("static: "+process.env.first_name)
   return({
     props: {
       isProd: process.env.NODE_ENV ==="protection",
@@ -224,7 +232,7 @@ function capitalize(str){
   if(str.constructor !== String) {
     throw TypeError("parameter must be string")
   }
-  let strArr = str.trim().split(/\s+/g);
+  let strArr = str.trim().split(/proc\s+/g);
   strArr = strArr.map(x=>{
     x = x[0].toUpperCase() + x.slice(1).toLowerCase();
     return x; 

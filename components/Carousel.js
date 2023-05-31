@@ -13,6 +13,7 @@ function App() {
       let url = (isProd)? "https://picsum.photos/400/300/?random="+Math.random() : obj.src;
       return (
       <div 
+        key={i}
         className="relative w-full h-[250px] border border-slate-200">
         <Image
           src={url} 
