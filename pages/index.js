@@ -47,9 +47,6 @@ const mappedImageNames = imageNames.map((name,i)=>({
     quantity: 0,
   }))
 
-console.log("normal: "+process.env.first_name)
-console.log("normal2: "+process.env.full_name)
-console.log("normal3: "+process.env.skill)
 
 function App(props) {
   
@@ -77,12 +74,7 @@ function App(props) {
     setTotalInCart(total)
   }
   
-  useEffect(()=>{
-    alert(process.env.skill)
-    alert(process.env.first_name)
-  })
-  
-  
+
   return (
 <MyContext.Provider
   value={{items, isSideBarOpen, handleAddToCart, setIsSideBarOpen, isProd:props.isProd}}
@@ -130,8 +122,6 @@ function App(props) {
   <div>
     <Carousel />
   </div>
-  
-  .env.local: {process.env.first_name}
   
 <section className="mx-1 mt-7">
 
@@ -218,7 +208,6 @@ const MoreQuantityBtn = (props) => {
 export default memo(App)
 
 export const getStaticProps = (ctx)=>{
-  console.log("static: "+process.env.first_name)
   return({
     props: {
       isProd: process.env.NODE_ENV ==="protection",
