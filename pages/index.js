@@ -47,6 +47,7 @@ const mappedImageNames = imageNames.map((name,i)=>({
     quantity: 0,
   }))
 
+console.log("NODE_ENV: "+process.env.NODE_ENV)
 
 function App(props) {
   
@@ -87,7 +88,10 @@ function App(props) {
 <main id="main" className="h-screen overflow-scroll">
   <div className="px-3 py-2 flex items-center">
     <img src="/favicon.ico" alt="icon logo" width="40" height="40" className="rounded-full object-cover"/>
-    <h1 className="ml-3 text-xl text-green-600 uppercase">My Sweet Pie</h1>
+    <h1 className="ml-3 text-xl text-green-600 uppercase">
+      My Sweet Pie: 
+      {process.env.NODE_ENV}
+    </h1>
   </div>
   <div className="p-3 flex shadow-sm bg-slate-900 shadow-sm sticky top-0 w-full z-10 md:hidden">
     <button className="active:bg-slate-500 bg-opacity-10 text-white" onClick={()=>{
