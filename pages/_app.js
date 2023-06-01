@@ -1,4 +1,3 @@
-import React from "react"
 import "../styles/global_style.css";
 import "../styles/tailwind-styles.css";
 import 'react-alice-carousel/lib/alice-carousel.css';

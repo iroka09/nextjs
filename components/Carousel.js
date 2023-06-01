@@ -6,11 +6,11 @@ import {MyContext} from "../pages/index"
 
 function App() {
   
-  const {items,isProd} = useContext(MyContext);
+  const {items} = useContext(MyContext);
   
   const itemsCarousel = useMemo(()=>{
     let arr = items.map((obj,i)=>{
-      let url = (isProd)? "https://picsum.photos/400/300/?random="+Math.random() : obj.src;
+      let url = (true)? "https://picsum.photos/400/300/?random="+Math.random() : obj.src;
       return (
       <div 
         key={i}

@@ -90,7 +90,7 @@ function App(props) {
     <img src="/favicon.ico" alt="icon logo" width="40" height="40" className="rounded-full object-cover"/>
     <h1 className="ml-3 text-xl text-green-600 uppercase">
       My Sweet Pie: 
-      {process.env.NODE_ENV}
+      {props.env}
     </h1>
   </div>
   <div className="p-3 flex shadow-sm bg-slate-900 shadow-sm sticky top-0 w-full z-10 md:hidden">
@@ -137,7 +137,7 @@ function App(props) {
     {items.map((item,i)=>(
       <div key={i} className="relative shadow w-full sm:w-[250px] rounded dark-mode-card bg-slate-100 overflow-hidden">
         <div className="relative w-full h-[200px] md:h-[150px] object-cover">
-          <Image layout="fill" objectFit="cover" src={item.src} />
+          <Image layout="fill" objectFit="cover" src={"https://picsum.photos/400/300/?random="+Math.random()|| item.src} />
         </div>
         <MoreQuantityBtn item={item} index={i}/>
         <div className="p-2">
@@ -214,7 +214,7 @@ export default memo(App)
 export const getStaticProps = (ctx)=>{
   return({
     props: {
-      isProd: process.env.NODE_ENV ==="protection",
+      env: process.env.NODE_ENV,
       description: lorem.generateSentences()
     }
   })
