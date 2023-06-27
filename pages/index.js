@@ -137,7 +137,7 @@ function App(props) {
     {items.map((item,i)=>(
       <div key={i} className="relative shadow w-full sm:w-[250px] rounded dark-mode-card bg-slate-100 overflow-hidden">
         <div className="relative w-full h-[200px] md:h-[150px] object-cover">
-          <Image layout="fill" objectFit="cover" src={"https://picsum.photos/400/300/?random="+Math.random()|| item.src} />
+          <Image layout="fill" objectFit="cover" src={("https://picsum.photos/400/300/?random="+Math.random()) && item.src} />
         </div>
         <MoreQuantityBtn item={item} index={i}/>
         <div className="p-2">
