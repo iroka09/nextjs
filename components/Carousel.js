@@ -10,7 +10,7 @@ function App() {
   
   const itemsCarousel = useMemo(()=>{
     let arr = items.map((obj,i)=>{
-      let url = (true)? "https://picsum.photos/400/300/?random="+Math.random() : obj.src;
+      let url = (false)? "https://picsum.photos/400/300/?random="+Math.random() : obj.src;
       return (
       <div 
         key={i}
